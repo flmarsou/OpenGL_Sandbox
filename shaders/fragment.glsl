@@ -1,6 +1,6 @@
 #version 460 core
 
-int vec3	vColor;
+in vec3		vColor;
 
 out vec4	fragmentColor;
 
