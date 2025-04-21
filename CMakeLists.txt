@@ -6,6 +6,7 @@ find_package(OpenGL REQUIRED)
 add_executable(opengl_sandbox
     libs/GLAD/glad.c
     src/main.cpp
+    src/shaders.cpp
 )
 
 target_include_directories(opengl_sandbox PRIVATE
