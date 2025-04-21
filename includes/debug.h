@@ -9,4 +9,4 @@
 # define ERROR		RED "[x] - Error: " RESET
 # define SUCCESS	GREEN "[v] - Success: " RESET
 # define WARNING	PURPLE "[!] - Warning: " RESET
-# define USAGE		BLUE "[i] - Usage: " RESET
+# define INFO		BLUE "[i] - Info: " RESET
