@@ -5,7 +5,7 @@ static bool	initGLFW(GLFWwindow *&window)
 	// GLFW: Initializes and configures
 	if (!glfwInit())
 	{
-		std::cerr << "Failed to initialize GLFW!" << std::endl;
+		std::cerr << ERROR "Failed to initialize GLFW!" << std::endl;
 		return (false);
 	}
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
@@ -16,7 +16,7 @@ static bool	initGLFW(GLFWwindow *&window)
 	window = glfwCreateWindow(640, 480, "OpenGL Sandbox", NULL, NULL);
 	if (!window)
 	{
-		std::cerr << "Failed to create the window!" << std::endl;
+		std::cerr << ERROR "Failed to create the window!" << std::endl;
 		glfwTerminate();
 		return (false);
 	}
@@ -30,7 +30,7 @@ static bool	initGLAD()
 	// GLAD: Loads OpenGL function pointers
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
-		std::cerr << "Failed to initialize GLAD!" << std::endl;
+		std::cerr << ERROR "Failed to initialize GLAD!" << std::endl;
 		glfwTerminate();
 		return (true);
 	}
@@ -45,6 +45,9 @@ int	main()
 		return (-1);
 
 	glClearColor(1.0f, 0.5f, 0.0f, 1.0f);
+
+	unsigned int	vertexShader = makeModule("../shaders/vertex.glsl", GL_VERTEX_SHADER);
+	unsigned int	fragmentShader = makeModule("../shaders/fragment.glsl", GL_FRAGMENT_SHADER);
 
 	while (!glfwWindowShouldClose(window))
 	{
