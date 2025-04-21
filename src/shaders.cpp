@@ -36,6 +36,7 @@ unsigned int	makeModule(const std::string &filePath, unsigned int moduleType)
 		std::cerr << ERROR "Shader compilation failed in \"" << filePath << "\": " << log << std::endl;
 		return (0);
 	}
+	std::cout << SUCCESS "Compiled shader \"" << filePath << "\"" << std::endl;
 
 	return (shader);
 }

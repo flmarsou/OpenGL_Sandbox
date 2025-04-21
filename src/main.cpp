@@ -11,6 +11,7 @@ static bool	initGLFW(GLFWwindow *&window)
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	std::cout << SUCCESS "GLFW initialized successfully!" << std::endl;
 
 	// GLFW: Window creation
 	window = glfwCreateWindow(640, 480, "OpenGL Sandbox", NULL, NULL);
@@ -20,8 +21,9 @@ static bool	initGLFW(GLFWwindow *&window)
 		glfwTerminate();
 		return (false);
 	}
-
 	glfwMakeContextCurrent(window);
+	std::cout << SUCCESS "Window created successfully!" << std::endl;
+
 	return (true);
 }
 
@@ -34,6 +36,8 @@ static bool	initGLAD()
 		glfwTerminate();
 		return (true);
 	}
+	std::cout << SUCCESS "GLAD initialized successfully!" << std::endl;
+
 	return (true);
 }
 
@@ -57,5 +61,6 @@ int	main()
 	}
 
 	glfwTerminate();
+	std::cout << INFO "Closing the game..." << std::endl;
 	return (0);
 }
