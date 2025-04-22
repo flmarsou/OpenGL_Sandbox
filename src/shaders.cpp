@@ -1,6 +1,6 @@
 #include "config.h"
 
-unsigned int	makeModule(const std::string &filePath, unsigned int moduleType)
+static unsigned int	makeModule(const std::string &filePath, unsigned int moduleType)
 {
 	// Read the file
 	std::ifstream		file;
@@ -39,4 +39,44 @@ unsigned int	makeModule(const std::string &filePath, unsigned int moduleType)
 	std::cout << SUCCESS "Compiled shader \"" << filePath << "\"" << std::endl;
 
 	return (shader);
+}
+
+static unsigned int	makeShader(const std::vector<unsigned int> &modules)
+{
+	unsigned int				shader;
+
+	// Creates and links the shaders
+	shader = glCreateProgram();
+	for (unsigned int i = 0; i < modules.size(); i++)
+		glAttachShader(shader, modules[i]);
+	glLinkProgram(shader);
+
+	// Checks for linking errors
+	int	status;
+
+	glGetProgramiv(shader, GL_LINK_STATUS, &status);
+	if (!status)
+	{
+		char	log[512];
+		glGetShaderInfoLog(shader, sizeof(log), NULL, log);
+		std::cerr << ERROR "Shaders linking failed!" << std::endl;
+		return (0);
+	}
+	std::cout << SUCCESS "Shaders linked!" << std::endl;
+
+	// Deletes the compiled shaders
+	for (unsigned i = 0; i < modules.size(); i++)
+		glDeleteShader(modules[i]);
+
+	return (shader);
+}
+
+unsigned int	initShader()
+{
+	std::vector<unsigned int>	modules;
+
+	modules.push_back(makeModule("../shaders/vertex.glsl", GL_VERTEX_SHADER));
+	modules.push_back(makeModule("../shaders/fragment.glsl", GL_FRAGMENT_SHADER));
+
+	return (makeShader(modules));
 }
