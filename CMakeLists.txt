@@ -3,22 +3,41 @@ project("OpenGL Sandbox")
 
 find_package(OpenGL REQUIRED)
 
+# Executables
 add_executable(opengl_sandbox
-    libs/GLAD/glad.c
-    src/main.cpp
-    src/shaders.cpp
+	libs/GLAD/glad.c
+	src/main.cpp
+	src/shaders.cpp
 )
 
+# Includes
 target_include_directories(opengl_sandbox PRIVATE
-    libs
-    includes)
+	${CMAKE_SOURCE_DIR}/libs
+	${CMAKE_SOURCE_DIR}/includes
+)
 
-# if (WIN32)
-    target_link_libraries(opengl_sandbox PRIVATE "${CMAKE_SOURCE_DIR}/libs/GLFW/libglfw3dll.a")
+# ----------------
+# Windows-specific
+# ----------------
+if (WIN32)
+	# Libraries
+	target_link_libraries(opengl_sandbox PRIVATE
+		"${CMAKE_SOURCE_DIR}/libs/GLFW/libglfw3dll.a"
+	)
 
-    add_custom_command(TARGET opengl_sandbox POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different
-        "${CMAKE_SOURCE_DIR}/libs/GLFW/glfw3.dll"
-        $<TARGET_FILE_DIR:opengl_sandbox>
-    )
-# elseif (UNIX)
+	add_custom_command(TARGET opengl_sandbox POST_BUILD
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different
+		"${CMAKE_SOURCE_DIR}/libs/GLFW/glfw3.dll"
+		$<TARGET_FILE_DIR:opengl_sandbox>
+	)
+
+# ----------------
+# Linux-specific
+# --------------
+elseif (UNIX)
+	# Libraries
+	target_link_libraries(opengl_sandbox PRIVATE
+		glfw
+	)
+
+endif()
