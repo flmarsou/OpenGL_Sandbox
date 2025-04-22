@@ -9,4 +9,6 @@
 # include <sstream>
 # include <fstream>
 
-unsigned int	makeModule(const std::string &filePath, unsigned int moduleType);
+# include <vector>
+
+unsigned int	initShader();

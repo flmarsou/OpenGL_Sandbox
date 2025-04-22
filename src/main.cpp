@@ -43,23 +43,26 @@ static bool	initGLAD()
 
 int	main()
 {
-	GLFWwindow	*window;
+	GLFWwindow		*window;
+	unsigned int	shader;
 
 	if (!initGLFW(window) || !initGLAD())
 		return (-1);
 
 	glClearColor(1.0f, 0.5f, 0.0f, 1.0f);
 
-	unsigned int	vertexShader = makeModule("../shaders/vertex.glsl", GL_VERTEX_SHADER);
-	unsigned int	fragmentShader = makeModule("../shaders/fragment.glsl", GL_FRAGMENT_SHADER);
+	shader = initShader();
 
 	while (!glfwWindowShouldClose(window))
 	{
-		glClear(GL_COLOR_BUFFER_BIT);
-		glfwSwapBuffers(window);
 		glfwPollEvents();
+
+		glClear(GL_COLOR_BUFFER_BIT);
+		glUseProgram(shader);
+		glfwSwapBuffers(window);
 	}
 
+	glDeleteShader(shader);
 	glfwTerminate();
 	std::cout << INFO "Closing the game..." << std::endl;
 	return (0);
