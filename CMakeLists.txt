@@ -16,6 +16,11 @@ target_include_directories(opengl_sandbox PRIVATE
 	${CMAKE_SOURCE_DIR}/includes
 )
 
+# Compilation Flags
+target_compile_options(opengl_sandbox PRIVATE
+	-Wall -Wextra -O2
+)
+
 # ----------------
 # Windows-specific
 # ----------------
