@@ -1,4 +1,5 @@
-#include "config.h"
+#include "config.hpp"
+#include "Triangle.hpp"
 
 static bool	initGLFW(GLFWwindow *&window)
 {
@@ -53,12 +54,15 @@ int	main()
 
 	shader = initShader();
 
+	Triangle	tri;
+
 	while (!glfwWindowShouldClose(window))
 	{
 		glfwPollEvents();
 
 		glClear(GL_COLOR_BUFFER_BIT);
 		glUseProgram(shader);
+		tri.draw();
 		glfwSwapBuffers(window);
 	}
 

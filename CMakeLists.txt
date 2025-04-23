@@ -8,12 +8,14 @@ add_executable(opengl_sandbox
 	libs/GLAD/glad.c
 	src/main.cpp
 	src/shaders.cpp
+	src/meshes/Triangle.cpp
 )
 
 # Includes
 target_include_directories(opengl_sandbox PRIVATE
 	${CMAKE_SOURCE_DIR}/libs
 	${CMAKE_SOURCE_DIR}/includes
+	${CMAKE_SOURCE_DIR}/src/meshes
 )
 
 # ----------------
