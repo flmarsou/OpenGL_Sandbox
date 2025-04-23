@@ -23,9 +23,9 @@ target_compile_options(opengl_sandbox PRIVATE
 	-Wall -Wextra -O2
 )
 
-# ----------------
-# Windows-specific
-# ----------------
+# ---------------- #
+# Windows-specific #
+# ---------------- #
 if (WIN32)
 	# Libraries
 	target_link_libraries(opengl_sandbox PRIVATE
@@ -38,9 +38,9 @@ if (WIN32)
 		$<TARGET_FILE_DIR:opengl_sandbox>
 	)
 
-# ----------------
-# Linux-specific
-# --------------
+# -------------- #
+# Linux-specific #
+# -------------- #
 elseif (UNIX)
 	# Libraries
 	target_link_libraries(opengl_sandbox PRIVATE
