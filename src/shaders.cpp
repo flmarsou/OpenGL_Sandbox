@@ -1,4 +1,4 @@
-#include "config.h"
+#include "config.hpp"
 
 static unsigned int	makeModule(const std::string &filePath, unsigned int moduleType)
 {

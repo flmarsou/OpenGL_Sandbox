@@ -1,6 +1,6 @@
 #pragma once
 
-# include "debug.h"
+# include "debug.hpp"
 
 # include <GLAD/glad.h>
 # include <GLFW/glfw3.h>
