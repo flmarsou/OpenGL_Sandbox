@@ -15,4 +15,5 @@ class	SandBlock : public IBlock
 	private:
 		unsigned int	VBO;	// Vertex Buffer Object
 		unsigned int	VAO;	// Vertex Array Object
+		unsigned int	EBO;	// Element Buffer Object
 };
