@@ -1,45 +1,27 @@
 #include "config.hpp"
-#include "Triangle.hpp"
+#include "Grid.hpp"
+#include "SandBlock.hpp"
 
-static bool	initGLFW(GLFWwindow *&window)
+Grid	*grid = new Grid();
+
+static void	mouseButtonCallback(GLFWwindow *window, int button, int action, int mods)
 {
-	// GLFW: Initializes and configures
-	if (!glfwInit())
+	(void)mods;
+
+	if (button == GLFW_MOUSE_BUTTON_1 && action == GLFW_PRESS)
 	{
-		std::cerr << ERROR "Failed to initialize GLFW!" << std::endl;
-		return (false);
+		double	xpos;
+		double	ypos;
+
+		glfwGetCursorPos(window, &xpos, &ypos);
+
+		ypos = WINDOW_HEIGHT - ypos;
+
+		const unsigned int	cellX = static_cast<unsigned int>((xpos / WINDOW_WIDTH) * 100);
+		const unsigned int	cellY = static_cast<unsigned int>((ypos / WINDOW_HEIGHT) * 100);
+
+		grid->setBlock(cellX, cellY, new SandBlock());
 	}
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	std::cout << SUCCESS "GLFW initialized successfully!" << std::endl;
-
-	// GLFW: Window creation
-	window = glfwCreateWindow(640, 480, "OpenGL Sandbox", NULL, NULL);
-	if (!window)
-	{
-		std::cerr << ERROR "Failed to create the window!" << std::endl;
-		glfwTerminate();
-		return (false);
-	}
-	glfwMakeContextCurrent(window);
-	std::cout << SUCCESS "Window created successfully!" << std::endl;
-
-	return (true);
-}
-
-static bool	initGLAD()
-{
-	// GLAD: Loads OpenGL function pointers
-	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-	{
-		std::cerr << ERROR "Failed to initialize GLAD!" << std::endl;
-		glfwTerminate();
-		return (true);
-	}
-	std::cout << SUCCESS "GLAD initialized successfully!" << std::endl;
-
-	return (true);
 }
 
 int	main()
@@ -50,23 +32,23 @@ int	main()
 	if (!initGLFW(window) || !initGLAD())
 		return (-1);
 
-	glClearColor(1.0f, 0.5f, 0.0f, 1.0f);
-
 	shader = initShader();
-
-	Triangle	tri;
+	glUseProgram(shader);
 
 	while (!glfwWindowShouldClose(window))
 	{
+		// Input/Events (keyboard, mouse, etc...)
 		glfwPollEvents();
+		glfwSetMouseButtonCallback(window, mouseButtonCallback);
 
+		// Window rendering
 		glClear(GL_COLOR_BUFFER_BIT);
-		glUseProgram(shader);
-		tri.draw();
+		grid->renderGrid();
 		glfwSwapBuffers(window);
 	}
 
-	glDeleteShader(shader);
+	delete (grid);
+	glDeleteProgram(shader);
 	glfwTerminate();
 	std::cout << INFO "Closing the game..." << std::endl;
 	return (0);
