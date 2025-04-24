@@ -49,6 +49,7 @@ int	main()
 
 	delete (grid);
 	glDeleteProgram(shader);
+	glfwDestroyWindow(window);
 	glfwTerminate();
 	std::cout << INFO "Closing the game..." << std::endl;
 	return (0);
