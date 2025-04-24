@@ -7,15 +7,18 @@ find_package(OpenGL REQUIRED)
 add_executable(opengl_sandbox
 	libs/GLAD/glad.c
 	src/main.cpp
+	src/init.cpp
 	src/shaders.cpp
-	src/meshes/Triangle.cpp
+	src/grid/Grid.cpp
+	src/block/SandBlock.cpp
 )
 
 # Includes
 target_include_directories(opengl_sandbox PRIVATE
 	${CMAKE_SOURCE_DIR}/libs
 	${CMAKE_SOURCE_DIR}/includes
-	${CMAKE_SOURCE_DIR}/src/meshes
+	${CMAKE_SOURCE_DIR}/src/grid
+	${CMAKE_SOURCE_DIR}/src/block
 )
 
 # Compilation Flags
@@ -23,9 +26,9 @@ target_compile_options(opengl_sandbox PRIVATE
 	-Wall -Wextra -O2
 )
 
-# ---------------- #
-# Windows-specific #
-# ---------------- #
+# ---------------------------------------------------------------------------- #
+#   Windows-specific                                                           #
+# ---------------------------------------------------------------------------- #
 if (WIN32)
 	# Libraries
 	target_link_libraries(opengl_sandbox PRIVATE
@@ -38,9 +41,9 @@ if (WIN32)
 		$<TARGET_FILE_DIR:opengl_sandbox>
 	)
 
-# -------------- #
-# Linux-specific #
-# -------------- #
+# ---------------------------------------------------------------------------- #
+#   Linux-specific                                                             #
+# ---------------------------------------------------------------------------- #
 elseif (UNIX)
 	# Libraries
 	target_link_libraries(opengl_sandbox PRIVATE
