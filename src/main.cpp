@@ -20,6 +20,8 @@ static void	mouseButtonCallback(GLFWwindow *window, int button, int action, int 
 		const unsigned int	cellX = static_cast<unsigned int>((xpos / WINDOW_WIDTH) * 100);
 		const unsigned int	cellY = static_cast<unsigned int>((ypos / WINDOW_HEIGHT) * 100);
 
+		std::cout << "Clicked at cell[" << cellX << "][" << cellY << "]" << std::endl; // Debug
+
 		grid->setBlock(cellX, cellY, new SandBlock());
 	}
 }

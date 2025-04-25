@@ -45,12 +45,10 @@ void	Grid::updateGrid()
 	
 }
 
-#include <iostream>
-
 void	Grid::renderGrid()
 {
-	for (unsigned int y = 0; y < gridHeight; ++y)
-		for (unsigned int x = 0; x < gridWidth; ++x)
+	for (unsigned int y = 0; y < gridHeight; y++)
+		for (unsigned int x = 0; x < gridWidth; x++)
 			if (this->grid[y][x])
 				this->grid[y][x]->drawBlock(x, y);
 }

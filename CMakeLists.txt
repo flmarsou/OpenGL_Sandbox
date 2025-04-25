@@ -1,8 +1,6 @@
 cmake_minimum_required(VERSION 3.10.0)
 project("OpenGL Sandbox")
 
-find_package(OpenGL REQUIRED)
-
 # Executables
 add_executable(opengl_sandbox
 	libs/GLAD/glad.c
