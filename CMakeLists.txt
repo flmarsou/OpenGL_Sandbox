@@ -7,16 +7,16 @@ add_executable(opengl_sandbox
 	src/main.cpp
 	src/init.cpp
 	src/shaders.cpp
+	src/block/Block.cpp
 	src/grid/Grid.cpp
-	src/block/SandBlock.cpp
 )
 
 # Includes
 target_include_directories(opengl_sandbox PRIVATE
 	${CMAKE_SOURCE_DIR}/libs
 	${CMAKE_SOURCE_DIR}/includes
-	${CMAKE_SOURCE_DIR}/src/grid
 	${CMAKE_SOURCE_DIR}/src/block
+	${CMAKE_SOURCE_DIR}/src/grid
 )
 
 # Compilation Flags
