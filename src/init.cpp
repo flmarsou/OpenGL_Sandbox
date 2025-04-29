@@ -14,7 +14,7 @@ bool	initGLFW(GLFWwindow *&window)
 	std::cout << SUCCESS "GLFW initialized successfully!" << std::endl;
 
 	// GLFW: Window creation
-	window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "OpenGL Sandbox", NULL, NULL);
+	window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE, NULL, NULL);
 	if (!window)
 	{
 		std::cerr << ERROR "Failed to create the window!" << std::endl;
