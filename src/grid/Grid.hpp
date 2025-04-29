@@ -1,24 +1,22 @@
 #pragma once
 
-# include "IBlock.hpp"
+# include "Block.hpp"
+# include <vector>
+# include <cstdlib>
+# include <ctime>
 
 class	Grid
 {
 	public:
-		static const unsigned int gridWidth = 100;
-		static const unsigned int gridHeight = 100;
+		Grid(unsigned int sizeX, unsigned int sizeY);
 
-		Grid();
-		~Grid();
+		void	setBlock(unsigned int cellX, unsigned int cellY, Block *block);
 
-		IBlock	*getBlock(unsigned int x, unsigned int y) const;
-		void	setBlock(unsigned int x, unsigned int y, IBlock *block);
-
-		void	updateGrid();
-		void	renderGrid();
+		void	draw(unsigned int &shader);
+		void	update();
+		int		bound(unsigned int x, unsigned int y);
 
 	private:
-		bool	isInBound(unsigned int x, unsigned int y) const;
-
-		IBlock	*grid[gridHeight][gridWidth];
+		float								cellSize;
+		std::vector<std::vector<Block *>>	grid;
 };
