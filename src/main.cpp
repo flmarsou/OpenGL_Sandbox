@@ -1,5 +1,7 @@
 #include "config.hpp"
 #include "Grid.hpp"
+#include "SandBlock.hpp"
+#include "WaterBlock.hpp"
 
 Grid	*grid = new Grid(GRID_SIZE);
 
@@ -7,7 +9,7 @@ static void	mouseButtonCallback(GLFWwindow *window, int button, int action, int 
 {
 	(void)mods;
 
-	if (button == GLFW_MOUSE_BUTTON_1 && action == GLFW_PRESS)
+	if (action == GLFW_PRESS)
 	{
 		double	xpos;
 		double	ypos;
@@ -17,7 +19,62 @@ static void	mouseButtonCallback(GLFWwindow *window, int button, int action, int 
 		const unsigned int	cellX = static_cast<unsigned int>((xpos / WINDOW_WIDTH) * GRID_SIZE);
 		const unsigned int	cellY = static_cast<unsigned int>((ypos / WINDOW_HEIGHT) * GRID_SIZE);
 
-		grid->setBlock(cellX, cellY, new Block());
+		if (button == GLFW_MOUSE_BUTTON_1)
+		{
+			grid->setBlock(cellX, cellY, new SandBlock());
+			grid->setBlock(cellX + 1, cellY, new SandBlock());
+			grid->setBlock(cellX + 2, cellY, new SandBlock());
+			grid->setBlock(cellX - 1, cellY, new SandBlock());
+			grid->setBlock(cellX - 2, cellY, new SandBlock());
+
+			grid->setBlock(cellX, cellY - 1, new SandBlock());
+			grid->setBlock(cellX + 1, cellY - 1, new SandBlock());
+			grid->setBlock(cellX + 2, cellY - 1, new SandBlock());
+			grid->setBlock(cellX - 1, cellY - 1, new SandBlock());
+			grid->setBlock(cellX - 2, cellY - 1, new SandBlock());
+
+			grid->setBlock(cellX, cellY - 2, new SandBlock());
+			grid->setBlock(cellX + 1, cellY - 2, new SandBlock());
+			grid->setBlock(cellX - 1, cellY - 2, new SandBlock());
+
+			grid->setBlock(cellX, cellY + 1, new SandBlock());
+			grid->setBlock(cellX + 1, cellY + 1, new SandBlock());
+			grid->setBlock(cellX + 2, cellY + 1, new SandBlock());
+			grid->setBlock(cellX - 1, cellY + 1, new SandBlock());
+			grid->setBlock(cellX - 2, cellY + 1, new SandBlock());
+
+			grid->setBlock(cellX, cellY + 2, new SandBlock());
+			grid->setBlock(cellX + 1, cellY + 2, new SandBlock());
+			grid->setBlock(cellX - 1, cellY + 2, new SandBlock());
+		}
+		else if (button == GLFW_MOUSE_BUTTON_2)
+		{
+			grid->setBlock(cellX, cellY, new WaterBlock());
+			grid->setBlock(cellX + 1, cellY, new WaterBlock());
+			grid->setBlock(cellX + 2, cellY, new WaterBlock());
+			grid->setBlock(cellX - 1, cellY, new WaterBlock());
+			grid->setBlock(cellX - 2, cellY, new WaterBlock());
+
+			grid->setBlock(cellX, cellY - 1, new WaterBlock());
+			grid->setBlock(cellX + 1, cellY - 1, new WaterBlock());
+			grid->setBlock(cellX + 2, cellY - 1, new WaterBlock());
+			grid->setBlock(cellX - 1, cellY - 1, new WaterBlock());
+			grid->setBlock(cellX - 2, cellY - 1, new WaterBlock());
+
+			grid->setBlock(cellX, cellY - 2, new WaterBlock());
+			grid->setBlock(cellX + 1, cellY - 2, new WaterBlock());
+			grid->setBlock(cellX - 1, cellY - 2, new WaterBlock());
+
+			grid->setBlock(cellX, cellY + 1, new WaterBlock());
+			grid->setBlock(cellX + 1, cellY + 1, new WaterBlock());
+			grid->setBlock(cellX + 2, cellY + 1, new WaterBlock());
+			grid->setBlock(cellX - 1, cellY + 1, new WaterBlock());
+			grid->setBlock(cellX - 2, cellY + 1, new WaterBlock());
+
+			grid->setBlock(cellX, cellY + 2, new WaterBlock());
+			grid->setBlock(cellX + 1, cellY + 2, new WaterBlock());
+			grid->setBlock(cellX - 1, cellY + 2, new WaterBlock());
+		}
 	}
 }
 
