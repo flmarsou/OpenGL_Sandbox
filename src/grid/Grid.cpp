@@ -24,9 +24,11 @@ Grid::~Grid()
 //   Getters & Setters                                                        //
 // ========================================================================== //
 
-int		Grid::getSize() const
+void	Grid::setBlock(int x, int y, ABlock *block)
 {
-	return (this->_gridSize);
+	if ((block && this->_grid[y][x]) || x < 0 || x >= this->_gridSize || y < 0 || y >= this->_gridSize)
+		return ;
+	this->_grid[y][x] = block;
 }
 
 ABlock	*Grid::getBlock(int x, int y) const
@@ -36,11 +38,9 @@ ABlock	*Grid::getBlock(int x, int y) const
 	return (this->_grid[y][x]);
 }
 
-void	Grid::setBlock(int x, int y, ABlock *block)
+int		Grid::getSize() const
 {
-	if ((block && this->_grid[y][x]) || x < 0 || x >= this->_gridSize || y < 0 || y >= this->_gridSize)
-		return ;
-	this->_grid[y][x] = block;
+	return (this->_gridSize);
 }
 
 // ========================================================================== //

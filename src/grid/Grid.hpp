@@ -13,9 +13,9 @@ class	Grid
 		Grid(unsigned int size);
 		~Grid();
 
-		int		getSize() const;
-		ABlock	*getBlock(int x, int y) const;
 		void	setBlock(int x, int y, ABlock *block);
+		ABlock	*getBlock(int x, int y) const;
+		int		getSize() const;
 
 		void	draw(unsigned int &shader);
 		void	update();

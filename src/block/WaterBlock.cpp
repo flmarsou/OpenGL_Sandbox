@@ -1,5 +1,9 @@
 #include "WaterBlock.hpp"
 
+// ========================================================================== //
+//   Constructors                                                             //
+// ========================================================================== //
+
 WaterBlock::WaterBlock()
 {
 	const unsigned int	chance = std::rand() % 5;
@@ -24,14 +28,18 @@ WaterBlock::WaterBlock()
 	}
 }
 
-void	WaterBlock::draw(float posX, float posY, float scale, unsigned int &shader) const
+// ========================================================================== //
+//   Methods & Functions                                                      //
+// ========================================================================== //
+
+void	WaterBlock::draw(float x, float y, float scale, unsigned int &shader) const
 {
 	glUseProgram(shader);
 
 	// Matrix
 	glm::mat4	transform;
 	transform = glm::mat4(1.0f);
-	transform = glm::translate(transform, glm::vec3(posX, posY, 0.0f));	// Position
+	transform = glm::translate(transform, glm::vec3(x, y, 0.0f));		// Position
 	transform = glm::scale(transform, glm::vec3(scale, scale, 1.0f));	// Size
 
 	// Shader Transform
@@ -49,5 +57,8 @@ void	WaterBlock::draw(float posX, float posY, float scale, unsigned int &shader)
 
 void	WaterBlock::update(Grid &grid, int x, int y)
 {
+	(void)grid;
+	(void)x;
+	(void)y;
 	// TODO
 }

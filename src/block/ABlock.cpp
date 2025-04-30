@@ -65,12 +65,16 @@ ABlock::~ABlock()
 	}
 }
 
-bool	ABlock::getUpdate() const
-{
-	return (this->_isUpdated);
-}
+// ========================================================================== //
+//   Getters & Setters                                                        //
+// ========================================================================== //
 
 void	ABlock::setUpdate(bool isUpdated)
 {
 	this->_isUpdated = isUpdated;
+}
+
+bool	ABlock::getUpdate() const
+{
+	return (this->_isUpdated);
 }
