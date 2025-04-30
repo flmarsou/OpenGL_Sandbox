@@ -17,7 +17,7 @@ class	ABlock
 		virtual ~ABlock();
 
 		virtual void	draw(float x, float y, float scale, unsigned int &shader) const = 0;
-		virtual void	update(Grid &grid, unsigned int x, unsigned int y) = 0;
+		virtual void	update(Grid &grid, int x, int y) = 0;
 
 		void			setUpdate(bool isUpdated);
 		bool			getUpdate() const;
