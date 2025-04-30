@@ -1,5 +1,9 @@
 #pragma once
 
+// Internal Headers
+# include "debug.hpp"
+# include "Grid.hpp"
+
 // External Libraries
 # include <GLAD/glad.h>
 # include <GLFW/glfw3.h>
@@ -17,15 +21,9 @@
 # define WINDOW_WIDTH	1000
 # define WINDOW_HEIGHT	1000
 # define WINDOW_TITLE	"OpenGL Sandbox"
-# define GRID_WIDTH		100
-# define GRID_HEIGHT	100
-# define ERROR		"\e[31m[x] - Error: \e[0m"
-# define SUCCESS	"\e[32m[v] - Success: \e[0m"
-# define WARNING	"\e[35m[!] - Warning: \e[0m"
-# define INFO		"\e[36m[i] - Info: \e[0m"
+# define GRID_SIZE		100
 
-
+// Init functions
 bool	initGLFW(GLFWwindow *&window);
 bool	initGLAD();
-
-unsigned int	initShader();
+bool	initShader(unsigned int &shader);
