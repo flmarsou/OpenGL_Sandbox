@@ -38,7 +38,7 @@ ABlock	*Grid::getBlock(int x, int y) const
 
 void	Grid::setBlock(int x, int y, ABlock *block)
 {
-	if (x < 0 || x >= this->_gridSize || y < 0 || y >= this->_gridSize)
+	if ((block && this->_grid[y][x]) || x < 0 || x >= this->_gridSize || y < 0 || y >= this->_gridSize)
 		return ;
 	this->_grid[y][x] = block;
 }
