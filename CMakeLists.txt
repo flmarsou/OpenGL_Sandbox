@@ -7,8 +7,9 @@ add_executable(opengl_sandbox
 	src/main.cpp
 	src/init.cpp
 	src/shaders.cpp
-	src/block/Block.cpp
 	src/grid/Grid.cpp
+	src/block/ABlock.cpp
+	src/block/SandBlock.cpp
 )
 
 # Includes
