@@ -1,8 +1,7 @@
 #include "config.hpp"
-#include "Block.hpp"
 #include "Grid.hpp"
 
-Grid	grid(GRID_WIDTH, GRID_HEIGHT);
+Grid	*grid = new Grid(GRID_SIZE);
 
 static void	mouseButtonCallback(GLFWwindow *window, int button, int action, int mods)
 {
@@ -15,10 +14,10 @@ static void	mouseButtonCallback(GLFWwindow *window, int button, int action, int 
 
 		glfwGetCursorPos(window, &xpos, &ypos);
 
-		const unsigned int	cellX = static_cast<unsigned int>((xpos / WINDOW_WIDTH) * GRID_WIDTH);
-		const unsigned int	cellY = static_cast<unsigned int>((ypos / WINDOW_HEIGHT) * GRID_HEIGHT);
+		const unsigned int	cellX = static_cast<unsigned int>((xpos / WINDOW_WIDTH) * GRID_SIZE);
+		const unsigned int	cellY = static_cast<unsigned int>((ypos / WINDOW_HEIGHT) * GRID_SIZE);
 
-		grid.setBlock(cellX, cellY, new Block());
+		grid->setBlock(cellX, cellY, new Block());
 	}
 }
 
@@ -27,25 +26,24 @@ int	main()
 	GLFWwindow		*window;
 	unsigned int	shader;
 
-	if (!initGLFW(window) || !initGLAD())
+	if (!initGLFW(window) || !initGLAD() || !initShader(shader))
 		return (-1);
-	shader = initShader();
-	glUseProgram(shader);
 	glfwSetMouseButtonCallback(window, mouseButtonCallback);
 
 	glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 	while (!glfwWindowShouldClose(window))
 	{
-		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
+		glClearColor(0.2f, 0.2f, 0.3f, 1.0f);
 
-		grid.draw(shader);
-		grid.update();
+		grid->draw(shader);
+		grid->update();
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
 
+	delete grid;
 	glDeleteProgram(shader);
 	glfwDestroyWindow(window);
 	glfwTerminate();

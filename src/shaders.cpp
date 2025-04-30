@@ -71,12 +71,16 @@ static unsigned int	makeShader(const std::vector<unsigned int> &modules)
 	return (shader);
 }
 
-unsigned int	initShader()
+bool	initShader(unsigned int &shader)
 {
 	std::vector<unsigned int>	modules;
 
 	modules.push_back(makeModule("../shaders/vertex.glsl", GL_VERTEX_SHADER));
 	modules.push_back(makeModule("../shaders/fragment.glsl", GL_FRAGMENT_SHADER));
 
-	return (makeShader(modules));
+	shader = makeShader(modules);
+
+	if (shader == 0)
+		return (false);
+	return (true);
 }
