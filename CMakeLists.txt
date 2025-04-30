@@ -10,6 +10,7 @@ add_executable(opengl_sandbox
 	src/grid/Grid.cpp
 	src/block/ABlock.cpp
 	src/block/SandBlock.cpp
+	src/block/WaterBlock.cpp
 )
 
 # Includes
