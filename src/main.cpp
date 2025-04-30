@@ -4,78 +4,29 @@
 #include "WaterBlock.hpp"
 
 Grid	*grid = new Grid(GRID_SIZE);
+bool	mouseLeftPressed = false;
+bool	mouseRightPressed = false;
 
 static void	mouseButtonCallback(GLFWwindow *window, int button, int action, int mods)
 {
 	(void)mods;
+	(void)window;
 
-	if (action == GLFW_PRESS)
+	if (button == GLFW_MOUSE_BUTTON_LEFT)
 	{
-		double	xpos;
-		double	ypos;
-
-		glfwGetCursorPos(window, &xpos, &ypos);
-
-		const unsigned int	cellX = static_cast<unsigned int>((xpos / WINDOW_WIDTH) * GRID_SIZE);
-		const unsigned int	cellY = static_cast<unsigned int>((ypos / WINDOW_HEIGHT) * GRID_SIZE);
-
-		if (button == GLFW_MOUSE_BUTTON_1)
-		{
-			grid->setBlock(cellX, cellY, new SandBlock());
-			grid->setBlock(cellX + 1, cellY, new SandBlock());
-			grid->setBlock(cellX + 2, cellY, new SandBlock());
-			grid->setBlock(cellX - 1, cellY, new SandBlock());
-			grid->setBlock(cellX - 2, cellY, new SandBlock());
-
-			grid->setBlock(cellX, cellY - 1, new SandBlock());
-			grid->setBlock(cellX + 1, cellY - 1, new SandBlock());
-			grid->setBlock(cellX + 2, cellY - 1, new SandBlock());
-			grid->setBlock(cellX - 1, cellY - 1, new SandBlock());
-			grid->setBlock(cellX - 2, cellY - 1, new SandBlock());
-
-			grid->setBlock(cellX, cellY - 2, new SandBlock());
-			grid->setBlock(cellX + 1, cellY - 2, new SandBlock());
-			grid->setBlock(cellX - 1, cellY - 2, new SandBlock());
-
-			grid->setBlock(cellX, cellY + 1, new SandBlock());
-			grid->setBlock(cellX + 1, cellY + 1, new SandBlock());
-			grid->setBlock(cellX + 2, cellY + 1, new SandBlock());
-			grid->setBlock(cellX - 1, cellY + 1, new SandBlock());
-			grid->setBlock(cellX - 2, cellY + 1, new SandBlock());
-
-			grid->setBlock(cellX, cellY + 2, new SandBlock());
-			grid->setBlock(cellX + 1, cellY + 2, new SandBlock());
-			grid->setBlock(cellX - 1, cellY + 2, new SandBlock());
-		}
-		else if (button == GLFW_MOUSE_BUTTON_2)
-		{
-			grid->setBlock(cellX, cellY, new WaterBlock());
-			grid->setBlock(cellX + 1, cellY, new WaterBlock());
-			grid->setBlock(cellX + 2, cellY, new WaterBlock());
-			grid->setBlock(cellX - 1, cellY, new WaterBlock());
-			grid->setBlock(cellX - 2, cellY, new WaterBlock());
-
-			grid->setBlock(cellX, cellY - 1, new WaterBlock());
-			grid->setBlock(cellX + 1, cellY - 1, new WaterBlock());
-			grid->setBlock(cellX + 2, cellY - 1, new WaterBlock());
-			grid->setBlock(cellX - 1, cellY - 1, new WaterBlock());
-			grid->setBlock(cellX - 2, cellY - 1, new WaterBlock());
-
-			grid->setBlock(cellX, cellY - 2, new WaterBlock());
-			grid->setBlock(cellX + 1, cellY - 2, new WaterBlock());
-			grid->setBlock(cellX - 1, cellY - 2, new WaterBlock());
-
-			grid->setBlock(cellX, cellY + 1, new WaterBlock());
-			grid->setBlock(cellX + 1, cellY + 1, new WaterBlock());
-			grid->setBlock(cellX + 2, cellY + 1, new WaterBlock());
-			grid->setBlock(cellX - 1, cellY + 1, new WaterBlock());
-			grid->setBlock(cellX - 2, cellY + 1, new WaterBlock());
-
-			grid->setBlock(cellX, cellY + 2, new WaterBlock());
-			grid->setBlock(cellX + 1, cellY + 2, new WaterBlock());
-			grid->setBlock(cellX - 1, cellY + 2, new WaterBlock());
-		}
+		if (action == GLFW_PRESS)
+			mouseLeftPressed = true;
+		else if (action == GLFW_RELEASE)
+			mouseLeftPressed = false;
 	}
+	else if (button == GLFW_MOUSE_BUTTON_RIGHT)
+	{
+		if (action == GLFW_PRESS)
+			mouseRightPressed = true;
+		else if (action == GLFW_RELEASE)
+			mouseRightPressed = false;
+	}
+
 }
 
 int	main()
@@ -95,6 +46,22 @@ int	main()
 
 		grid->draw(shader);
 		grid->update();
+
+		if (mouseLeftPressed || mouseRightPressed)
+		{
+			double	xpos;
+			double	ypos;
+
+			glfwGetCursorPos(window, &xpos, &ypos);
+
+			const unsigned int	cellX = static_cast<unsigned int>((xpos / WINDOW_WIDTH) * GRID_SIZE);
+			const unsigned int	cellY = static_cast<unsigned int>((ypos / WINDOW_HEIGHT) * GRID_SIZE);
+
+			if (mouseLeftPressed)
+				grid->setBlock(cellX, cellY, new SandBlock());
+			else if (mouseRightPressed)
+				grid->setBlock(cellX, cellY, new WaterBlock());
+		}
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
