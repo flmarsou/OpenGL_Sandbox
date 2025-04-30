@@ -1,9 +1,11 @@
 #pragma once
 
-# include "Block.hpp"
+# include "ABlock.hpp"
 # include <vector>
 # include <cstdlib>
 # include <ctime>
+
+class	ABlock;
 
 class	Grid
 {
@@ -11,13 +13,15 @@ class	Grid
 		Grid(unsigned int size);
 		~Grid();
 
-		void	setBlock(unsigned int cellX, unsigned int cellY, Block *block);
+		int		getSize() const;
+		ABlock	*getBlock(int x, int y) const;
+		void	setBlock(int x, int y, ABlock *block);
 
 		void	draw(unsigned int &shader);
 		void	update();
 		int		bound(unsigned int x, unsigned int y);
 
 	private:
-		unsigned int						_gridSize;
-		std::vector<std::vector<Block *>>	_grid;
+		int									_gridSize;
+		std::vector<std::vector<ABlock *>>	_grid;
 };

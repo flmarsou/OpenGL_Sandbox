@@ -6,15 +6,15 @@
 
 Grid::Grid(unsigned int size)
 {
-	this->_grid.resize(size, std::vector<Block *>(size, nullptr));
+	this->_grid.resize(size, std::vector<ABlock *>(size, nullptr));
 	this->_gridSize = size;
 	std::cout << INFO "Grid initialized!" << std::endl;
 }
 
 Grid::~Grid()
 {
-	for (int y = this->_grid.size() - 1; y >= 0; --y)
-		for (int x = this->_grid[y].size() - 1; x >= 0; --x)
+	for (int y = this->_gridSize - 1; y >= 0; --y)
+		for (int x = this->_gridSize - 1; x >= 0; --x)
 			if (this->_grid[y][x])
 				delete this->_grid[y][x];
 	std::cout << INFO "Grid deleted!" << std::endl;
@@ -24,10 +24,23 @@ Grid::~Grid()
 //   Getters & Setters                                                        //
 // ========================================================================== //
 
-void	Grid::setBlock(unsigned int cellX, unsigned int cellY, Block *block)
+int		Grid::getSize() const
 {
-	if (!this->_grid[cellY][cellX])
-		this->_grid[cellY][cellX] = block;
+	return (this->_gridSize);
+}
+
+ABlock	*Grid::getBlock(int x, int y) const
+{
+	if (x < 0 || x >= this->_gridSize || y < 0 || y >= this->_gridSize || !this->_grid[y][x])
+		return (nullptr);
+	return (this->_grid[y][x]);
+}
+
+void	Grid::setBlock(int x, int y, ABlock *block)
+{
+	if (x < 0 || x >= this->_gridSize || y < 0 || y >= this->_gridSize)
+		return ;
+	this->_grid[y][x] = block;
 }
 
 // ========================================================================== //
@@ -36,8 +49,8 @@ void	Grid::setBlock(unsigned int cellX, unsigned int cellY, Block *block)
 
 void	Grid::draw(unsigned int &shader)
 {
-	for (unsigned int y = 0; y < this->_grid.size(); y++)
-		for (unsigned int x = 0; x < this->_grid[y].size(); x++)
+	for (int y = 0; y < this->_gridSize; y++)
+		for (int x = 0; x < this->_gridSize; x++)
 			if (this->_grid[y][x])
 			{
 				const float	cellSizeNDC = 2.0f / this->_gridSize;
@@ -50,47 +63,13 @@ void	Grid::draw(unsigned int &shader)
 
 void	Grid::update()
 {
-	for (int y = this->_grid.size() - 1; y >= 0; --y)
-		for (int x = this->_grid[y].size() - 1; x >= 0; --x)
+	for (int y = this->_gridSize - 1; y >= 0; --y)
+		for (int x = this->_gridSize - 1; x >= 0; --x)
 			if (this->_grid[y][x])
-			{
-				switch (bound(x, y))
-				{
-					case (0):
-					{
-						const unsigned int	chance = std::rand() % 100;
-						if (chance <= 80)
-						{
-							if (chance < 40 && !this->_grid[y + 1][x + 1])
-							{
-								this->_grid[y + 1][x + 1] = this->_grid[y][x];
-								this->_grid[y][x] = nullptr;
-							}
-							else if (!this->_grid[y + 1][x - 1])
-							{
-								this->_grid[y + 1][x - 1] = this->_grid[y][x];
-								this->_grid[y][x] = nullptr;
-							}
-						}
-						break ;
-					}
-					case (1):
-					{
-						this->_grid[y + 1][x] = this->_grid[y][x];
-						this->_grid[y][x] = nullptr;
-						break ;
-					}
-					default:
-						break ;
-				}
-			}
-}
+				this->_grid[y][x]->setUpdate(false);
 
-int		Grid::bound(unsigned int x, unsigned int y)
-{
-	if (y + 1 >= this->_grid.size())
-		return (-1);
-	if (this->_grid[y + 1][x])
-		return (0);
-	return (1);
+	for (int y = this->_gridSize - 1; y >= 0; --y)
+		for (int x = this->_gridSize - 1; x >= 0; --x)
+			if (this->_grid[y][x] && !this->_grid[y][x]->getUpdate())
+				this->_grid[y][x]->update(*this, x, y);
 }
