@@ -8,7 +8,8 @@
 class	Grid
 {
 	public:
-		Grid(unsigned int sizeX, unsigned int sizeY);
+		Grid(unsigned int size);
+		~Grid();
 
 		void	setBlock(unsigned int cellX, unsigned int cellY, Block *block);
 
@@ -17,6 +18,6 @@ class	Grid
 		int		bound(unsigned int x, unsigned int y);
 
 	private:
-		float								cellSize;
-		std::vector<std::vector<Block *>>	grid;
+		unsigned int						_gridSize;
+		std::vector<std::vector<Block *>>	_grid;
 };
