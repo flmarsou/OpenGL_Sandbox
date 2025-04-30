@@ -47,11 +47,13 @@ void	SandBlock::draw(float posX, float posY, float scale, unsigned int &shader) 
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }
 
-void	SandBlock::update(Grid &grid, unsigned int x, unsigned int y)
+void	SandBlock::update(Grid &grid, int x, int y)
 {
 	if (y + 1 >= grid.getSize())
 		return ;
 
+	// 1. Falls down if nothing is under
+	// 2. Falls left or right if nothing is on the side(s)
 	if (!grid.getBlock(x, y + 1))
 	{
 		grid.setBlock(x, y + 1, this);
@@ -62,14 +64,29 @@ void	SandBlock::update(Grid &grid, unsigned int x, unsigned int y)
 		const unsigned int	chance = std::rand() % 100;
 		if (chance < 50)
 		{
+			// Tries left first, then right
 			if (x > 0 && !grid.getBlock(x - 1, y + 1))
 			{
 				grid.setBlock(x - 1, y + 1, this);
 				grid.setBlock(x, y, nullptr);
 			}
-			else if (x + 1 < 99 && !grid.getBlock(x + 1, y + 1))
+			else if (x > grid.getSize() && !grid.getBlock(x + 1, y + 1))
 			{
 				grid.setBlock(x + 1, y + 1, this);
+				grid.setBlock(x, y, nullptr);
+			}
+		}
+		else
+		{
+			// Tries right first, then left
+			if (x > 0 && !grid.getBlock(x + 1, y + 1))
+			{
+				grid.setBlock(x + 1, y + 1, this);
+				grid.setBlock(x, y, nullptr);
+			}
+			else if (x > grid.getSize() && !grid.getBlock(x - 1, y + 1))
+			{
+				grid.setBlock(x - 1, y + 1, this);
 				grid.setBlock(x, y, nullptr);
 			}
 		}
