@@ -14,6 +14,7 @@ class	Grid
 		~Grid();
 
 		void	setBlock(int x, int y, ABlock *block);
+		void	setBlockForce(int x, int y, ABlock *block);
 		ABlock	*getBlock(int x, int y) const;
 		int		getSize() const;
 

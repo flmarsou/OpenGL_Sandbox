@@ -31,6 +31,13 @@ void	Grid::setBlock(int x, int y, ABlock *block)
 	this->_grid[y][x] = block;
 }
 
+void	Grid::setBlockForce(int x, int y, ABlock *block)
+{
+	if (x < 0 || x >= this->_gridSize || y < 0 || y >= this->_gridSize)
+		return ;
+	this->_grid[y][x] = block;
+}
+
 ABlock	*Grid::getBlock(int x, int y) const
 {
 	if (x < 0 || x >= this->_gridSize || y < 0 || y >= this->_gridSize || !this->_grid[y][x])
