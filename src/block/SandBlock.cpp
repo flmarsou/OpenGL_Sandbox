@@ -6,6 +6,17 @@
 
 SandBlock::SandBlock()
 {
+	setId(SANDBLOCK);
+
+	randomizeColor();
+}
+
+// ========================================================================== //
+//   Methods & Functions                                                      //
+// ========================================================================== //
+
+void	SandBlock::randomizeColor()
+{
 	const unsigned int	chance = std::rand() % 5;
 
 	switch (chance)
@@ -27,10 +38,6 @@ SandBlock::SandBlock()
 			break ;
 	}
 }
-
-// ========================================================================== //
-//   Methods & Functions                                                      //
-// ========================================================================== //
 
 void	SandBlock::draw(float x, float y, float scale, unsigned int &shader) const
 {
@@ -57,18 +64,22 @@ void	SandBlock::draw(float x, float y, float scale, unsigned int &shader) const
 
 void	SandBlock::update(Grid &grid, int x, int y)
 {
+	// Security
 	if (y + 1 >= grid.getSize())
 	{
 		this->setUpdate(true);
 		return ;
 	}
 
-	// Falls
+	// Free Falling
 	if (!grid.getBlock(x, y + 1))
 	{
 		grid.setBlock(x, y + 1, this);
 		grid.setBlock(x, y, nullptr);
+		this->setUpdate(true);
+		return ;
 	}
+	// Falling & Moving
 	else
 	{
 		const unsigned int	chance = std::rand() % 100;
@@ -79,12 +90,16 @@ void	SandBlock::update(Grid &grid, int x, int y)
 			{
 				grid.setBlock(x - 1, y + 1, this);
 				grid.setBlock(x, y, nullptr);
+				this->setUpdate(true);
+				return ;
 			}
 			// Falls right
 			else if (x < grid.getSize() - 1 && !grid.getBlock(x + 1, y + 1))
 			{
 				grid.setBlock(x + 1, y + 1, this);
 				grid.setBlock(x, y, nullptr);
+				this->setUpdate(true);
+				return ;
 			}
 		}
 		else
@@ -94,14 +109,17 @@ void	SandBlock::update(Grid &grid, int x, int y)
 			{
 				grid.setBlock(x + 1, y + 1, this);
 				grid.setBlock(x, y, nullptr);
+				this->setUpdate(true);
+				return ;
 			}
 			// Falls left
 			else if (x > 0 && !grid.getBlock(x - 1, y + 1))
 			{
 				grid.setBlock(x - 1, y + 1, this);
 				grid.setBlock(x, y, nullptr);
+				this->setUpdate(true);
+				return ;
 			}
 		}
 	}
-	this->setUpdate(true);
 }
