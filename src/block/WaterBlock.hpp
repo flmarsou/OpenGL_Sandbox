@@ -12,4 +12,6 @@ class	WaterBlock : public ABlock
 
 	private:
 		glm::vec3	_blockColor;
+
+		void	randomizeColor();
 };
