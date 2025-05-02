@@ -11,6 +11,12 @@
 # include <GLM/gtc/matrix_transform.hpp>
 # include <GLM/gtc/type_ptr.hpp>
 
+enum	blockType
+{
+	SANDBLOCK,
+	WATERBLOCK
+};
+
 class	Grid;
 
 class	ABlock
@@ -24,9 +30,12 @@ class	ABlock
 
 		void			setUpdate(bool isUpdated);
 		bool			getUpdate() const;
+		void			setId(unsigned int id);
+		unsigned int	getId();
 
 	protected:
 		static unsigned int	_VAO;	// Vertex Array Object
+		unsigned int		_id = 0;
 
 	private:
 		static bool			_initBuffers;

@@ -69,12 +69,22 @@ ABlock::~ABlock()
 //   Getters & Setters                                                        //
 // ========================================================================== //
 
-void	ABlock::setUpdate(bool isUpdated)
+void			ABlock::setUpdate(bool isUpdated)
 {
 	this->_isUpdated = isUpdated;
 }
 
-bool	ABlock::getUpdate() const
+bool			ABlock::getUpdate() const
 {
 	return (this->_isUpdated);
+}
+
+void			ABlock::setId(unsigned int id)
+{
+	this->_id = id;
+}
+
+unsigned int	ABlock::getId()
+{
+	return (this->_id);
 }
