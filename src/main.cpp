@@ -5,12 +5,27 @@
 
 Grid	*grid = new Grid(GRID_SIZE);
 bool	mouseLeftPressed = false;
-bool	mouseRightPressed = false;
+int		keypadSelected = 1;
+
+static void	keyCallback(GLFWwindow *window, int key, int scancode, int action, int mods)
+{
+	(void)window;
+	(void)scancode;
+	(void)mods;
+
+	if (action == GLFW_PRESS)
+	{
+		if (key == GLFW_KEY_1)
+			keypadSelected = 1;
+		else if (key == GLFW_KEY_2)
+			keypadSelected = 2;
+	}
+}
 
 static void	mouseButtonCallback(GLFWwindow *window, int button, int action, int mods)
 {
-	(void)mods;
 	(void)window;
+	(void)mods;
 
 	if (button == GLFW_MOUSE_BUTTON_LEFT)
 	{
@@ -19,14 +34,6 @@ static void	mouseButtonCallback(GLFWwindow *window, int button, int action, int 
 		else if (action == GLFW_RELEASE)
 			mouseLeftPressed = false;
 	}
-	else if (button == GLFW_MOUSE_BUTTON_RIGHT)
-	{
-		if (action == GLFW_PRESS)
-			mouseRightPressed = true;
-		else if (action == GLFW_RELEASE)
-			mouseRightPressed = false;
-	}
-
 }
 
 int	main()
@@ -37,6 +44,7 @@ int	main()
 	if (!initGLFW(window) || !initGLAD() || !initShader(shader))
 		return (-1);
 	glfwSetMouseButtonCallback(window, mouseButtonCallback);
+	glfwSetKeyCallback(window, keyCallback);
 
 	glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 	while (!glfwWindowShouldClose(window))
@@ -47,7 +55,7 @@ int	main()
 		grid->draw(shader);
 		grid->update();
 
-		if (mouseLeftPressed || mouseRightPressed)
+		if (mouseLeftPressed)
 		{
 			double	xpos;
 			double	ypos;
@@ -58,9 +66,18 @@ int	main()
 			const unsigned int	cellY = static_cast<unsigned int>((ypos / WINDOW_HEIGHT) * GRID_SIZE);
 
 			if (mouseLeftPressed)
-				grid->setBlock(cellX, cellY, new SandBlock());
-			else if (mouseRightPressed)
-				grid->setBlock(cellX, cellY, new WaterBlock());
+			{
+				switch (keypadSelected)
+				{
+					case (1):
+						grid->setBlock(cellX, cellY, new SandBlock());
+						break ;
+
+					case (2):
+						grid->setBlock(cellX, cellY, new WaterBlock());
+						break ;
+				}
+			}
 		}
 
 		glfwSwapBuffers(window);
