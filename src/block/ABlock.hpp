@@ -14,7 +14,8 @@
 enum	blockType
 {
 	SANDBLOCK,
-	WATERBLOCK
+	WATERBLOCK,
+	STONEBLOCK
 };
 
 class	Grid;

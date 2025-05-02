@@ -2,6 +2,7 @@
 #include "Grid.hpp"
 #include "SandBlock.hpp"
 #include "WaterBlock.hpp"
+#include "StoneBlock.hpp"
 
 Grid	*grid = new Grid(GRID_SIZE);
 bool	mouseLeftPressed = false;
@@ -19,6 +20,8 @@ static void	keyCallback(GLFWwindow *window, int key, int scancode, int action, i
 			keypadSelected = 1;
 		else if (key == GLFW_KEY_2)
 			keypadSelected = 2;
+		else if (key == GLFW_KEY_3)
+			keypadSelected = 3;
 	}
 }
 
@@ -75,6 +78,13 @@ int	main()
 
 					case (2):
 						grid->setBlock(cellX, cellY, new WaterBlock());
+						break ;
+					case (3):
+						grid->setBlock(cellX, cellY, new StoneBlock());
+						grid->setBlock(cellX - 1, cellY, new StoneBlock());
+						grid->setBlock(cellX + 1, cellY, new StoneBlock());
+						grid->setBlock(cellX, cellY - 1, new StoneBlock());
+						grid->setBlock(cellX, cellY + 1, new StoneBlock());
 						break ;
 				}
 			}
