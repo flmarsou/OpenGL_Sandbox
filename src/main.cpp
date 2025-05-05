@@ -1,12 +1,28 @@
 #include "config.hpp"
-#include "Grid.hpp"
-#include "SandBlock.hpp"
-#include "WaterBlock.hpp"
-#include "StoneBlock.hpp"
 
 Grid	*grid = new Grid(GRID_SIZE);
 bool	mouseLeftPressed = false;
 int		keypadSelected = 1;
+bool	fpsPrintToggle = false;
+bool	fpsCapToggle = false;
+
+static void	printFPS()
+{
+	static int												frameCount = 0;
+	static std::chrono::high_resolution_clock::time_point	lastTime = std::chrono::high_resolution_clock::now();
+
+	const std::chrono::high_resolution_clock::time_point	currentTime = std::chrono::high_resolution_clock::now();
+	const std::chrono::duration<double>						elapsed = currentTime - lastTime;
+
+	frameCount++;
+
+	if (elapsed.count() >= 1.0)
+	{
+		std::cout << "FPS: " << frameCount << std::endl;
+		frameCount = 0;
+		lastTime = currentTime;
+	}
+}
 
 static void	keyCallback(GLFWwindow *window, int key, int scancode, int action, int mods)
 {
@@ -22,6 +38,24 @@ static void	keyCallback(GLFWwindow *window, int key, int scancode, int action, i
 			keypadSelected = 2;
 		else if (key == GLFW_KEY_3)
 			keypadSelected = 3;
+
+		if (key == GLFW_KEY_F3 && fpsPrintToggle == false)
+			fpsPrintToggle = true;
+		else if (key == GLFW_KEY_F3 && fpsPrintToggle == true)
+			fpsPrintToggle = false;
+
+		if (key == GLFW_KEY_F4 && fpsCapToggle == false)
+		{
+			std::cout << INFO "V-Sync Off!" << std::endl;
+			glfwSwapInterval(0);
+			fpsCapToggle = true;
+		}
+		else if (key == GLFW_KEY_F4 && fpsCapToggle == true)
+		{
+			std::cout << INFO "V-Sync On!" << std::endl;
+			glfwSwapInterval(1);
+			fpsCapToggle = false;
+		}
 	}
 }
 
@@ -89,6 +123,9 @@ int	main()
 				}
 			}
 		}
+
+		if (fpsPrintToggle)
+			printFPS();
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
