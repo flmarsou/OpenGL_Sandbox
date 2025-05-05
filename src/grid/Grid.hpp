@@ -10,17 +10,16 @@ class	ABlock;
 class	Grid
 {
 	public:
-		Grid(unsigned int size);
+		Grid(const unsigned int size);
 		~Grid();
 
-		void	setBlock(int x, int y, ABlock *block);
-		void	setBlockForce(int x, int y, ABlock *block);
-		ABlock	*getBlock(int x, int y) const;
+		void	setBlock(const int x, const int y, ABlock *block);
+		ABlock	*getBlock(const int x, const int y) const;
+		void	swapBlock(const int originX, const int originY, ABlock *swapBlock, const int swapX, const int swapY);
 		int		getSize() const;
 
-		void	draw(unsigned int &shader);
+		void	draw(const unsigned int &shader);
 		void	update();
-		int		bound(unsigned int x, unsigned int y);
 
 	private:
 		int									_gridSize;
