@@ -47,7 +47,7 @@ ABlock::ABlock()
 		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void *)0);
 		glEnableVertexAttribArray(0);
 
-		std::cout << INFO "VAO, VBO, and EBO linked to ABlock!" << std::endl;
+		std::cout << INFO "VAO, VBO, and EBO linked to Block!" << std::endl;
 		_initBuffers = true;
 	}
 }
@@ -60,7 +60,7 @@ ABlock::~ABlock()
 		glDeleteBuffers(1, &_VBO);
 		glDeleteBuffers(1, &_EBO);
 
-		std::cout << INFO "VAO, VBO, and EBO deleted from ABlock!" << std::endl;
+		std::cout << INFO "VAO, VBO, and EBO deleted from Block!" << std::endl;
 		_destroyBuffers = true;
 	}
 }
@@ -69,7 +69,7 @@ ABlock::~ABlock()
 //   Getters & Setters                                                        //
 // ========================================================================== //
 
-void			ABlock::setUpdate(bool isUpdated)
+void			ABlock::setUpdate(const bool isUpdated)
 {
 	this->_isUpdated = isUpdated;
 }
@@ -79,12 +79,114 @@ bool			ABlock::getUpdate() const
 	return (this->_isUpdated);
 }
 
-void			ABlock::setId(unsigned int id)
+void			ABlock::setColor(const glm::vec3 color)
+{
+	this->_blockColor = color;
+}
+
+void			ABlock::setId(const unsigned int id)
 {
 	this->_id = id;
 }
 
-unsigned int	ABlock::getId()
+unsigned int	ABlock::getId() const
 {
 	return (this->_id);
+}
+
+// ========================================================================== //
+//   Methods & Functions                                                      //
+// ========================================================================== //
+
+void	ABlock::draw(const float x, const float y, const float scale, const unsigned int &shader) const
+{
+	glUseProgram(shader);
+
+	// Matrix
+	glm::mat4	transform;
+	transform = glm::mat4(1.0f);
+	transform = glm::translate(transform, glm::vec3(x, y, 0.0f));		// Position
+	transform = glm::scale(transform, glm::vec3(scale, scale, 1.0f));	// Size
+
+	// Shader Transform
+	const unsigned int	pos = glGetUniformLocation(shader, "transform");
+	glUniformMatrix4fv(pos, 1, GL_FALSE, glm::value_ptr(transform));
+
+	// Shader Color
+	const unsigned int	color = glGetUniformLocation(shader, "color");
+	glUniform3fv(color, 1, glm::value_ptr(this->_blockColor));
+
+	// Draws
+	glBindVertexArray(this->_VAO);
+	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+}
+
+bool	ABlock::isOnGround(Grid &grid, const int &y)
+{
+	if (y + 1 >= grid.getSize())
+	{
+		this->_isUpdated = true;
+		return (true);
+	}
+	return (false);
+}
+
+bool	ABlock::fallDown(Grid &grid, const int &x, const int &y)
+{
+	if (!grid.getBlock(x, y + 1))
+	{
+		grid.setBlock(x, y + 1, this);
+		grid.setBlock(x, y, nullptr);
+		this->_isUpdated = true;
+		return (true);
+	}
+	return (false);
+}
+
+bool	ABlock::fallLeft(Grid &grid, const int &x, const int &y)
+{
+	if (x > 0 && !grid.getBlock(x - 1, y + 1))
+	{
+		grid.setBlock(x - 1, y + 1, this);
+		grid.setBlock(x, y, nullptr);
+		this->_isUpdated = true;
+		return (true);
+	}
+	return (false);
+}
+
+bool	ABlock::fallRight(Grid &grid, const int &x, const int &y)
+{
+	if (x < grid.getSize() - 1 && !grid.getBlock(x + 1, y + 1))
+	{
+		grid.setBlock(x + 1, y + 1, this);
+		grid.setBlock(x, y, nullptr);
+		this->_isUpdated = true;
+		return (true);
+	}
+	return (false);
+}
+
+bool	ABlock::moveLeft(Grid &grid, const int &x, const int &y)
+{
+	if (x > 0 && !grid.getBlock(x - 1, y))
+	{
+		grid.setBlock(x - 1, y, this);
+		grid.setBlock(x, y, nullptr);
+		this->_isUpdated = true;
+		return (true);
+	}
+	return (false);
+}
+
+bool	ABlock::moveRight(Grid &grid, const int &x, const int &y)
+{
+	if (x < grid.getSize() - 1 && !grid.getBlock(x + 1, y))
+	{
+		grid.setBlock(x + 1, y, this);
+		grid.setBlock(x, y, nullptr);
+		this->_isUpdated = true;
+		return (true);
+	}
+	return (false);
 }

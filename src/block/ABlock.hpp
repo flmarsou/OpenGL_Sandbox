@@ -13,6 +13,7 @@
 
 enum	blockType
 {
+	EMPTY,
 	SANDBLOCK,
 	WATERBLOCK,
 	STONEBLOCK
@@ -26,22 +27,35 @@ class	ABlock
 		ABlock();
 		virtual ~ABlock();
 
-		virtual void	draw(float x, float y, float scale, unsigned int &shader) const = 0;
-		virtual void	update(Grid &grid, int x, int y) = 0;
+		void			draw(const float x, const float y, const float scale, const unsigned int &shader) const;
+		virtual void	update(Grid &grid, const int x, const int y) = 0;
 
-		void			setUpdate(bool isUpdated);
+		void			setUpdate(const bool isUpdated);
 		bool			getUpdate() const;
-		void			setId(unsigned int id);
-		unsigned int	getId();
+		void			setColor(const glm::vec3 color);
+		void			setId(const unsigned int id);
+		unsigned int	getId() const;
+
+		// Movements
+		bool	isOnGround(Grid &grid, const int &y);
+		bool	fallDown(Grid &grid, const int &x, const int &y);
+		bool	fallLeft(Grid &grid, const int &x, const int &y);
+		bool	fallRight(Grid &grid, const int &x, const int &y);
+		bool	moveLeft(Grid &grid, const int &x, const int &y);
+		bool	moveRight(Grid &grid, const int &x, const int &y);
 
 	protected:
-		static unsigned int	_VAO;	// Vertex Array Object
-		unsigned int		_id = 0;
+		unsigned int	_id = EMPTY;
 
 	private:
+		// OpenGL
 		static bool			_initBuffers;
+		static unsigned int	_VAO;	// Vertex Array Object
 		static unsigned int	_VBO;	// Vertex Buffer Object
 		static unsigned int	_EBO;	// Element Buffer Object
 		static bool			_destroyBuffers;
-		bool				_isUpdated = false;
+
+		// Block
+		bool		_isUpdated = false;
+		glm::vec3	_blockColor;
 };
