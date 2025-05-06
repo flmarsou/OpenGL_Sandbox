@@ -6,13 +6,14 @@
 # include "SandBlock.hpp"
 # include "WaterBlock.hpp"
 # include "StoneBlock.hpp"
+# include "BombBlock.hpp"
+# include "FireBlock.hpp"
 
 // External Libraries
 # include <GLAD/glad.h>
 # include <GLFW/glfw3.h>
 
 // Standard Libraries
-# include <iostream>
 # include <string>
 # include <sstream>
 # include <fstream>
