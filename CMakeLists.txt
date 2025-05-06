@@ -5,8 +5,11 @@ project("OpenGL Sandbox")
 add_executable(opengl_sandbox
 	libs/GLAD/glad.c
 	src/main.cpp
-	src/init.cpp
-	src/shaders.cpp
+	src/util/init.cpp
+	src/util/shaders.cpp
+	src/util/debug.cpp
+	src/input.cpp
+	src/loop.cpp
 	src/grid/Grid.cpp
 	src/block/ABlock.cpp
 	src/block/SandBlock.cpp
