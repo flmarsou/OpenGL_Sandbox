@@ -2,6 +2,7 @@
 
 // Internal Headers
 # include "debug.hpp"
+# include "input.hpp"
 # include "Grid.hpp"
 # include "SandBlock.hpp"
 # include "WaterBlock.hpp"
@@ -32,3 +33,9 @@
 bool	initGLFW(GLFWwindow *&window);
 bool	initGLAD();
 bool	initShader(unsigned int &shader);
+void	initCallbacks(GLFWwindow *window);
+
+// Debug
+void	printFPS();
+
+void	gameLoop(GLFWwindow *window, const unsigned int &shader, Grid *grid);
