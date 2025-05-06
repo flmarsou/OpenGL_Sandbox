@@ -38,6 +38,8 @@ static void	keyCallback(GLFWwindow *window, int key, int scancode, int action, i
 			keypadSelected = 2;
 		else if (key == GLFW_KEY_3)
 			keypadSelected = 3;
+		else if (key == GLFW_KEY_4)
+			keypadSelected = 4;
 
 		if (key == GLFW_KEY_F3 && fpsPrintToggle == false)
 			fpsPrintToggle = true;
@@ -83,6 +85,8 @@ int	main()
 	glfwSetMouseButtonCallback(window, mouseButtonCallback);
 	glfwSetKeyCallback(window, keyCallback);
 
+	ABlock::initBlock();
+
 	glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 	while (!glfwWindowShouldClose(window))
 	{
@@ -99,8 +103,8 @@ int	main()
 
 			glfwGetCursorPos(window, &xpos, &ypos);
 
-			const unsigned int	cellX = static_cast<unsigned int>((xpos / WINDOW_WIDTH) * GRID_SIZE);
-			const unsigned int	cellY = static_cast<unsigned int>((ypos / WINDOW_HEIGHT) * GRID_SIZE);
+			const int	cellX = static_cast<int>((xpos / WINDOW_WIDTH) * GRID_SIZE);
+			const int	cellY = static_cast<int>((ypos / WINDOW_HEIGHT) * GRID_SIZE);
 
 			if (mouseLeftPressed)
 			{
@@ -113,12 +117,17 @@ int	main()
 					case (2):
 						grid->setBlock(cellX, cellY, new WaterBlock());
 						break ;
+
 					case (3):
 						grid->setBlock(cellX, cellY, new StoneBlock());
 						grid->setBlock(cellX - 1, cellY, new StoneBlock());
 						grid->setBlock(cellX + 1, cellY, new StoneBlock());
 						grid->setBlock(cellX, cellY - 1, new StoneBlock());
 						grid->setBlock(cellX, cellY + 1, new StoneBlock());
+						break ;
+
+					case (4):
+						grid->setBlock(cellX, cellY, new BombBlock());
 						break ;
 				}
 			}
@@ -131,6 +140,7 @@ int	main()
 		glfwPollEvents();
 	}
 
+	ABlock::deleteBlock();
 	delete grid;
 	glDeleteProgram(shader);
 	glfwDestroyWindow(window);
