@@ -103,7 +103,7 @@ void	BombBlock::update(Grid &grid, const int x, const int y)
 		return ;
 	}
 
-	// Movements
+	// Movement
 	if (fallDown(grid, x, y))
 		return ;
 }

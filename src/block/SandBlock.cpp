@@ -45,14 +45,14 @@ void	SandBlock::update(Grid &grid, const int x, const int y)
 	if (isOnGround(grid, y))
 		return ;
 
-	// Movements
+	// Movement
 	if (fallDown(grid, x, y))
 		return ;
 	else
 	{
 		const unsigned int	chance = std::rand() % 100;
 
-		if (chance < 50)
+		if (chance <= 50)
 		{
 			if (fallLeft(grid, x, y))
 				return ;

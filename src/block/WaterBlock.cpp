@@ -43,6 +43,7 @@ void	WaterBlock::update(Grid &grid, const int x, const int y)
 {
 	const unsigned int	chance = std::rand() % 100;
 
+	// Color
 	if (chance == 1)
 		randomizeColor();
 
@@ -58,7 +59,7 @@ void	WaterBlock::update(Grid &grid, const int x, const int y)
 	// Security & Movement
 	if (y + 1 >= grid.getSize())
 	{
-		if (chance < 50)
+		if (chance <= 50)
 		{
 			if (moveLeft(grid, x, y))
 				return ;
@@ -81,7 +82,7 @@ void	WaterBlock::update(Grid &grid, const int x, const int y)
 		return ;
 	else
 	{
-		if (chance < 50)
+		if (chance <= 50)
 		{
 			if (fallLeft(grid, x, y))
 				return ;
