@@ -3,8 +3,6 @@
 # include "debug.hpp"
 # include "Grid.hpp"
 
-# include <iostream>
-
 # include <GLAD/glad.h>
 
 # include <GLM/glm.hpp>
@@ -16,7 +14,9 @@ enum	blockType
 	EMPTY,
 	SANDBLOCK,
 	WATERBLOCK,
-	STONEBLOCK
+	STONEBLOCK,
+	BOMBBLOCK,
+	FIREBLOCK
 };
 
 class	Grid;
@@ -24,8 +24,10 @@ class	Grid;
 class	ABlock
 {
 	public:
-		ABlock();
-		virtual ~ABlock();
+		virtual ~ABlock() {}
+
+		static void	initBlock();
+		static void	deleteBlock();
 
 		void			draw(const float x, const float y, const float scale, const unsigned int &shader) const;
 		virtual void	update(Grid &grid, const int x, const int y) = 0;
@@ -49,11 +51,9 @@ class	ABlock
 
 	private:
 		// OpenGL
-		static bool			_initBuffers;
 		static unsigned int	_VAO;	// Vertex Array Object
 		static unsigned int	_VBO;	// Vertex Buffer Object
 		static unsigned int	_EBO;	// Element Buffer Object
-		static bool			_destroyBuffers;
 
 		// Block
 		bool		_isUpdated = false;

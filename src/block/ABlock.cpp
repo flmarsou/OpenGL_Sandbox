@@ -1,68 +1,58 @@
 #include "ABlock.hpp"
 
-bool			ABlock::_initBuffers = false;
 unsigned int	ABlock::_VAO = 0;
 unsigned int	ABlock::_VBO = 0;
 unsigned int	ABlock::_EBO = 0;
-bool			ABlock::_destroyBuffers = false;
 
 // ========================================================================== //
-//   Constructors                                                             //
+//   Initializers                                                             //
 // ========================================================================== //
 
-ABlock::ABlock()
+void	ABlock::initBlock()
 {
 	// Initializes the VAO, VBO, and EBO (only once)
-	if (!_initBuffers)
-	{
-		const float			vertices[] = {
-			// Pos (x, y)
-			0.0f,  0.0f,	// Bottom-Left
-			1.0f,  0.0f,	// Bottom-Right
-			1.0f,  1.0f,	// Top-Right
-			0.0f,  1.0f,	// Top-Left
-		};
+	const float			vertices[] = {
+		// Pos (x, y)
+		0.0f,  0.0f,	// Bottom-Left
+		1.0f,  0.0f,	// Bottom-Right
+		1.0f,  1.0f,	// Top-Right
+		0.0f,  1.0f,	// Top-Left
+	};
 
-		const unsigned int	indices[] = {
-			// 0 -> Bottom-Left, 1 -> Bottom-Right, 2 -> Top-Right, 3 -> Top-Left
-			0, 1, 2,
-			0, 2, 3
-		};
+	const unsigned int	indices[] = {
+		// 0 -> Bottom-Left, 1 -> Bottom-Right, 2 -> Top-Right, 3 -> Top-Left
+		0, 1, 2,
+		0, 2, 3
+	};
 
-		// Vertex Array Object
-		glGenVertexArrays(1, &_VAO);
-		glBindVertexArray(_VAO);
+	// Vertex Array Object
+	glGenVertexArrays(1, &_VAO);
+	glBindVertexArray(_VAO);
 
-		// Vertex Buffer Object
-		glGenBuffers(1, &_VBO);
-		glBindBuffer(GL_ARRAY_BUFFER, _VBO);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+	// Vertex Buffer Object
+	glGenBuffers(1, &_VBO);
+	glBindBuffer(GL_ARRAY_BUFFER, _VBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-		// Element Buffer Object
-		glGenBuffers(1, &_EBO);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _EBO);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+	// Element Buffer Object
+	glGenBuffers(1, &_EBO);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _EBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
-		// Vertex Attribute: Position
-		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void *)0);
-		glEnableVertexAttribArray(0);
+	// Vertex Attribute: Position
+	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void *)0);
+	glEnableVertexAttribArray(0);
 
-		std::cout << INFO "VAO, VBO, and EBO linked to Block!" << std::endl;
-		_initBuffers = true;
-	}
+	std::cout << INFO "VAO, VBO, and EBO linked to Block!" << std::endl;
 }
 
-ABlock::~ABlock()
+void	ABlock::deleteBlock()
 {
-	if (!_destroyBuffers)
-	{
-		glDeleteVertexArrays(1, &_VAO);
-		glDeleteBuffers(1, &_VBO);
-		glDeleteBuffers(1, &_EBO);
+	glDeleteVertexArrays(1, &_VAO);
+	glDeleteBuffers(1, &_VBO);
+	glDeleteBuffers(1, &_EBO);
 
-		std::cout << INFO "VAO, VBO, and EBO deleted from Block!" << std::endl;
-		_destroyBuffers = true;
-	}
+	std::cout << INFO "VAO, VBO, and EBO deleted from Block!" << std::endl;
 }
 
 // ========================================================================== //
