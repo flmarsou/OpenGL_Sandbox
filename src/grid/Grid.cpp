@@ -10,11 +10,10 @@ Grid::Grid(const unsigned int size)
 	this->_gridSize = size;
 	std::cout << INFO "Grid initialized!" << std::endl;
 }
-
 Grid::~Grid()
 {
-	for (int y = this->_gridSize - 1; y >= 0; --y)
-		for (int x = this->_gridSize - 1; x >= 0; --x)
+	for (int y = 0; y < this->_gridSize; y++)
+		for (int x = 0; x < this->_gridSize; x++)
 			if (this->_grid[y][x])
 				delete this->_grid[y][x];
 	std::cout << INFO "Grid deleted!" << std::endl;
@@ -27,7 +26,10 @@ Grid::~Grid()
 void	Grid::setBlock(const int x, const int y, ABlock *block)
 {
 	if (x < 0 || x >= this->_gridSize || y < 0 || y >= this->_gridSize || (block && this->_grid[y][x]))
+	{
+		delete block;
 		return ;
+	}
 	this->_grid[y][x] = block;
 }
 
@@ -46,6 +48,15 @@ void	Grid::swapBlock(const int originX, const int originY, ABlock *swapBlock, co
 	{
 		this->_grid[originY][originX] = swapBlock;
 		this->_grid[swapY][swapX] = temp;
+	}
+}
+
+void	Grid::deleteBlock(const int x, const int y)
+{
+	if (!(x < 0 || x >= this->_gridSize || y < 0 || y >= this->_gridSize) && this->_grid[y][x])
+	{
+		delete this->_grid[y][x];
+		this->_grid[y][x] = nullptr;
 	}
 }
 
