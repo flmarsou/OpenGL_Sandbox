@@ -16,7 +16,7 @@ BombBlock::BombBlock()
 //   Methods & Functions                                                      //
 // ========================================================================== //
 
-static bool	isBlockResistant(const Grid &grid, const int &explosionX, const int &explosionY)
+static bool	isBlockResistant(const Grid &grid, const int explosionX, const int explosionY)
 {
 	const ABlock *target = grid.getBlock(explosionX, explosionY);
 
@@ -25,7 +25,7 @@ static bool	isBlockResistant(const Grid &grid, const int &explosionX, const int 
 	return (false);
 }
 
-static bool isExplosionBlocked(const Grid &grid, int x, int y, const int &explosionX, const int &explosionY)
+static bool isExplosionBlocked(const Grid &grid, int x, int y, const int explosionX, const int explosionY)
 {
 	int	dx = std::abs(explosionX - x);	// Horizontal Distance
 	int	dy = -std::abs(explosionY - y);	// Vertical Distance (negative to simplify the algorithm)
@@ -61,7 +61,7 @@ static bool isExplosionBlocked(const Grid &grid, int x, int y, const int &explos
 }
 
 
-static bool	isExplosionShape(const int &x, const int &y, const int &explosionX, const int &explosionY)
+static bool	isExplosionShape(const int x, const int y, const int explosionX, const int explosionY)
 {
 	if (!(explosionY == y - 7 && (explosionX < x - 2 || explosionX > x + 2))
 		&& !(explosionY == y - 6 && (explosionX < x - 4 || explosionX > x + 4))
@@ -103,7 +103,7 @@ void	BombBlock::update(Grid &grid, const int x, const int y)
 		return ;
 	}
 
-	// Movement
+	// Falling
 	if (fallDown(grid, x, y))
 		return ;
 }
