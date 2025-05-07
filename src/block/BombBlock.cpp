@@ -60,7 +60,6 @@ static bool isExplosionBlocked(const Grid &grid, int x, int y, const int explosi
 	return (false);
 }
 
-
 static bool	isExplosionShape(const int x, const int y, const int explosionX, const int explosionY)
 {
 	if (!(explosionY == y - 7 && (explosionX < x - 2 || explosionX > x + 2))
@@ -78,7 +77,7 @@ static bool	isExplosionShape(const int x, const int y, const int explosionX, con
 void	BombBlock::update(Grid &grid, const int x, const int y)
 {
 	// Security & Explosion
-	if ((grid.getBlock(x, y + 1) && grid.getBlock(x, y + 1)->getId() != BOMBBLOCK) || isOnGround(grid, y))
+	if (isOnGround(grid, y) || (grid.getBlock(x, y + 1) && grid.getBlock(x, y + 1)->getId() != BOMBBLOCK))
 	{
 		grid.deleteBlock(x, y);
 
