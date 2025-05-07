@@ -111,9 +111,23 @@ void	ABlock::draw(const float x, const float y, const float scale, const unsigne
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }
 
+// ===================================== //
+//   Movements                           //
+// ===================================== //
+
 bool	ABlock::isOnGround(Grid &grid, const int y)
 {
 	if (y + 1 >= grid.getSize())
+	{
+		this->_isUpdated = true;
+		return (true);
+	}
+	return (false);
+}
+
+bool	ABlock::isOnCeiling(const int y)
+{
+	if (y == 0)
 	{
 		this->_isUpdated = true;
 		return (true);
@@ -174,6 +188,43 @@ bool	ABlock::moveRight(Grid &grid, const int x, const int y)
 	if (x < grid.getSize() - 1 && !grid.getBlock(x + 1, y))
 	{
 		grid.setBlock(x + 1, y, this);
+		grid.setBlock(x, y, nullptr);
+		this->_isUpdated = true;
+		return (true);
+	}
+	return (false);
+}
+
+bool	ABlock::riseUp(Grid &grid, const int x, const int y)
+{
+	if (!grid.getBlock(x, y - 1))
+	{
+		grid.setBlock(x, y - 1, this);
+		grid.setBlock(x, y, nullptr);
+		this->_isUpdated = true;
+		return (true);
+	}
+	return (false);
+}
+
+
+bool	ABlock::riseLeft(Grid &grid, const int x, const int y)
+{
+	if (x > 0 && !grid.getBlock(x - 1, y - 1))
+	{
+		grid.setBlock(x - 1, y - 1, this);
+		grid.setBlock(x, y, nullptr);
+		this->_isUpdated = true;
+		return (true);
+	}
+	return (false);
+}
+
+bool	ABlock::riseRight(Grid &grid, const int x, const int y)
+{
+	if (x < grid.getSize() - 1 && !grid.getBlock(x + 1, y - 1))
+	{
+		grid.setBlock(x + 1, y - 1, this);
 		grid.setBlock(x, y, nullptr);
 		this->_isUpdated = true;
 		return (true);

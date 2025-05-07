@@ -38,13 +38,16 @@ class	ABlock
 		void			setId(const unsigned int id);
 		unsigned int	getId() const;
 
-		// Movements
 		bool	isOnGround(Grid &grid, const int y);
+		bool	isOnCeiling(const int y);
 		bool	fallDown(Grid &grid, const int x, const int y);
 		bool	fallLeft(Grid &grid, const int x, const int y);
 		bool	fallRight(Grid &grid, const int x, const int y);
 		bool	moveLeft(Grid &grid, const int x, const int y);
 		bool	moveRight(Grid &grid, const int x, const int y);
+		bool	riseUp(Grid &grid, const int x, const int y);
+		bool	riseLeft(Grid &grid, const int x, const int y);
+		bool	riseRight(Grid &grid, const int x, const int y);
 
 	protected:
 		unsigned int	_id = EMPTY;
