@@ -34,7 +34,7 @@ void	SandBlock::randomizeColor()
 			setColor({1.0f, 0.835f, 0.341f});	// Dark Yellow
 			break ;
 		default:
-			setColor({1.0f, 0.784f, 0.251f});	// Very Dark Yellow
+			setColor({1.0f, 0.81f, 0.295f});	// Very Dark Yellow
 			break ;
 	}
 }
@@ -45,26 +45,41 @@ void	SandBlock::update(Grid &grid, const int x, const int y)
 	if (isOnGround(grid, y))
 		return ;
 
-	// Movement
+	// Falling
 	if (fallDown(grid, x, y))
 		return ;
+
+	const bool	leftFirst = std::rand() % 100 <= 50;
+
+	// Diagonal Falls
+	if (leftFirst)
+	{
+		if (fallLeft(grid, x, y))
+			return ;
+		if (fallRight(grid, x, y))
+			return ;
+	}
 	else
 	{
-		const unsigned int	chance = std::rand() % 100;
+		if (fallRight(grid, x, y))
+			return ;
+		if (fallLeft(grid, x, y))
+			return ;
+	}
 
-		if (chance <= 50)
-		{
-			if (fallLeft(grid, x, y))
-				return ;
-			else if (fallRight(grid, x, y))
-				return ;
-		}
-		else
-		{
-			if (fallRight(grid, x, y))
-				return ;
-			else if (fallLeft(grid, x, y))
-				return ;
-		}
+	// Diagonal Falls in water
+	if (leftFirst && grid.getBlock(x - 1, y + 1) && grid.getBlock(x - 1, y + 1)->getId() == WATERBLOCK)
+	{
+		grid.swapBlock(x - 1, y + 1, this, x, y);
+		setUpdate(true);
+		grid.getBlock(x - 1, y + 1)->setUpdate(true);
+		return ;
+	}
+	else if (grid.getBlock(x + 1, y + 1) && grid.getBlock(x + 1, y + 1)->getId() == WATERBLOCK)
+	{
+		grid.swapBlock(x + 1, y + 1, this, x, y);
+		setUpdate(true);
+		grid.getBlock(x + 1, y + 1)->setUpdate(true);
+		return ;
 	}
 }

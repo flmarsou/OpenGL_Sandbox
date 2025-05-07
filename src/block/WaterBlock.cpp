@@ -41,68 +41,66 @@ void	WaterBlock::randomizeColor()
 
 void	WaterBlock::update(Grid &grid, const int x, const int y)
 {
-	const unsigned int	chance = std::rand() % 100;
-
 	// Color
-	if (chance == 1)
+	if (std::rand() % 100 == 1)
 		randomizeColor();
 
-	// Swap
+	// Swap Above
 	if (grid.getBlock(x, y - 1) && grid.getBlock(x, y - 1)->getId() == SANDBLOCK)
 	{
 		grid.swapBlock(x, y - 1, this, x, y);
 		setUpdate(true);
 		grid.getBlock(x, y - 1)->setUpdate(true);
-		return;
+		return ;
 	}
 
+	const bool	leftFirst = std::rand() % 100 <= 50;
+
 	// Security & Movement
-	if (y + 1 >= grid.getSize())
+	if (isOnGround(grid, y))
 	{
-		if (chance <= 50)
+		if (leftFirst)
 		{
 			if (moveLeft(grid, x, y))
 				return ;
-			else if (moveRight(grid, x, y))
+			if (moveRight(grid, x, y))
 				return ;
 		}
 		else
 		{
 			if (moveRight(grid, x, y))
 				return ;
-			else if (moveLeft(grid, x, y))
+			if (moveLeft(grid, x, y))
 				return ;
 		}
-		setUpdate(true);
 		return ;
 	}
 
-	// Movement
+	// Falling
 	if (fallDown(grid, x, y))
 		return ;
+
+	// Diagonal Falls & Movements
+	if (leftFirst)
+	{
+		if (fallLeft(grid, x, y))
+			return ;
+		if (moveLeft(grid, x, y))
+			return ;
+		if (fallRight(grid, x, y))
+			return ;
+		if (moveRight(grid, x, y))
+			return ;
+	}
 	else
 	{
-		if (chance <= 50)
-		{
-			if (fallLeft(grid, x, y))
-				return ;
-			else if (moveLeft(grid, x, y))
-				return ;
-			else if (fallRight(grid, x, y))
-				return ;
-			else if (moveRight(grid, x, y))
-				return ;
-		}
-		else
-		{
-			if (fallRight(grid, x, y))
-				return ;
-			else if (moveRight(grid, x, y))
-				return ;
-			else if (fallLeft(grid, x, y))
-				return ;
-			else if (moveLeft(grid, x, y))
-				return ;
-		}
+		if (fallRight(grid, x, y))
+			return ;
+		if (moveRight(grid, x, y))
+			return ;
+		if (fallLeft(grid, x, y))
+			return ;
+		if (moveLeft(grid, x, y))
+			return ;
 	}
 }
