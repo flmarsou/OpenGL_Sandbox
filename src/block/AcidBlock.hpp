@@ -18,8 +18,8 @@ class	AcidBlock : public ABlock
 
 		private:
 			void	randomizeColor();
-			bool	checkSurrounding(const Grid &grid, const int &x, const int &y);
-			void	setSeverity(const Grid &grid, const int &x, const int &y);
+			bool	checkSurrounding(const Grid &grid, const int x, const int y);
+			void	setSeverity(const Grid &grid, const int x, const int y);
 
 			unsigned int	_bottom = NONE;
 			unsigned int	_bottomLeft = NONE;

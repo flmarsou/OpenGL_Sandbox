@@ -88,7 +88,7 @@ unsigned int	ABlock::getId() const
 //   Methods & Functions                                                      //
 // ========================================================================== //
 
-void	ABlock::draw(const float x, const float y, const float scale, const unsigned int &shader) const
+void	ABlock::draw(const float x, const float y, const float scale, const unsigned int shader) const
 {
 	glUseProgram(shader);
 
@@ -111,7 +111,7 @@ void	ABlock::draw(const float x, const float y, const float scale, const unsigne
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }
 
-bool	ABlock::isOnGround(Grid &grid, const int &y)
+bool	ABlock::isOnGround(Grid &grid, const int y)
 {
 	if (y + 1 >= grid.getSize())
 	{
@@ -121,7 +121,7 @@ bool	ABlock::isOnGround(Grid &grid, const int &y)
 	return (false);
 }
 
-bool	ABlock::fallDown(Grid &grid, const int &x, const int &y)
+bool	ABlock::fallDown(Grid &grid, const int x, const int y)
 {
 	if (!grid.getBlock(x, y + 1))
 	{
@@ -133,7 +133,7 @@ bool	ABlock::fallDown(Grid &grid, const int &x, const int &y)
 	return (false);
 }
 
-bool	ABlock::fallLeft(Grid &grid, const int &x, const int &y)
+bool	ABlock::fallLeft(Grid &grid, const int x, const int y)
 {
 	if (x > 0 && !grid.getBlock(x - 1, y + 1))
 	{
@@ -145,7 +145,7 @@ bool	ABlock::fallLeft(Grid &grid, const int &x, const int &y)
 	return (false);
 }
 
-bool	ABlock::fallRight(Grid &grid, const int &x, const int &y)
+bool	ABlock::fallRight(Grid &grid, const int x, const int y)
 {
 	if (x < grid.getSize() - 1 && !grid.getBlock(x + 1, y + 1))
 	{
@@ -157,7 +157,7 @@ bool	ABlock::fallRight(Grid &grid, const int &x, const int &y)
 	return (false);
 }
 
-bool	ABlock::moveLeft(Grid &grid, const int &x, const int &y)
+bool	ABlock::moveLeft(Grid &grid, const int x, const int y)
 {
 	if (x > 0 && !grid.getBlock(x - 1, y))
 	{
@@ -169,7 +169,7 @@ bool	ABlock::moveLeft(Grid &grid, const int &x, const int &y)
 	return (false);
 }
 
-bool	ABlock::moveRight(Grid &grid, const int &x, const int &y)
+bool	ABlock::moveRight(Grid &grid, const int x, const int y)
 {
 	if (x < grid.getSize() - 1 && !grid.getBlock(x + 1, y))
 	{

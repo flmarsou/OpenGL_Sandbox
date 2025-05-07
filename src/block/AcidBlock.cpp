@@ -39,7 +39,7 @@ void	AcidBlock::randomizeColor()
 	}
 }
 
-void	AcidBlock::setSeverity(const Grid &grid, const int &x, const int &y)
+void	AcidBlock::setSeverity(const Grid &grid, const int x, const int y)
 {
 	if (grid.getBlock(x, y + 1)->getId() == SANDBLOCK)
 		this->??? = STRONG;
@@ -48,7 +48,7 @@ void	AcidBlock::setSeverity(const Grid &grid, const int &x, const int &y)
 		this->??? = WEAK;
 }
 
-bool	AcidBlock::checkSurrounding(const Grid &grid, const int &x, const int &y)
+bool	AcidBlock::checkSurrounding(const Grid &grid, const int x, const int y)
 {
 	bool	ret = false;
 

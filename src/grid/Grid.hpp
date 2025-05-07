@@ -15,11 +15,11 @@ class	Grid
 
 		void	setBlock(const int x, const int y, ABlock *block);
 		ABlock	*getBlock(const int x, const int y) const;
-		void	swapBlock(const int originX, const int originY, ABlock *swapBlock, const int swapX, const int swapY);
+		void	swapBlock(const int x, const int y, ABlock *swapBlock, const int swapX, const int swapY);
 		void	deleteBlock(const int x, const int y);
 		int		getSize() const;
 
-		void	draw(const unsigned int &shader);
+		void	draw(const unsigned int shader);
 		void	update();
 
 	private:

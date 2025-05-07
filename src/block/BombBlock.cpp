@@ -16,7 +16,7 @@ BombBlock::BombBlock()
 //   Methods & Functions                                                      //
 // ========================================================================== //
 
-static bool	isBlockResistant(const Grid &grid, const int explosionX, const int explosionY)
+static bool	isBlockResistant(const Grid &grid, const int &explosionX, const int &explosionY)
 {
 	const ABlock *target = grid.getBlock(explosionX, explosionY);
 

@@ -40,13 +40,13 @@ ABlock	*Grid::getBlock(const int x, const int y) const
 	return (this->_grid[y][x]);
 }
 
-void	Grid::swapBlock(const int originX, const int originY, ABlock *swapBlock, const int swapX, const int swapY)
+void	Grid::swapBlock(const int x, const int y, ABlock *swapBlock, const int swapX, const int swapY)
 {
-	ABlock	*temp;
-	temp = this->_grid[originY][originX];
+	ABlock	*temp = this->_grid[y][x];
+
 	if (temp)
 	{
-		this->_grid[originY][originX] = swapBlock;
+		this->_grid[y][x] = swapBlock;
 		this->_grid[swapY][swapX] = temp;
 	}
 }
@@ -69,7 +69,7 @@ int		Grid::getSize() const
 //   Methods & Functions                                                      //
 // ========================================================================== //
 
-void	Grid::draw(const unsigned int &shader)
+void	Grid::draw(const unsigned int shader)
 {
 	for (int y = 0; y < this->_gridSize; y++)
 		for (int x = 0; x < this->_gridSize; x++)
@@ -90,8 +90,8 @@ void	Grid::update()
 			if (this->_grid[y][x])
 				this->_grid[y][x]->setUpdate(false);
 
-	for (int y = 0; y < this->_gridSize; y++)
-		for (int x = 0; x < this->_gridSize; x++)
+	for (int y = this->_gridSize - 1; y >= 0; y--)
+		for (int x = this->_gridSize - 1; x >= 0; x--)
 			if (this->_grid[y][x] && !this->_grid[y][x]->getUpdate())
 				this->_grid[y][x]->update(*this, x, y);
 }

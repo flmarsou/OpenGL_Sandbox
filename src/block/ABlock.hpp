@@ -29,7 +29,7 @@ class	ABlock
 		static void	initBlock();
 		static void	deleteBlock();
 
-		void			draw(const float x, const float y, const float scale, const unsigned int &shader) const;
+		void			draw(const float x, const float y, const float scale, const unsigned int shader) const;
 		virtual void	update(Grid &grid, const int x, const int y) = 0;
 
 		void			setUpdate(const bool isUpdated);
@@ -39,12 +39,12 @@ class	ABlock
 		unsigned int	getId() const;
 
 		// Movements
-		bool	isOnGround(Grid &grid, const int &y);
-		bool	fallDown(Grid &grid, const int &x, const int &y);
-		bool	fallLeft(Grid &grid, const int &x, const int &y);
-		bool	fallRight(Grid &grid, const int &x, const int &y);
-		bool	moveLeft(Grid &grid, const int &x, const int &y);
-		bool	moveRight(Grid &grid, const int &x, const int &y);
+		bool	isOnGround(Grid &grid, const int y);
+		bool	fallDown(Grid &grid, const int x, const int y);
+		bool	fallLeft(Grid &grid, const int x, const int y);
+		bool	fallRight(Grid &grid, const int x, const int y);
+		bool	moveLeft(Grid &grid, const int x, const int y);
+		bool	moveRight(Grid &grid, const int x, const int y);
 
 	protected:
 		unsigned int	_id = EMPTY;
