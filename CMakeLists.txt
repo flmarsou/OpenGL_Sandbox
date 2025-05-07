@@ -17,6 +17,7 @@ add_executable(opengl_sandbox
 	src/block/StoneBlock.cpp
 	src/block/BombBlock.cpp
 	src/block/FireBlock.cpp
+	src/block/AcidBlock.cpp
 )
 
 # Includes

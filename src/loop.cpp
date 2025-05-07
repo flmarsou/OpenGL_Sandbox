@@ -31,6 +31,10 @@ static void	placeBlock(GLFWwindow *window, Grid *grid)
 		case (GLFW_KEY_4):
 			grid->setBlock(cellX, cellY, new BombBlock());
 			break ;
+
+		case (GLFW_KEY_5):
+			grid->setBlock(cellX, cellY, new AcidBlock());
+			break ;
 	}
 }
 

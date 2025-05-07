@@ -22,141 +22,127 @@ void	AcidBlock::randomizeColor()
 	switch (chance)
 	{
 		case (0):
-			setColor({0.102f, 0.518f, 0.722f});	// Very Light Blue
+			setColor({0.102f, 0.722f, 0.290f});	// Very Light Green
 			break ;
 		case (1):
-			setColor({0.102f, 0.549f, 0.722f});	// Light Blue
+			setColor({0.102f, 0.690f, 0.290f});	// Light Green
 			break ;
 		case (2):
-			setColor({0.102f, 0.580f, 0.722f});	// Blue
+			setColor({0.102f, 0.659f, 0.290f});	// Green
 			break ;
 		case (3):
-			setColor({0.102f, 0.611f, 0.722f});	// Dark Blue
+			setColor({0.102f, 0.627f, 0.290f});	// Dark Green
 			break ;
 		default:
-			setColor({0.102f, 0.643f, 0.722f});	// Very Dark Blue
+			setColor({0.102f, 0.596f, 0.290f});	// Very Dark Green
 			break ;
 	}
 }
 
-void	AcidBlock::setSeverity(const Grid &grid, const int x, const int y)
+bool	AcidBlock::dissolveSurrounding(Grid &grid, const int x, const int y)
 {
-	if (grid.getBlock(x, y + 1)->getId() == SANDBLOCK)
-		this->??? = STRONG;
-	else if (grid.getBlock(x, y + 1)->getId() == STONEBLOCK
-		|| grid.getBlock(x, y + 1)->getId() == WATERBLOCK)
-		this->??? = WEAK;
-}
+	const unsigned int	skipChance = std::rand() % 100;
+	const unsigned int	killChance = std::rand() % 100;
+	bool				dissolved = false;
 
-bool	AcidBlock::checkSurrounding(const Grid &grid, const int x, const int y)
-{
-	bool	ret = false;
+	// Attempts to dissolve with 75% chance
+	if (skipChance < 75)
+		return (true);
 
-	if (grid.getBlock(x, y + 1)			// Down
-		|| grid.getBlock(x - 1, y + 1)	// Down Left
-		|| grid.getBlock(x + 1, y + 1)	// Down Right
+	if (grid.getBlock(x, y + 1)			// Bottom
 		|| grid.getBlock(x - 1, y)		// Left
 		|| grid.getBlock(x + 1, y)		// Right
-		|| grid.getBlock(x, y - 1)		// Up
-		|| grid.getBlock(x - 1, y - 1)	// Up Left
-		|| grid.getBlock(x + 1, y - 1))	// Up Right
+		|| grid.getBlock(x, y - 1))		// Top
 	{
-		if (grid.getBlock(x, y + 1) && grid.getBlock(x, y + 1)->getId() != ACIDBLOCK)			// Bottom
+		if (grid.getBlock(x, y + 1) && grid.getBlock(x, y + 1)->getId() != ACIDBLOCK)
 		{
-			ret = true;
+			grid.deleteBlock(x, y + 1);
+			dissolved = true;
 		}
-		if (grid.getBlock(x - 1, y + 1) && grid.getBlock(x - 1, y + 1)->getId() != ACIDBLOCK)	// Bottom Left
+		if (grid.getBlock(x - 1, y) && grid.getBlock(x - 1, y)->getId() != ACIDBLOCK)
 		{
-			ret = true;
+			grid.deleteBlock(x - 1, y);
+			dissolved = true;
 		}
-		if (grid.getBlock(x + 1, y + 1) && grid.getBlock(x + 1, y + 1)->getId() != ACIDBLOCK)	// Bottom Right
+		if (grid.getBlock(x + 1, y) && grid.getBlock(x + 1, y)->getId() != ACIDBLOCK)
 		{
-			ret = true;
+			grid.deleteBlock(x + 1, y);
+			dissolved = true;
 		}
-		if (grid.getBlock(x - 1, y) && grid.getBlock(x - 1, y)->getId() != ACIDBLOCK)			// Left
+		if (grid.getBlock(x, y - 1) && grid.getBlock(x, y - 1)->getId() != ACIDBLOCK)
 		{
-			ret = true;
-		}
-		if (grid.getBlock(x + 1, y) && grid.getBlock(x + 1, y)->getId() != ACIDBLOCK)			// Right
-		{
-			ret = true;
-		}
-		if (grid.getBlock(x, y - 1) && grid.getBlock(x, y - 1)->getId() != ACIDBLOCK)			// Top
-		{
-			ret = true;
-		}
-		if (grid.getBlock(x - 1, y - 1) && grid.getBlock(x - 1, y - 1)->getId() != ACIDBLOCK)	// Top Left
-		{
-			ret = true;
-		}
-		if (grid.getBlock(x + 1, y - 1) && grid.getBlock(x + 1, y - 1)->getId() != ACIDBLOCK)	// Top Right
-		{
-			ret = true;
+			grid.deleteBlock(x, y - 1);
+			dissolved = true;
 		}
 	}
-	return (ret);
+
+	// Kills the acid block if it dissolved something with 50% chance
+	if (dissolved && killChance < 50)
+		return (false);
+
+	return (true);
 }
 
 void	AcidBlock::update(Grid &grid, const int x, const int y)
 {
-	const unsigned int	chance = std::rand() % 100;
-
-	if (chance == 1)
+	// Color
+	if (std::rand() % 200 == 1)
 		randomizeColor();
 
-	// 
-	if (checkSurrounding(grid, x, y))
+	// Dissolve
+	if (!dissolveSurrounding(grid, x, y))
 	{
-		
+		grid.deleteBlock(x, y);
+		return ;
 	}
 
+	const bool	leftFirst = std::rand() % 100 <= 50;
+
 	// Security & Movement
-	if (y + 1 >= grid.getSize())
+	if (isOnGround(grid, y))
 	{
-		if (chance < 50)
+		if (leftFirst)
 		{
 			if (moveLeft(grid, x, y))
 				return ;
-			else if (moveRight(grid, x, y))
+			if (moveRight(grid, x, y))
 				return ;
 		}
 		else
 		{
 			if (moveRight(grid, x, y))
 				return ;
-			else if (moveLeft(grid, x, y))
+			if (moveLeft(grid, x, y))
 				return ;
 		}
-		setUpdate(true);
 		return ;
 	}
 
-	// Movement
+	// Falling
 	if (fallDown(grid, x, y))
 		return ;
+
+	// Diagonal Falls & Movements
+	if (leftFirst)
+	{
+		if (fallLeft(grid, x, y))
+			return ;
+		if (moveLeft(grid, x, y))
+			return ;
+		if (fallRight(grid, x, y))
+			return ;
+		if (moveRight(grid, x, y))
+			return ;
+	}
 	else
 	{
-		if (chance < 50)
-		{
-			if (fallLeft(grid, x, y))
-				return ;
-			else if (moveLeft(grid, x, y))
-				return ;
-			else if (fallRight(grid, x, y))
-				return ;
-			else if (moveRight(grid, x, y))
-				return ;
-		}
-		else
-		{
-			if (fallRight(grid, x, y))
-				return ;
-			else if (moveRight(grid, x, y))
-				return ;
-			else if (fallLeft(grid, x, y))
-				return ;
-			else if (moveLeft(grid, x, y))
-				return ;
-		}
+		if (fallRight(grid, x, y))
+			return ;
+		if (moveRight(grid, x, y))
+			return ;
+		if (fallLeft(grid, x, y))
+			return ;
+		if (moveLeft(grid, x, y))
+			return ;
 	}
 }

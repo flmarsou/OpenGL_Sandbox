@@ -16,7 +16,8 @@ enum	blockType
 	WATERBLOCK,
 	STONEBLOCK,
 	BOMBBLOCK,
-	FIREBLOCK
+	FIREBLOCK,
+	ACIDBLOCK
 };
 
 class	Grid;
