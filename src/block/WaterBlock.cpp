@@ -54,7 +54,7 @@ void	WaterBlock::update(Grid &grid, const int x, const int y)
 		return ;
 	}
 
-	const bool	leftFirst = std::rand() % 100 <= 50;
+	const bool	leftFirst = std::rand() % 100 < 50;
 
 	// Security & Movement
 	if (isOnGround(grid, y))
