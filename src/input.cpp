@@ -40,6 +40,10 @@ static void	keyCallback(GLFWwindow *window, int key, int scancode, int action, i
 				Input::keyPressed = GLFW_KEY_5;
 				break ;
 
+			case (GLFW_KEY_6):
+				Input::keyPressed = GLFW_KEY_6;
+				break ;
+
 			case (GLFW_KEY_ESCAPE):
 				glfwSetWindowShouldClose(window, true);
 				break ;

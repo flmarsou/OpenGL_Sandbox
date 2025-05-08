@@ -10,6 +10,7 @@
 # include "BombBlock.hpp"
 # include "FireBlock.hpp"
 # include "AcidBlock.hpp"
+# include "WoodBlock.hpp"
 
 // External Libraries
 # include <GLAD/glad.h>
