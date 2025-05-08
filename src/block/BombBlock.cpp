@@ -97,7 +97,7 @@ void	BombBlock::update(Grid &grid, const int x, const int y)
 					continue ;
 
 				grid.deleteBlock(explosionX, explosionY);
-				grid.setBlock(explosionX, explosionY, new FireBlock());
+				grid.setBlock(explosionX, explosionY, new FireBlock(10));
 			}
 		return ;
 	}

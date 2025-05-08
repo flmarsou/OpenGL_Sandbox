@@ -4,7 +4,8 @@
 //   Constructors                                                             //
 // ========================================================================== //
 
-FireBlock::FireBlock()
+FireBlock::FireBlock(unsigned int extinguishRate)
+	:	_extinguishRate(extinguishRate)
 {
 	setId(FIREBLOCK);
 
@@ -42,7 +43,7 @@ void	FireBlock::randomizeColor()
 void	FireBlock::update(Grid &grid, const int x, const int y)
 {
 	// Extinguish
-	if (std::rand() % 100 < 10)
+	if (std::rand() % 100 < this->_extinguishRate)
 	{
 		grid.deleteBlock(x, y);
 		return ;
