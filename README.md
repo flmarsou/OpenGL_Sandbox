@@ -1,7 +1,11 @@
 # 🎲 Blocks
 - **[`Sand`](https://github.com/flmarsou/OpenGL_Sandbox/blob/main/src/block/SandBlock.cpp):** Falls straight down; may slide sideways *(50% chance)* if blocked below.
-- **[`Water`](https://github.com/flmarsou/OpenGL_Sandbox/blob/main/src/block/WaterBlock.cpp):** Rapidly changes color; falls down and may flow sideways *(50% chance)* if blocked below.
+- **[`Water`](https://github.com/flmarsou/OpenGL_Sandbox/blob/main/src/block/WaterBlock.cpp):** Falls down and may flow sideways *(50% chance)* if blocked below.
 - **[`Stone`](https://github.com/flmarsou/OpenGL_Sandbox/blob/main/src/block/StoneBlock.cpp):** Static; doesn’t move.
-- **[`Fire`](https://github.com/flmarsou/OpenGL_Sandbox/blob/main/src/block/FireBlock.cpp):** Randomly flies up, left, or right; has a 10% chance to extinguish.
-- **[`Bomb`](https://github.com/flmarsou/OpenGL_Sandbox/blob/main/src/block/BombBlock.cpp):** Falls straight down; explodes on impact (15-block diameter), igniting destroyed blocks; Stone is unaffected.
-- **[`Acid`](https://github.com/flmarsou/OpenGL_Sandbox/blob/main/src/block/AcidBlock.cpp):** Slowly shifts color; dissolves adjacent blocks (75% chance to act, 50% chance to self-destruct); flows like Water.
+- **[`Fire`](https://github.com/flmarsou/OpenGL_Sandbox/blob/main/src/block/FireBlock.cpp):** Randomly flies up, left, or right; has a X% chance to extinguish.
+- **[`Bomb`](https://github.com/flmarsou/OpenGL_Sandbox/blob/main/src/block/BombBlock.cpp):** Falls straight down; explodes on impact (15-blocks diameter), igniting destroyed blocks; Stone is unaffected and stops the explosion.
+- **[`Acid`](https://github.com/flmarsou/OpenGL_Sandbox/blob/main/src/block/AcidBlock.cpp):** Dissolves adjacent blocks *(may act or self-destruct)*; flows like Water.
+- **[`Wood`](https://github.com/flmarsou/OpenGL_Sandbox/blob/main/src/block/WoodBlock.cpp):** Static; doesn’t move; burns upon touching fire *(chance to spread fire sideways and diagonally, to turn into ash, and to extinguish)*.
+- **[`Ash`](https://github.com/flmarsou/OpenGL_Sandbox/blob/main/src/block/AshBlock.cpp):** Falls straight down; may slide sideways *(50% chance)* if blocked below.
+- **[`Toxic Sludge`](https://github.com/flmarsou/OpenGL_Sandbox/blob/main/src/block/ToxicSludgeBlock.cpp):** Converts adjacent water into toxic sludge; slowly evaporates into flammable gas; flows like Water.
+- **[`Flammable Gas`](https://github.com/flmarsou/OpenGL_Sandbox/blob/main/src/block/FlammableGasBlock.cpp):** Randomly flies up, left, or right; burns in chain upon touching fire.
