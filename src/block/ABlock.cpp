@@ -197,7 +197,7 @@ bool	ABlock::moveRight(Grid &grid, const int x, const int y)
 
 bool	ABlock::riseUp(Grid &grid, const int x, const int y)
 {
-	if (!grid.getBlock(x, y - 1))
+	if (y > 0 && !grid.getBlock(x, y - 1))
 	{
 		grid.setBlock(x, y - 1, this);
 		grid.setBlock(x, y, nullptr);
@@ -210,7 +210,7 @@ bool	ABlock::riseUp(Grid &grid, const int x, const int y)
 
 bool	ABlock::riseLeft(Grid &grid, const int x, const int y)
 {
-	if (x > 0 && !grid.getBlock(x - 1, y - 1))
+	if (x > 0 && y > 0 && !grid.getBlock(x - 1, y - 1))
 	{
 		grid.setBlock(x - 1, y - 1, this);
 		grid.setBlock(x, y, nullptr);
@@ -222,7 +222,7 @@ bool	ABlock::riseLeft(Grid &grid, const int x, const int y)
 
 bool	ABlock::riseRight(Grid &grid, const int x, const int y)
 {
-	if (x < grid.getSize() - 1 && !grid.getBlock(x + 1, y - 1))
+	if (x < grid.getSize() - 1 && y > 0 && !grid.getBlock(x + 1, y - 1))
 	{
 		grid.setBlock(x + 1, y - 1, this);
 		grid.setBlock(x, y, nullptr);
