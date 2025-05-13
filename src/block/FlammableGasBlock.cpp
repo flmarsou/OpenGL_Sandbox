@@ -5,6 +5,7 @@
 // ========================================================================== //
 
 FlammableGasBlock::FlammableGasBlock()
+	:	_burning(false)
 {
 	setId(FLAMMABLEGASBLOCK);
 
@@ -39,8 +40,46 @@ void	FlammableGasBlock::randomizeColor()
 	}
 }
 
+void	FlammableGasBlock::checkSurrounding(Grid &grid, const int x, const int y)
+{
+	if (grid.getBlock(x, y + 1)			// Bottom
+		|| grid.getBlock(x - 1, y + 1)	// Bottom Left
+		|| grid.getBlock(x + 1, y + 1)	// Bottom Right
+		|| grid.getBlock(x - 1, y)		// Left
+		|| grid.getBlock(x + 1, y)		// Right
+		|| grid.getBlock(x, y - 1)		// Top
+		|| grid.getBlock(x - 1, y - 1)	// Top Left
+		|| grid.getBlock(x + 1, y - 1))	// Top Right
+	{
+		if (grid.getBlock(x, y + 1) && grid.getBlock(x, y + 1)->getId() == FIREBLOCK)
+			this->_burning = true;
+		if (grid.getBlock(x - 1, y + 1) && grid.getBlock(x - 1, y + 1)->getId() == FIREBLOCK)
+			this->_burning = true;
+		if (grid.getBlock(x + 1, y + 1) && grid.getBlock(x + 1, y + 1)->getId() == FIREBLOCK)
+			this->_burning = true;
+		if (grid.getBlock(x - 1, y) && grid.getBlock(x - 1, y)->getId() == FIREBLOCK)
+			this->_burning = true;
+		if (grid.getBlock(x + 1, y) && grid.getBlock(x + 1, y)->getId() == FIREBLOCK)
+			this->_burning = true;
+		if (grid.getBlock(x, y - 1) && grid.getBlock(x, y - 1)->getId() == FIREBLOCK)
+			this->_burning = true;
+		if (grid.getBlock(x - 1, y - 1) && grid.getBlock(x - 1, y - 1)->getId() == FIREBLOCK)
+			this->_burning = true;
+		if (grid.getBlock(x + 1, y - 1) && grid.getBlock(x + 1, y - 1)->getId() == FIREBLOCK)
+			this->_burning = true;
+	}
+}
+
 void	FlammableGasBlock::update(Grid &grid, const int x, const int y)
 {
+	// Burning
+	checkSurrounding(grid, x, y);
+	if (this->_burning && std::rand() % 100 < 10)
+	{
+		grid.convertBlock(x, y, new FireBlock(10));
+		return ;
+	}
+
 	// Color
 	if (std::rand() % 100 == 1)
 		randomizeColor();
