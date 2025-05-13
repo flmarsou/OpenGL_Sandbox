@@ -44,7 +44,7 @@ bool	AcidBlock::dissolveBehavior(Grid &grid, const int x, const int y)
 	const unsigned int	id = grid.getBlock(x, y)->getId();
 
 	// 100%
-	if (id == SANDBLOCK || id == ASHBLOCK || id == WOODBLOCK)
+	if (id == SANDBLOCK || id == ASHBLOCK || id == WOODBLOCK || id == TOXICSLUDGEBLOCK)
 	{
 		grid.deleteBlock(x, y);
 		return (true);
@@ -57,6 +57,13 @@ bool	AcidBlock::dissolveBehavior(Grid &grid, const int x, const int y)
 		return (true);
 	}
 
+	// ToxicSludge Spawn
+	if (id == WATERBLOCK)
+	{
+		grid.deleteBlock(x, y);
+		grid.setBlock(x, y, new ToxicSludgeBlock());
+	}
+
 	return (false);
 }
 
@@ -66,7 +73,7 @@ bool	AcidBlock::dissolveSurrounding(Grid &grid, const int x, const int y)
 	const unsigned int	killChance = std::rand() % 100;
 	bool				dissolved = false;
 
-	// Attempts to dissolve with 75% chance
+	// Attempts to dissolve with 25% chance
 	if (skipChance < 75)
 		return (true);
 
