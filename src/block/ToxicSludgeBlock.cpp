@@ -22,19 +22,19 @@ void	ToxicSludgeBlock::randomizeColor()
 	switch (chance)
 	{
 		case (0):
-			setColor({0.525f, 0.525f, 0.102f});	// Olive
+			setColor({0.525f, 0.525f, 0.102f});	// Very Light Sluggish Green
 			break ;
 		case (1):
-			setColor({0.604f, 0.651f, 0.118f});	// Sludge Yellow
+			setColor({0.604f, 0.651f, 0.118f});	// Light Sluggish Green
 			break ;
 		case (2):
-			setColor({0.451f, 0.576f, 0.094f});	// Dirty Green
+			setColor({0.451f, 0.576f, 0.094f});	// Sluggish Green
 			break ;
 		case (3):
-			setColor({0.400f, 0.502f, 0.078f});	// Mucky Green
+			setColor({0.400f, 0.502f, 0.078f});	// Dark Sluggish Green
 			break ;
 		default:
-			setColor({0.380f, 0.455f, 0.078f});	// Swampy Olive
+			setColor({0.380f, 0.455f, 0.078f});	// Very Dark Sluggish Green
 			break ;
 	}
 }
@@ -66,7 +66,7 @@ void	ToxicSludgeBlock::update(Grid &grid, const int x, const int y)
 	convertSurrounding(grid, x, y);
 
 	// Evaporate and FlammableGas Spawn
-	if (!grid.getBlock(x, y - 1) && std::rand() % 100 < 1)
+	if (!grid.getBlock(x, y - 1) && std::rand() % 1000 < 5)
 	{
 		grid.setBlock(x, y - 1, new FlammableGasBlock());
 		grid.deleteBlock(x, y);
