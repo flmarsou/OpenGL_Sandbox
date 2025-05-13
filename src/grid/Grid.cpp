@@ -51,6 +51,15 @@ void	Grid::swapBlock(const int x, const int y, ABlock *swapBlock, const int swap
 	}
 }
 
+void	Grid::convertBlock(const int x, const int y, ABlock *convertBlock)
+{
+	ABlock	*temp = this->_grid[y][x];
+
+	if (temp)
+		deleteBlock(x, y);
+	setBlock(x, y, convertBlock);
+}
+
 void	Grid::deleteBlock(const int x, const int y)
 {
 	if (!(x < 0 || x >= this->_gridSize || y < 0 || y >= this->_gridSize) && this->_grid[y][x])
