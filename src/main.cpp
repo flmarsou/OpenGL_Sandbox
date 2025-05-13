@@ -1,7 +1,5 @@
 #include "config.hpp"
 
-Grid	*grid = new Grid(GRID_SIZE);
-
 int	main()
 {
 	GLFWwindow		*window;
@@ -10,6 +8,8 @@ int	main()
 	if (!initGLFW(window) || !initGLAD() || !initShader(shader))
 		return (-1);
 	initCallbacks(window);
+
+	Grid	*grid = new Grid(GRID_SIZE);
 
 	ABlock::initBlock();
 
