@@ -49,9 +49,9 @@ void	SandBlock::update(Grid &grid, const int x, const int y)
 	if (fallDown(grid, x, y))
 		return ;
 
-	const bool	leftFirst = std::rand() % 100 < 50;
-
 	// Diagonal Falls
+	const bool	leftFirst = std::rand() % 2;
+
 	if (leftFirst)
 	{
 		if (fallLeft(grid, x, y))

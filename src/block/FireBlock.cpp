@@ -148,7 +148,7 @@ void	FireBlock::update(Grid &grid, const int x, const int y)
 	}
 
 	// Security & Movement
-	if (y == 0)
+	if (grid.getBlock(x, y - 1) || y == 0)
 	{
 		if (std::rand() % 2)
 		{
@@ -166,10 +166,9 @@ void	FireBlock::update(Grid &grid, const int x, const int y)
 		}
 	}
 
-	// Rising Movements
+	// Fisher-Yates Shuffle Algorithm
 	unsigned int	direction[3] = {0, 1, 2};	// Up (0), Left (1), Right (2)
 
-	// Fisher-Yates Shuffle Algorithm
 	for (int i = 2; i >= 0; i--)
 	{
 		unsigned int	chance = std::rand() % (i + 1);
@@ -179,6 +178,7 @@ void	FireBlock::update(Grid &grid, const int x, const int y)
 		direction[chance] = temp;
 	}
 
+	// Rising Movements
 	for (unsigned int i = 0; i < 3; i++)
 	{
 		switch (direction[i])
@@ -186,17 +186,14 @@ void	FireBlock::update(Grid &grid, const int x, const int y)
 			case (0):
 				if (riseUp(grid, x, y))
 					return ;
-				break ;
 
 			case (1):
 				if (riseLeft(grid, x, y))
 					return ;
-				break ;
 
 			default:
 				if (riseRight(grid, x, y))
 					return ;
-				break ;
 		}
 	}
 }
