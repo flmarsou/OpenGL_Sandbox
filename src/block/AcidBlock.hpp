@@ -13,4 +13,5 @@ class	AcidBlock : public ABlock
 		void	randomizeColor();
 
 		bool	dissolveSurrounding(Grid &grid, const int x, const int y);
+		bool	dissolveBehavior(Grid &grid, const int x, const int y);
 };

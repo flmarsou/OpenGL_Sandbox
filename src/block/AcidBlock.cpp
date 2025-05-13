@@ -39,6 +39,27 @@ void	AcidBlock::randomizeColor()
 	}
 }
 
+bool	AcidBlock::dissolveBehavior(Grid &grid, const int x, const int y)
+{
+	const unsigned int	id = grid.getBlock(x, y)->getId();
+
+	// 100%
+	if (id == SANDBLOCK || id == ASHBLOCK || id == WOODBLOCK)
+	{
+		grid.deleteBlock(x, y);
+		return (true);
+	}
+
+	// 5%
+	if (std::rand() % 100 < 5 && id == STONEBLOCK)
+	{
+		grid.deleteBlock(x, y);
+		return (true);
+	}
+
+	return (false);
+}
+
 bool	AcidBlock::dissolveSurrounding(Grid &grid, const int x, const int y)
 {
 	const unsigned int	skipChance = std::rand() % 100;
@@ -55,25 +76,13 @@ bool	AcidBlock::dissolveSurrounding(Grid &grid, const int x, const int y)
 		|| grid.getBlock(x, y - 1))		// Top
 	{
 		if (grid.getBlock(x, y + 1) && grid.getBlock(x, y + 1)->getId() != ACIDBLOCK)
-		{
-			grid.deleteBlock(x, y + 1);
-			dissolved = true;
-		}
+			dissolved = dissolveBehavior(grid, x, y + 1);
 		if (grid.getBlock(x - 1, y) && grid.getBlock(x - 1, y)->getId() != ACIDBLOCK)
-		{
-			grid.deleteBlock(x - 1, y);
-			dissolved = true;
-		}
+			dissolved = dissolveBehavior(grid, x - 1, y);
 		if (grid.getBlock(x + 1, y) && grid.getBlock(x + 1, y)->getId() != ACIDBLOCK)
-		{
-			grid.deleteBlock(x + 1, y);
-			dissolved = true;
-		}
+			dissolved = dissolveBehavior(grid, x + 1, y);
 		if (grid.getBlock(x, y - 1) && grid.getBlock(x, y - 1)->getId() != ACIDBLOCK)
-		{
-			grid.deleteBlock(x, y - 1);
-			dissolved = true;
-		}
+			dissolved = dissolveBehavior(grid, x, y - 1);
 	}
 
 	// Kills the acid block if it dissolved something with 50% chance
