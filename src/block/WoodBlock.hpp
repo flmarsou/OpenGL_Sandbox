@@ -2,6 +2,7 @@
 
 # include "ABlock.hpp"
 # include "FireBlock.hpp"
+# include "AshBlock.hpp"
 
 class	WoodBlock : public ABlock
 {
@@ -13,5 +14,6 @@ class	WoodBlock : public ABlock
 	private:
 		void	randomizeColor();
 
-		bool	_burned;
+		void	checkSurrounding(Grid &grid, const int x, const int y);
+		bool	_burning;
 };

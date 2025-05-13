@@ -5,7 +5,7 @@
 // ========================================================================== //
 
 WoodBlock::WoodBlock()
-	:	_burned(false)
+	:	_burning(false)
 {
 	setId(WOODBLOCK);
 
@@ -40,10 +40,8 @@ void	WoodBlock::randomizeColor()
 	}
 }
 
-void	WoodBlock::update(Grid &grid, const int x, const int y)
+void	WoodBlock::checkSurrounding(Grid &grid, const int x, const int y)
 {
-	const unsigned int	chance = std::rand() % 100;
-
 	if (grid.getBlock(x, y + 1)			// Bottom
 		|| grid.getBlock(x - 1, y + 1)	// Bottom Left
 		|| grid.getBlock(x + 1, y + 1)	// Bottom Right
@@ -54,22 +52,53 @@ void	WoodBlock::update(Grid &grid, const int x, const int y)
 		|| grid.getBlock(x + 1, y - 1))	// Top Right
 	{
 		if (grid.getBlock(x, y + 1) && grid.getBlock(x, y + 1)->getId() == FIREBLOCK)
-			this->_burned = true;
+			this->_burning = true;
 		if (grid.getBlock(x - 1, y + 1) && grid.getBlock(x - 1, y + 1)->getId() == FIREBLOCK)
-			this->_burned = true;
+			this->_burning = true;
 		if (grid.getBlock(x + 1, y + 1) && grid.getBlock(x + 1, y + 1)->getId() == FIREBLOCK)
-			this->_burned = true;
+			this->_burning = true;
 		if (grid.getBlock(x - 1, y) && grid.getBlock(x - 1, y)->getId() == FIREBLOCK)
-			this->_burned = true;
+			this->_burning = true;
 		if (grid.getBlock(x + 1, y) && grid.getBlock(x + 1, y)->getId() == FIREBLOCK)
-			this->_burned = true;
+			this->_burning = true;
 		if (grid.getBlock(x, y - 1) && grid.getBlock(x, y - 1)->getId() == FIREBLOCK)
-			this->_burned = true;
+			this->_burning = true;
 		if (grid.getBlock(x - 1, y - 1) && grid.getBlock(x - 1, y - 1)->getId() == FIREBLOCK)
-			this->_burned = true;
+			this->_burning = true;
 		if (grid.getBlock(x + 1, y - 1) && grid.getBlock(x + 1, y - 1)->getId() == FIREBLOCK)
-			this->_burned = true;
+			this->_burning = true;
 	}
+}
 
-	// TODO: Burn behavior
+void	WoodBlock::update(Grid &grid, const int x, const int y)
+{
+	checkSurrounding(grid, x, y);
+
+	if (!this->_burning)
+		return ;
+
+	const unsigned int	chance = std::rand() % 100;
+
+	if (chance < 10)
+	{
+		grid.setBlock(x, y - 1, new FireBlock());
+		grid.setBlock(x, y + 1, new FireBlock());
+		grid.setBlock(x - 1, y, new FireBlock());
+		grid.setBlock(x + 1, y, new FireBlock());
+	}
+	if (chance < 15)
+	{
+		grid.setBlock(x - 1, y - 1, new FireBlock());
+		grid.setBlock(x + 1, y - 1, new FireBlock());
+		grid.setBlock(x - 1, y + 1, new FireBlock());
+		grid.setBlock(x + 1, y + 1, new FireBlock());
+	}
+	else if (chance == 15)
+	{
+		grid.deleteBlock(x, y);
+		if (std::rand() % 2)
+			grid.setBlock(x, y, new AshBlock());
+	}
+	else if (chance < 30)
+		this->_burning = false;
 }
