@@ -80,14 +80,14 @@ void	WoodBlock::update(Grid &grid, const int x, const int y)
 	const unsigned int	chance = std::rand() % 100;
 
 	// Spread fire
-	if (chance < 10)
+	if (chance < 15)
 	{
 		grid.setBlock(x, y - 1, new FireBlock());
 		grid.setBlock(x, y + 1, new FireBlock());
 		grid.setBlock(x - 1, y, new FireBlock());
 		grid.setBlock(x + 1, y, new FireBlock());
 	}
-	if (chance < 15)
+	if (chance < 10)
 	{
 		grid.setBlock(x - 1, y - 1, new FireBlock());
 		grid.setBlock(x + 1, y - 1, new FireBlock());
@@ -104,6 +104,6 @@ void	WoodBlock::update(Grid &grid, const int x, const int y)
 	}
 
 	// Extinguish
-	if (chance < 30)
+	if (chance < 20)
 		this->_burning = false;
 }
