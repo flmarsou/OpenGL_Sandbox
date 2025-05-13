@@ -186,14 +186,17 @@ void	FireBlock::update(Grid &grid, const int x, const int y)
 			case (0):
 				if (riseUp(grid, x, y))
 					return ;
+				break ;
 
 			case (1):
 				if (riseLeft(grid, x, y))
 					return ;
+				break ;
 
 			default:
 				if (riseRight(grid, x, y))
 					return ;
+				break ;
 		}
 	}
 }

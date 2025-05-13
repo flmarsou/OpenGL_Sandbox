@@ -125,16 +125,6 @@ bool	ABlock::isOnGround(Grid &grid, const int y)
 	return (false);
 }
 
-bool	ABlock::isOnCeiling(const int y)
-{
-	if (y == 0)
-	{
-		this->_isUpdated = true;
-		return (true);
-	}
-	return (false);
-}
-
 bool	ABlock::fallDown(Grid &grid, const int x, const int y)
 {
 	if (!grid.getBlock(x, y + 1))

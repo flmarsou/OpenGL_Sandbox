@@ -44,7 +44,6 @@ class	ABlock
 		unsigned int	getId() const;
 
 		bool	isOnGround(Grid &grid, const int y);
-		bool	isOnCeiling(const int y);
 		bool	fallDown(Grid &grid, const int x, const int y);
 		bool	fallLeft(Grid &grid, const int x, const int y);
 		bool	fallRight(Grid &grid, const int x, const int y);
