@@ -80,6 +80,10 @@ void	WaterBlock::update(Grid &grid, const int x, const int y)
 	if (fallDown(grid, x, y))
 		return ;
 
+	// Stone to Sand
+	if (grid.getBlock(x, y + 1) && grid.getBlock(x, y + 1)->getId() == STONEBLOCK && std::rand() % 1000 == 0)
+		grid.convertBlock(x, y + 1, new SandBlock());
+
 	// Diagonal Falls & Movements
 	if (leftFirst)
 	{
