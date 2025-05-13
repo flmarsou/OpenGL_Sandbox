@@ -8,7 +8,7 @@ Grid::Grid(const unsigned int size)
 {
 	this->_grid.resize(size, std::vector<ABlock *>(size, nullptr));
 	this->_gridSize = size;
-	std::cout << INFO "Grid initialized!" << std::endl;
+	std::cout << SUCCESS "Grid initialized!" << std::endl;
 }
 Grid::~Grid()
 {
@@ -16,7 +16,7 @@ Grid::~Grid()
 		for (int x = 0; x < this->_gridSize; x++)
 			if (this->_grid[y][x])
 				delete this->_grid[y][x];
-	std::cout << INFO "Grid deleted!" << std::endl;
+	std::cout << SUCCESS "Grid deleted!" << std::endl;
 }
 
 // ========================================================================== //

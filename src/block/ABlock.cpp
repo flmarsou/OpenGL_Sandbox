@@ -43,7 +43,7 @@ void	ABlock::initBlock()
 	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void *)0);
 	glEnableVertexAttribArray(0);
 
-	std::cout << INFO "VAO, VBO, and EBO linked to Block!" << std::endl;
+	std::cout << SUCCESS "VAO, VBO, and EBO linked to Block!" << std::endl;
 }
 
 void	ABlock::deleteBlock()
@@ -52,7 +52,7 @@ void	ABlock::deleteBlock()
 	glDeleteBuffers(1, &_VBO);
 	glDeleteBuffers(1, &_EBO);
 
-	std::cout << INFO "VAO, VBO, and EBO deleted from Block!" << std::endl;
+	std::cout << SUCCESS "VAO, VBO, and EBO deleted from Block!" << std::endl;
 }
 
 // ========================================================================== //

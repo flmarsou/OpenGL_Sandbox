@@ -21,24 +21,31 @@ static void	keyCallback(GLFWwindow *window, int key, int scancode, int action, i
 		{
 			case (GLFW_KEY_1):
 				Input::keyPressed = GLFW_KEY_1;
+				std::cout << INFO "Sand Selected!" << std::endl;
 				break ;
 			case (GLFW_KEY_2):
 				Input::keyPressed = GLFW_KEY_2;
+				std::cout << INFO "Water Selected!" << std::endl;
 				break ;
 			case (GLFW_KEY_3):
 				Input::keyPressed = GLFW_KEY_3;
+				std::cout << INFO "Stone Selected!" << std::endl;
 				break ;
 			case (GLFW_KEY_4):
 				Input::keyPressed = GLFW_KEY_4;
+				std::cout << INFO "Bomb Selected!" << std::endl;
 				break ;
 			case (GLFW_KEY_5):
 				Input::keyPressed = GLFW_KEY_5;
+				std::cout << INFO "Fire Selected!" << std::endl;
 				break ;
 			case (GLFW_KEY_6):
 				Input::keyPressed = GLFW_KEY_6;
+				std::cout << INFO "Acid Selected!" << std::endl;
 				break ;
 			case (GLFW_KEY_7):
 				Input::keyPressed = GLFW_KEY_7;
+				std::cout << INFO "Wood Selected!" << std::endl;
 				break ;
 
 			case (GLFW_KEY_ESCAPE):
