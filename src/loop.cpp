@@ -33,11 +33,11 @@ static void	placeBlock(GLFWwindow *window, Grid *grid)
 			break ;
 
 		case (GLFW_KEY_5):
-			grid->setBlock(cellX, cellY, new FireBlock(50));
-			grid->setBlock(cellX - 1, cellY, new FireBlock(50));
-			grid->setBlock(cellX + 1, cellY, new FireBlock(50));
-			grid->setBlock(cellX, cellY - 1, new FireBlock(50));
-			grid->setBlock(cellX, cellY + 1, new FireBlock(50));
+			grid->setBlock(cellX, cellY, new FireBlock());
+			grid->setBlock(cellX - 1, cellY, new FireBlock());
+			grid->setBlock(cellX + 1, cellY, new FireBlock());
+			grid->setBlock(cellX, cellY - 1, new FireBlock());
+			grid->setBlock(cellX, cellY + 1, new FireBlock());
 			break ;
 
 		case (GLFW_KEY_6):
