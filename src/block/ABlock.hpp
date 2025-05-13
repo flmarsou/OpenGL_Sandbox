@@ -18,7 +18,8 @@ enum	blockType
 	BOMBBLOCK,
 	FIREBLOCK,
 	ACIDBLOCK,
-	WOODBLOCK
+	WOODBLOCK,
+	ASHBLOCK
 };
 
 class	Grid;
