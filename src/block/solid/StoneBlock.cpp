@@ -6,7 +6,7 @@
 
 StoneBlock::StoneBlock()
 {
-	setId(STONEBLOCK);
+	setId(STONE_BLOCK);
 
 	randomizeColor();
 }

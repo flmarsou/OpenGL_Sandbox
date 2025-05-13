@@ -6,7 +6,7 @@
 
 WaterBlock::WaterBlock()
 {
-	setId(WATERBLOCK);
+	setId(WATER_BLOCK);
 
 	randomizeColor();
 }
@@ -46,7 +46,7 @@ void	WaterBlock::update(Grid &grid, const int x, const int y)
 		randomizeColor();
 
 	// Swap Above
-	if (grid.getBlock(x, y - 1) && grid.getBlock(x, y - 1)->getId() == SANDBLOCK)
+	if (grid.getBlock(x, y - 1) && grid.getBlock(x, y - 1)->getId() == SAND_BLOCK)
 	{
 		grid.swapBlock(x, y - 1, this, x, y);
 		setUpdate(true);
@@ -81,7 +81,7 @@ void	WaterBlock::update(Grid &grid, const int x, const int y)
 		return ;
 
 	// Stone to Sand
-	if (grid.getBlock(x, y + 1) && grid.getBlock(x, y + 1)->getId() == STONEBLOCK && std::rand() % 1000 == 0)
+	if (grid.getBlock(x, y + 1) && grid.getBlock(x, y + 1)->getId() == STONE_BLOCK && std::rand() % 1000 == 0)
 		grid.convertBlock(x, y + 1, new SandBlock());
 
 	// Diagonal Falls & Movements

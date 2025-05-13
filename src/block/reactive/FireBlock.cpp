@@ -7,7 +7,7 @@
 FireBlock::FireBlock()
 	:	_extinguishRate(50), _extinguishColor(0)
 {
-	setId(FIREBLOCK);
+	setId(FIRE_BLOCK);
 
 	randomizeYellow();
 }
@@ -15,7 +15,7 @@ FireBlock::FireBlock()
 FireBlock::FireBlock(unsigned int extinguishRate)
 	:	_extinguishRate(extinguishRate), _extinguishColor(0)
 {
-	setId(FIREBLOCK);
+	setId(FIRE_BLOCK);
 
 	randomizeYellow();
 }

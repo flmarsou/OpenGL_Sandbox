@@ -6,7 +6,7 @@
 
 BombBlock::BombBlock()
 {
-	setId(BOMBBLOCK);
+	setId(BOMB_BLOCK);
 
 	// TODO: Make better color
 	setColor({1.0f, 0.0f, 0.0f});
@@ -20,7 +20,7 @@ static bool	isBlockResistant(const Grid &grid, const int explosionX, const int e
 {
 	const ABlock *target = grid.getBlock(explosionX, explosionY);
 
-	if (target && target->getId() == STONEBLOCK)
+	if (target && target->getId() == STONE_BLOCK)
 		return (true);
 	return (false);
 }
@@ -41,7 +41,7 @@ static bool isExplosionBlocked(const Grid &grid, int x, int y, const int explosi
 
 		// Explosion Blocker
 		const ABlock	*temp = grid.getBlock(x, y);
-		if (temp && temp->getId() == STONEBLOCK)
+		if (temp && temp->getId() == STONE_BLOCK)
 			return (true);
 
 		// Bresenham's Algorithm
@@ -77,7 +77,7 @@ static bool	isExplosionShape(const int x, const int y, const int explosionX, con
 void	BombBlock::update(Grid &grid, const int x, const int y)
 {
 	// Security & Explosion
-	if (isOnGround(grid, y) || (grid.getBlock(x, y + 1) && grid.getBlock(x, y + 1)->getId() != BOMBBLOCK))
+	if (isOnGround(grid, y) || (grid.getBlock(x, y + 1) && grid.getBlock(x, y + 1)->getId() != BOMB_BLOCK))
 	{
 		grid.deleteBlock(x, y);
 

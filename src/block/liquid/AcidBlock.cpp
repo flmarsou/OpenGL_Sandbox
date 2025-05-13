@@ -6,7 +6,7 @@
 
 AcidBlock::AcidBlock()
 {
-	setId(ACIDBLOCK);
+	setId(ACID_BLOCK);
 
 	randomizeColor();
 }
@@ -44,21 +44,21 @@ bool	AcidBlock::dissolveBehavior(Grid &grid, const int x, const int y)
 	const unsigned int	id = grid.getBlock(x, y)->getId();
 
 	// 100%
-	if (id == SANDBLOCK || id == ASHBLOCK || id == WOODBLOCK || id == TOXICSLUDGEBLOCK)
+	if (id == SAND_BLOCK || id == ASH_BLOCK || id == WOOD_BLOCK || id == TOXIC_SLUDGE_BLOCK)
 	{
 		grid.deleteBlock(x, y);
 		return (true);
 	}
 
 	// 5%
-	if (std::rand() % 100 < 5 && id == STONEBLOCK)
+	if (std::rand() % 100 < 5 && id == STONE_BLOCK)
 	{
 		grid.deleteBlock(x, y);
 		return (true);
 	}
 
 	// ToxicSludge Spawn
-	if (id == WATERBLOCK)
+	if (id == WATER_BLOCK)
 	{
 		grid.deleteBlock(x, y);
 		grid.setBlock(x, y, new ToxicSludgeBlock());
@@ -82,13 +82,13 @@ bool	AcidBlock::dissolveSurrounding(Grid &grid, const int x, const int y)
 		|| grid.getBlock(x + 1, y)		// Right
 		|| grid.getBlock(x, y - 1))		// Top
 	{
-		if (grid.getBlock(x, y + 1) && grid.getBlock(x, y + 1)->getId() != ACIDBLOCK)
+		if (grid.getBlock(x, y + 1) && grid.getBlock(x, y + 1)->getId() != ACID_BLOCK)
 			dissolved = dissolveBehavior(grid, x, y + 1);
-		if (grid.getBlock(x - 1, y) && grid.getBlock(x - 1, y)->getId() != ACIDBLOCK)
+		if (grid.getBlock(x - 1, y) && grid.getBlock(x - 1, y)->getId() != ACID_BLOCK)
 			dissolved = dissolveBehavior(grid, x - 1, y);
-		if (grid.getBlock(x + 1, y) && grid.getBlock(x + 1, y)->getId() != ACIDBLOCK)
+		if (grid.getBlock(x + 1, y) && grid.getBlock(x + 1, y)->getId() != ACID_BLOCK)
 			dissolved = dissolveBehavior(grid, x + 1, y);
-		if (grid.getBlock(x, y - 1) && grid.getBlock(x, y - 1)->getId() != ACIDBLOCK)
+		if (grid.getBlock(x, y - 1) && grid.getBlock(x, y - 1)->getId() != ACID_BLOCK)
 			dissolved = dissolveBehavior(grid, x, y - 1);
 	}
 

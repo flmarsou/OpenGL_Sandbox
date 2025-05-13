@@ -6,7 +6,7 @@
 
 AshBlock::AshBlock()
 {
-	setId(ASHBLOCK);
+	setId(ASH_BLOCK);
 
 	randomizeColor();
 }

@@ -6,7 +6,7 @@
 
 ToxicSludgeBlock::ToxicSludgeBlock()
 {
-	setId(TOXICSLUDGEBLOCK);
+	setId(TOXIC_SLUDGE_BLOCK);
 
 	randomizeColor();
 }
@@ -50,13 +50,13 @@ void	ToxicSludgeBlock::convertSurrounding(Grid &grid, const int x, const int y)
 		|| grid.getBlock(x + 1, y)		// Right
 		|| grid.getBlock(x, y - 1))		// Top
 	{
-		if (grid.getBlock(x, y + 1) && grid.getBlock(x, y + 1)->getId() == WATERBLOCK)
+		if (grid.getBlock(x, y + 1) && grid.getBlock(x, y + 1)->getId() == WATER_BLOCK)
 			grid.convertBlock(x, y + 1, new ToxicSludgeBlock());
-		if (grid.getBlock(x - 1, y) && grid.getBlock(x - 1, y)->getId() == WATERBLOCK)
+		if (grid.getBlock(x - 1, y) && grid.getBlock(x - 1, y)->getId() == WATER_BLOCK)
 			grid.convertBlock(x - 1, y, new ToxicSludgeBlock());
-		if (grid.getBlock(x + 1, y) && grid.getBlock(x + 1, y)->getId() == WATERBLOCK)
+		if (grid.getBlock(x + 1, y) && grid.getBlock(x + 1, y)->getId() == WATER_BLOCK)
 			grid.convertBlock(x + 1, y, new ToxicSludgeBlock());
-		if (grid.getBlock(x, y - 1) && grid.getBlock(x, y - 1)->getId() == WATERBLOCK)
+		if (grid.getBlock(x, y - 1) && grid.getBlock(x, y - 1)->getId() == WATER_BLOCK)
 			grid.convertBlock(x, y - 1, new ToxicSludgeBlock());
 	}
 }
@@ -78,7 +78,7 @@ void	ToxicSludgeBlock::update(Grid &grid, const int x, const int y)
 		randomizeColor();
 
 	// Swap Above
-	if (grid.getBlock(x, y - 1) && grid.getBlock(x, y - 1)->getId() == SANDBLOCK)
+	if (grid.getBlock(x, y - 1) && grid.getBlock(x, y - 1)->getId() == SAND_BLOCK)
 	{
 		grid.swapBlock(x, y - 1, this, x, y);
 		setUpdate(true);
