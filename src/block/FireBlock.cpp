@@ -5,39 +5,128 @@
 // ========================================================================== //
 
 FireBlock::FireBlock(unsigned int extinguishRate)
-	:	_extinguishRate(extinguishRate)
+	:	_extinguishRate(extinguishRate), _extinguishColor(0)
 {
 	setId(FIREBLOCK);
 
-	randomizeColor();
+	randomizeYellow();
 }
 
 // ========================================================================== //
 //   Methods & Functions                                                      //
 // ========================================================================== //
 
-void	FireBlock::randomizeColor()
+void	FireBlock::randomizeYellow()
 {
-	const unsigned int	chance = std::rand() % 5;
+	const unsigned int	chance = std::rand() % 3;
 
 	switch (chance)
 	{
 		case (0):
-			setColor({1.0f, 0.95f, 0.8f});	// Yellow
+			setColor({1.0f, 0.95f, 0.7f});		// Light
 			break ;
 		case (1):
-			setColor({1.0f, 0.85f, 0.4f});	// Orange
-			break ;
-		case (2):
-			setColor({1.0f, 0.6f, 0.2f});	// Orange
-			break ;
-		case (3):
-			setColor({0.9f, 0.3f, 0.1f});	// Red-Orange
+			setColor({1.0f, 0.92f, 0.6f});		// Normal
 			break ;
 		default:
-			setColor({0.8f, 0.1f, 0.05f});	// Red
+			setColor({1.0f, 0.98f, 0.5f});		// Dark
 			break ;
 	}
+}
+
+void	FireBlock::randomizeDarkYellow()
+{
+	const unsigned int	chance = std::rand() % 3;
+
+	switch (chance)
+	{
+		case (0):
+			setColor({0.9f, 0.75f, 0.3f});		// Light
+			break ;
+		case (1):
+			setColor({0.85f, 0.7f, 0.2f});		// Normal
+			break ;
+		default:
+			setColor({0.8f, 0.65f, 0.1f});		// Dark
+			break ;
+	}
+}
+
+void	FireBlock::randomizeOrange()
+{
+	const unsigned int	chance = std::rand() % 3;
+
+	switch (chance)
+	{
+		case (0):
+			setColor({1.0f, 0.6f, 0.2f});		// Light
+			break ;
+		case (1):
+			setColor({1.0f, 0.55f, 0.1f});		// Normal
+			break ;
+		default:
+			setColor({0.95f, 0.5f, 0.05f});		// Dark
+			break ;
+	}
+}
+
+void	FireBlock::randomizeDarkOrange()
+{
+	const unsigned int	chance = std::rand() % 3;
+
+	switch (chance)
+	{
+		case (0):
+			setColor({0.9f, 0.3f, 0.1f});		// Light
+			break ;
+		case (1):
+			setColor({0.85f, 0.25f, 0.05f});	// Normal
+			break ;
+		default:
+			setColor({0.8f, 0.2f, 0.05f});		// Dark
+			break ;
+	}
+}
+
+void	FireBlock::randomizeRed()
+{
+	const unsigned int	chance = std::rand() % 3;
+
+	switch (chance)
+	{
+		case (0):
+			setColor({0.8f, 0.1f, 0.05f});		// Light
+			break ;
+		case (1):
+			setColor({0.75f, 0.05f, 0.05f});	// Normal
+			break ;
+		default:
+			setColor({0.7f, 0.0f, 0.0f});		// Dark
+			break ;
+	}
+}
+
+bool	FireBlock::extinguishRate()
+{
+	switch (this->_extinguishColor)
+	{
+		case (0):
+			randomizeDarkYellow();
+			break;
+		case (1):
+			randomizeOrange();
+			break;
+		case (2):
+			randomizeDarkOrange();
+			break;
+		case (3):
+			randomizeRed();
+			break;
+		default:
+			return (true);
+	}
+	this->_extinguishColor++;
+	return (false);
 }
 
 void	FireBlock::update(Grid &grid, const int x, const int y)
@@ -45,7 +134,8 @@ void	FireBlock::update(Grid &grid, const int x, const int y)
 	// Extinguish
 	if (std::rand() % 100 < this->_extinguishRate)
 	{
-		grid.deleteBlock(x, y);
+		if (extinguishRate())
+			grid.deleteBlock(x, y);
 		return ;
 	}
 

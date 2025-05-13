@@ -10,7 +10,14 @@ class	FireBlock : public ABlock
 		void	update(Grid &grid, const int x, const int y) override;
 
 	private:
-		void	randomizeColor();
+		void	randomizeYellow();
+		void	randomizeDarkYellow();
+		void	randomizeOrange();
+		void	randomizeDarkOrange();
+		void	randomizeRed();
 
-		unsigned int	_extinguishRate;
+		bool	extinguishRate();
+
+		int	_extinguishRate;
+		int	_extinguishColor;
 };
