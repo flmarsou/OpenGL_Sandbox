@@ -51,6 +51,10 @@ static void	placeBlock(GLFWwindow *window, Grid *grid)
 			grid->setBlock(cellX, cellY - 1, new WoodBlock());
 			grid->setBlock(cellX, cellY + 1, new WoodBlock());
 			break ;
+
+		case (GLFW_KEY_8):
+			grid->setBlock(cellX, cellY, new MudBlock());
+			break ;
 	}
 }
 

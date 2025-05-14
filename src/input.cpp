@@ -47,6 +47,10 @@ static void	keyCallback(GLFWwindow *window, int key, int scancode, int action, i
 				Input::keyPressed = GLFW_KEY_7;
 				std::cout << INFO "Wood Selected!" << std::endl;
 				break ;
+			case (GLFW_KEY_8):
+				Input::keyPressed = GLFW_KEY_8;
+				std::cout << INFO "Mud Selected!" << std::endl;
+				break ;
 
 			case (GLFW_KEY_ESCAPE):
 				glfwSetWindowShouldClose(window, true);

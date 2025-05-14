@@ -18,6 +18,7 @@ add_executable(opengl_sandbox
 	src/block/liquid/ToxicSludgeBlock.cpp
 	src/block/liquid/WaterBlock.cpp
 	src/block/powder/AshBlock.cpp
+	src/block/powder/MudBlock.cpp
 	src/block/powder/SandBlock.cpp
 	src/block/reactive/BombBlock.cpp
 	src/block/reactive/FireBlock.cpp
