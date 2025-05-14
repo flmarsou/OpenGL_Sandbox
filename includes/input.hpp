@@ -5,6 +5,7 @@ namespace Input
 	extern int	keyPressed;
 	extern bool	keyFPSToggle;
 	extern bool	keyVSyncToggle;
+	extern bool	keyPauseToggle;
 
 	extern bool	mouseLeftPressed;
 }

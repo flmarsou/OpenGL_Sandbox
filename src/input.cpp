@@ -5,6 +5,7 @@ namespace	Input
 	int		keyPressed;
 	bool	keyFPSToggle;
 	bool	keyVSyncToggle;
+	bool	keyPauseToggle;
 
 	bool	mouseLeftPressed;
 }
@@ -81,6 +82,19 @@ static void	keyCallback(GLFWwindow *window, int key, int scancode, int action, i
 					std::cout << INFO "V-Sync Off!" << std::endl;
 					glfwSwapInterval(1);
 					Input::keyVSyncToggle = false;
+				}
+				break ;
+
+			case (GLFW_KEY_SPACE):
+				if (!Input::keyPauseToggle)
+				{
+					std::cout << INFO "Paused!" << std::endl;
+					Input::keyPauseToggle = true;
+				}
+				else
+				{
+					std::cout << INFO "Unpaused!" << std::endl;
+					Input::keyPauseToggle = false;
 				}
 				break ;
 		}

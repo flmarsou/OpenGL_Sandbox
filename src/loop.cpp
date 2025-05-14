@@ -61,7 +61,8 @@ static void	placeBlock(GLFWwindow *window, Grid *grid)
 void	gameLoop(GLFWwindow *window, const unsigned int &shader, Grid *grid)
 {
 	grid->draw(shader);
-	grid->update();
+	if (!Input::keyPauseToggle)
+		grid->update();
 
 	if (Input::mouseLeftPressed)
 		placeBlock(window, grid);
