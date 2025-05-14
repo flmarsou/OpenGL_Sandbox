@@ -4,11 +4,14 @@ static void	placeBlock(GLFWwindow *window, Grid *grid)
 {
 	double	xpos;
 	double	ypos;
+	int		width;
+	int		height;
 
 	glfwGetCursorPos(window, &xpos, &ypos);
+	glfwGetFramebufferSize(window, &width, &height);
 
-	const int	cellX = static_cast<int>((xpos / WINDOW_WIDTH) * GRID_SIZE);
-	const int	cellY = static_cast<int>((ypos / WINDOW_HEIGHT) * GRID_SIZE);
+	const int	cellX = static_cast<int>((xpos / width) * GRID_SIZE);
+	const int	cellY = static_cast<int>((ypos / height) * GRID_SIZE);
 
 	switch (Input::keyPressed)
 	{

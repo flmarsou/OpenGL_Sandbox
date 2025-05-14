@@ -13,7 +13,6 @@ int	main()
 
 	ABlock::initBlock();
 
-	glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 	while (!glfwWindowShouldClose(window))
 	{
 		glClear(GL_COLOR_BUFFER_BIT);

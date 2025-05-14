@@ -10,6 +10,11 @@ namespace	Input
 	bool	mouseLeftPressed;
 }
 
+static void	framebufferSizeCallback(GLFWwindow *window, int width, int height)
+{
+	glViewport(0, 0, width, height);
+}
+
 static void	keyCallback(GLFWwindow *window, int key, int scancode, int action, int mods)
 {
 	(void)window;
@@ -125,4 +130,5 @@ void	initCallbacks(GLFWwindow *window)
 {
 	glfwSetMouseButtonCallback(window, mouseButtonCallback);
 	glfwSetKeyCallback(window, keyCallback);
+	glfwSetFramebufferSizeCallback(window, framebufferSizeCallback);
 }
