@@ -29,7 +29,8 @@ enum	blockID
 enum	blockType
 {
 	EMPTY_TYPE,
-	POWDER_TYPE
+	POWDER_TYPE,
+	LIQUID_TYPE
 };
 
 class	Grid;

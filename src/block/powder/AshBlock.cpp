@@ -67,4 +67,20 @@ void	AshBlock::update(Grid &grid, const int x, const int y)
 		if (fallLeft(grid, x, y))
 			return ;
 	}
+
+	// Diagonal Falls in water
+	if (leftFirst && grid.getBlock(x - 1, y + 1) && grid.getBlock(x - 1, y + 1)->getType() == LIQUID_TYPE)
+	{
+		grid.swapBlock(x - 1, y + 1, this, x, y);
+		setUpdate(true);
+		grid.getBlock(x - 1, y + 1)->setUpdate(true);
+		return ;
+	}
+	else if (grid.getBlock(x + 1, y + 1) && grid.getBlock(x + 1, y + 1)->getType() == LIQUID_TYPE)
+	{
+		grid.swapBlock(x + 1, y + 1, this, x, y);
+		setUpdate(true);
+		grid.getBlock(x + 1, y + 1)->setUpdate(true);
+		return ;
+	}
 }

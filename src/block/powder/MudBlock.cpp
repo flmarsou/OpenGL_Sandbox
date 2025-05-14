@@ -55,9 +55,11 @@ void	MudBlock::update(Grid &grid, const int x, const int y)
 	}
 
 	// Stuck Movement
-	if (grid.getBlock(x, y + 1) && grid.getBlock(x, y + 1)->getId() != WATER_BLOCK && !this->_stuck)
+	if (grid.getBlock(x, y + 1) && grid.getBlock(x, y + 1)->getType() != LIQUID_TYPE && !this->_stuck)
+	{
 		if (std::rand() % 100 < 10)
-		this->_stuck = true;
+			this->_stuck = true;
+	}
 
 	if (this->_stuck)
 	{
@@ -84,14 +86,14 @@ void	MudBlock::update(Grid &grid, const int x, const int y)
 	}
 
 	// Diagonal Falls in water
-	if (leftFirst && grid.getBlock(x - 1, y + 1) && grid.getBlock(x - 1, y + 1)->getId() == WATER_BLOCK)
+	if (leftFirst && grid.getBlock(x - 1, y + 1) && grid.getBlock(x - 1, y + 1)->getType() == LIQUID_TYPE)
 	{
 		grid.swapBlock(x - 1, y + 1, this, x, y);
 		setUpdate(true);
 		grid.getBlock(x - 1, y + 1)->setUpdate(true);
 		return ;
 	}
-	else if (grid.getBlock(x + 1, y + 1) && grid.getBlock(x + 1, y + 1)->getId() == WATER_BLOCK)
+	else if (grid.getBlock(x + 1, y + 1) && grid.getBlock(x + 1, y + 1)->getType() == LIQUID_TYPE)
 	{
 		grid.swapBlock(x + 1, y + 1, this, x, y);
 		setUpdate(true);

@@ -7,6 +7,7 @@
 WaterBlock::WaterBlock()
 {
 	setId(WATER_BLOCK);
+	setType(LIQUID_TYPE);
 
 	randomizeColor();
 }

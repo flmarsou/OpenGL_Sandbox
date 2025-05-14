@@ -7,6 +7,7 @@
 ToxicSludgeBlock::ToxicSludgeBlock()
 {
 	setId(TOXIC_SLUDGE_BLOCK);
+	setType(LIQUID_TYPE);
 
 	randomizeColor();
 }
@@ -78,7 +79,7 @@ void	ToxicSludgeBlock::update(Grid &grid, const int x, const int y)
 		randomizeColor();
 
 	// Swap Above
-	if (grid.getBlock(x, y - 1) && grid.getBlock(x, y - 1)->getId() == SAND_BLOCK)
+	if (grid.getBlock(x, y - 1) && grid.getBlock(x, y - 1)->getType() == POWDER_TYPE)
 	{
 		grid.swapBlock(x, y - 1, this, x, y);
 		setUpdate(true);
