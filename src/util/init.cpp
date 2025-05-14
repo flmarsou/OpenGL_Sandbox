@@ -22,6 +22,7 @@ bool	initGLFW(GLFWwindow *&window)
 		glfwTerminate();
 		return (false);
 	}
+	glfwSetWindowAspectRatio(window, 1, 1);
 	glfwMakeContextCurrent(window);
 	std::cout << SUCCESS "Window created successfully!" << std::endl;
 
