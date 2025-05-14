@@ -4,6 +4,13 @@ project("OpenGL Sandbox")
 # Executables
 add_executable(opengl_sandbox
 	libs/GLAD/glad.c
+	libs/IMGUI/imgui.cpp
+	libs/IMGUI/imgui_draw.cpp
+	libs/IMGUI/imgui_tables.cpp
+	libs/IMGUI/imgui_widgets.cpp
+	libs/IMGUI/imgui_demo.cpp
+	libs/IMGUI/imgui_impl_glfw.cpp
+	libs/IMGUI/imgui_impl_opengl3.cpp
 	src/main.cpp
 	src/util/init.cpp
 	src/util/shaders.cpp

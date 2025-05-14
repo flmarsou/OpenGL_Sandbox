@@ -2,16 +2,17 @@
 
 namespace	Input
 {
-	int		keyPressed;
-	bool	keyFPSToggle;
-	bool	keyVSyncToggle;
-	bool	keyPauseToggle;
+	unsigned int	blockSelected;
+	bool			keyFPSToggle;
+	bool			keyVSyncToggle;
+	bool			keyPauseToggle;
 
-	bool	mouseLeftPressed;
+	bool			mouseLeftPressed;
 }
 
 static void	framebufferSizeCallback(GLFWwindow *window, int width, int height)
 {
+	(void)window;
 	glViewport(0, 0, width, height);
 }
 
@@ -25,39 +26,6 @@ static void	keyCallback(GLFWwindow *window, int key, int scancode, int action, i
 	{
 		switch (key)
 		{
-			case (GLFW_KEY_1):
-				Input::keyPressed = GLFW_KEY_1;
-				std::cout << INFO "Sand Selected!" << std::endl;
-				break ;
-			case (GLFW_KEY_2):
-				Input::keyPressed = GLFW_KEY_2;
-				std::cout << INFO "Water Selected!" << std::endl;
-				break ;
-			case (GLFW_KEY_3):
-				Input::keyPressed = GLFW_KEY_3;
-				std::cout << INFO "Stone Selected!" << std::endl;
-				break ;
-			case (GLFW_KEY_4):
-				Input::keyPressed = GLFW_KEY_4;
-				std::cout << INFO "Bomb Selected!" << std::endl;
-				break ;
-			case (GLFW_KEY_5):
-				Input::keyPressed = GLFW_KEY_5;
-				std::cout << INFO "Fire Selected!" << std::endl;
-				break ;
-			case (GLFW_KEY_6):
-				Input::keyPressed = GLFW_KEY_6;
-				std::cout << INFO "Acid Selected!" << std::endl;
-				break ;
-			case (GLFW_KEY_7):
-				Input::keyPressed = GLFW_KEY_7;
-				std::cout << INFO "Wood Selected!" << std::endl;
-				break ;
-			case (GLFW_KEY_8):
-				Input::keyPressed = GLFW_KEY_8;
-				std::cout << INFO "Mud Selected!" << std::endl;
-				break ;
-
 			case (GLFW_KEY_ESCAPE):
 				glfwSetWindowShouldClose(window, true);
 				break ;

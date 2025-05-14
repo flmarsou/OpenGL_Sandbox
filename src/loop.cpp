@@ -1,5 +1,31 @@
 #include "config.hpp"
 
+static void	drawGui()
+{
+	ImGui::Begin("Tool Box");
+
+	if (ImGui::Button("Sand"))
+		Input::blockSelected = 1;
+	else if (ImGui::Button("Water"))
+		Input::blockSelected = 2;
+	else if (ImGui::Button("Stone"))
+		Input::blockSelected = 3;
+	else if (ImGui::Button("Bomb"))
+		Input::blockSelected = 4;
+	else if (ImGui::Button("Fire"))
+		Input::blockSelected = 5;
+	else if (ImGui::Button("Acid"))
+		Input::blockSelected = 6;
+	else if (ImGui::Button("Wood"))
+		Input::blockSelected = 7;
+	else if (ImGui::Button("Mud"))
+		Input::blockSelected = 8;
+
+	ImGui::End();
+	ImGui::Render();
+	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+}
+
 static void	placeBlock(GLFWwindow *window, Grid *grid)
 {
 	double	xpos;
@@ -13,56 +39,51 @@ static void	placeBlock(GLFWwindow *window, Grid *grid)
 	const int	cellX = static_cast<int>((xpos / width) * GRID_SIZE);
 	const int	cellY = static_cast<int>((ypos / height) * GRID_SIZE);
 
-	switch (Input::keyPressed)
+	switch (Input::blockSelected)
 	{
-		case (GLFW_KEY_1):
+		case (1):
 			grid->setBlock(cellX, cellY, new SandBlock());
 			break ;
 
-		case (GLFW_KEY_2):
+		case (2):
 			grid->setBlock(cellX, cellY, new WaterBlock());
 			break ;
 
-		case (GLFW_KEY_3):
+		case (3):
 			grid->setBlock(cellX, cellY, new StoneBlock());
-			grid->setBlock(cellX - 1, cellY, new StoneBlock());
-			grid->setBlock(cellX + 1, cellY, new StoneBlock());
-			grid->setBlock(cellX, cellY - 1, new StoneBlock());
-			grid->setBlock(cellX, cellY + 1, new StoneBlock());
 			break ;
 
-		case (GLFW_KEY_4):
+		case (4):
 			grid->setBlock(cellX, cellY, new BombBlock());
 			break ;
 
-		case (GLFW_KEY_5):
+		case (5):
 			grid->setBlock(cellX, cellY, new FireBlock());
-			grid->setBlock(cellX - 1, cellY, new FireBlock());
-			grid->setBlock(cellX + 1, cellY, new FireBlock());
-			grid->setBlock(cellX, cellY - 1, new FireBlock());
-			grid->setBlock(cellX, cellY + 1, new FireBlock());
 			break ;
 
-		case (GLFW_KEY_6):
+		case (6):
 			grid->setBlock(cellX, cellY, new AcidBlock());
 			break ;
 
-		case (GLFW_KEY_7):
+		case (7):
 			grid->setBlock(cellX, cellY, new WoodBlock());
-			grid->setBlock(cellX - 1, cellY, new WoodBlock());
-			grid->setBlock(cellX + 1, cellY, new WoodBlock());
-			grid->setBlock(cellX, cellY - 1, new WoodBlock());
-			grid->setBlock(cellX, cellY + 1, new WoodBlock());
 			break ;
 
-		case (GLFW_KEY_8):
+		case (8):
 			grid->setBlock(cellX, cellY, new MudBlock());
+			break ;
+
+		default:
 			break ;
 	}
 }
 
 void	gameLoop(GLFWwindow *window, const unsigned int &shader, Grid *grid)
 {
+	ImGui_ImplOpenGL3_NewFrame();
+	ImGui_ImplGlfw_NewFrame();
+	ImGui::NewFrame();
+
 	grid->draw(shader);
 	if (!Input::keyPauseToggle)
 		grid->update();
@@ -70,6 +91,5 @@ void	gameLoop(GLFWwindow *window, const unsigned int &shader, Grid *grid)
 	if (Input::mouseLeftPressed)
 		placeBlock(window, grid);
 
-	if (Input::keyFPSToggle)
-		printFPS();
+	drawGui();
 }

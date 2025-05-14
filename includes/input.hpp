@@ -2,10 +2,10 @@
 
 namespace Input
 {
-	extern int	keyPressed;
-	extern bool	keyFPSToggle;
-	extern bool	keyVSyncToggle;
-	extern bool	keyPauseToggle;
+	extern unsigned int	blockSelected;
+	extern bool			keyFPSToggle;
+	extern bool			keyVSyncToggle;
+	extern bool			keyPauseToggle;
 
-	extern bool	mouseLeftPressed;
+	extern bool			mouseLeftPressed;
 }
