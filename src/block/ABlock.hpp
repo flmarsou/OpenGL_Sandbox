@@ -9,9 +9,9 @@
 # include <GLM/gtc/matrix_transform.hpp>
 # include <GLM/gtc/type_ptr.hpp>
 
-enum	blockType
+enum	blockID
 {
-	EMPTY,
+	EMPTY_BLOCK,
 	SAND_BLOCK,
 	WATER_BLOCK,
 	STONE_BLOCK,
@@ -22,7 +22,14 @@ enum	blockType
 	ASH_BLOCK,
 	TOXIC_SLUDGE_BLOCK,
 	FLAMMABLE_GAS_BLOCK,
-	STEAM_BLOCK
+	STEAM_BLOCK,
+	MUD_BLOCK
+};
+
+enum	blockType
+{
+	EMPTY_TYPE,
+	POWDER_TYPE
 };
 
 class	Grid;
@@ -43,6 +50,8 @@ class	ABlock
 		void			setColor(const glm::vec3 color);
 		void			setId(const unsigned int id);
 		unsigned int	getId() const;
+		void			setType(const unsigned int type);
+		unsigned int	getType() const;
 
 		bool	isOnGround(Grid &grid, const int y);
 		bool	fallDown(Grid &grid, const int x, const int y);
@@ -55,7 +64,8 @@ class	ABlock
 		bool	riseRight(Grid &grid, const int x, const int y);
 
 	protected:
-		unsigned int	_id = EMPTY;
+		unsigned int	_id = EMPTY_BLOCK;
+		unsigned int	_type = EMPTY_TYPE;
 
 	private:
 		// OpenGL

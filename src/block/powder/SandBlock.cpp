@@ -7,6 +7,7 @@
 SandBlock::SandBlock()
 {
 	setId(SAND_BLOCK);
+	setType(POWDER_TYPE);
 
 	randomizeColor();
 }

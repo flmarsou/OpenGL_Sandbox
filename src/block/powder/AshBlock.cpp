@@ -7,6 +7,7 @@
 AshBlock::AshBlock()
 {
 	setId(ASH_BLOCK);
+	setType(POWDER_TYPE);
 
 	randomizeColor();
 }

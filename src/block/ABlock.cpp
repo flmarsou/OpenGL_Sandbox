@@ -84,6 +84,16 @@ unsigned int	ABlock::getId() const
 	return (this->_id);
 }
 
+void			ABlock::setType(const unsigned int type)
+{
+	this->_type = type;
+}
+
+unsigned int	ABlock::getType() const
+{
+	return (this->_type);
+}
+
 // ========================================================================== //
 //   Methods & Functions                                                      //
 // ========================================================================== //
