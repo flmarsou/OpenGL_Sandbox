@@ -1,9 +1,5 @@
 #include "MudBlock.hpp"
 
-// ========================================================================== //
-//   Constructors                                                             //
-// ========================================================================== //
-
 MudBlock::MudBlock()
 	:	_stuck(false)
 {
@@ -14,7 +10,7 @@ MudBlock::MudBlock()
 }
 
 // ========================================================================== //
-//   Methods & Functions                                                      //
+//   Colors                                                                   //
 // ========================================================================== //
 
 void	MudBlock::randomizeColor()
@@ -40,6 +36,10 @@ void	MudBlock::randomizeColor()
 			break ;
 	}
 }
+
+// ========================================================================== //
+//   Behaviors                                                                //
+// ========================================================================== //
 
 void	MudBlock::update(Grid &grid, const int x, const int y)
 {
@@ -85,7 +85,7 @@ void	MudBlock::update(Grid &grid, const int x, const int y)
 			return ;
 	}
 
-	// Diagonal Falls in water
+	// Diagonal Falls in Water
 	if (leftFirst && grid.getBlock(x - 1, y + 1) && grid.getBlock(x - 1, y + 1)->getType() == LIQUID_TYPE)
 	{
 		grid.swapBlock(x - 1, y + 1, this, x, y);

@@ -1,9 +1,5 @@
 #include "WoodBlock.hpp"
 
-// ========================================================================== //
-//   Constructors                                                             //
-// ========================================================================== //
-
 WoodBlock::WoodBlock()
 	:	_burning(false)
 {
@@ -13,7 +9,7 @@ WoodBlock::WoodBlock()
 }
 
 // ========================================================================== //
-//   Methods & Functions                                                      //
+//   Colors                                                                   //
 // ========================================================================== //
 
 void	WoodBlock::randomizeColor()
@@ -39,6 +35,10 @@ void	WoodBlock::randomizeColor()
 			break ;
 	}
 }
+
+// ========================================================================== //
+//   Utils                                                                    //
+// ========================================================================== //
 
 void	WoodBlock::checkSurrounding(Grid &grid, const int x, const int y)
 {
@@ -69,6 +69,10 @@ void	WoodBlock::checkSurrounding(Grid &grid, const int x, const int y)
 			this->_burning = true;
 	}
 }
+
+// ========================================================================== //
+//   Behaviors                                                                //
+// ========================================================================== //
 
 void	WoodBlock::update(Grid &grid, const int x, const int y)
 {

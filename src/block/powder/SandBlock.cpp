@@ -1,9 +1,5 @@
 #include "SandBlock.hpp"
 
-// ========================================================================== //
-//   Constructors                                                             //
-// ========================================================================== //
-
 SandBlock::SandBlock()
 {
 	setId(SAND_BLOCK);
@@ -13,7 +9,7 @@ SandBlock::SandBlock()
 }
 
 // ========================================================================== //
-//   Methods & Functions                                                      //
+//   Colors                                                                   //
 // ========================================================================== //
 
 void	SandBlock::randomizeColor()
@@ -39,6 +35,10 @@ void	SandBlock::randomizeColor()
 			break ;
 	}
 }
+
+// ========================================================================== //
+//   Behaviors                                                                //
+// ========================================================================== //
 
 void	SandBlock::update(Grid &grid, const int x, const int y)
 {
@@ -68,7 +68,7 @@ void	SandBlock::update(Grid &grid, const int x, const int y)
 			return ;
 	}
 
-	// Diagonal Falls in water
+	// Diagonal Falls in Water
 	if (leftFirst && grid.getBlock(x - 1, y + 1) && grid.getBlock(x - 1, y + 1)->getType() == LIQUID_TYPE)
 	{
 		grid.swapBlock(x - 1, y + 1, this, x, y);

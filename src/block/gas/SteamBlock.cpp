@@ -1,9 +1,5 @@
 #include "SteamBlock.hpp"
 
-// ========================================================================== //
-//   Constructors                                                             //
-// ========================================================================== //
-
 SteamBlock::SteamBlock()
 {
 	setId(STEAM_BLOCK);
@@ -12,7 +8,7 @@ SteamBlock::SteamBlock()
 }
 
 // ========================================================================== //
-//   Methods & Functions                                                      //
+//   Colors                                                                   //
 // ========================================================================== //
 
 void	SteamBlock::randomizeColor()
@@ -39,6 +35,10 @@ void	SteamBlock::randomizeColor()
 	}
 }
 
+// ========================================================================== //
+//   Behaviors                                                                //
+// ========================================================================== //
+
 void	SteamBlock::update(Grid &grid, const int x, const int y)
 {
 	// Condensate
@@ -62,7 +62,7 @@ void	SteamBlock::update(Grid &grid, const int x, const int y)
 		return ;
 	}
 
-	// Security & Movement
+	// Security & Movements
 	if (grid.getBlock(x, y - 1) || y == 0)
 	{
 		if (std::rand() % 2)

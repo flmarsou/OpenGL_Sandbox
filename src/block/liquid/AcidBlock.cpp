@@ -1,9 +1,5 @@
 #include "AcidBlock.hpp"
 
-// ========================================================================== //
-//   Constructors                                                             //
-// ========================================================================== //
-
 AcidBlock::AcidBlock()
 {
 	setId(ACID_BLOCK);
@@ -13,7 +9,7 @@ AcidBlock::AcidBlock()
 }
 
 // ========================================================================== //
-//   Methods & Functions                                                      //
+//   Colors                                                                   //
 // ========================================================================== //
 
 void	AcidBlock::randomizeColor()
@@ -39,6 +35,10 @@ void	AcidBlock::randomizeColor()
 			break ;
 	}
 }
+
+// ========================================================================== //
+//   Utils                                                                    //
+// ========================================================================== //
 
 bool	AcidBlock::dissolveBehavior(Grid &grid, const int x, const int y)
 {
@@ -100,6 +100,10 @@ bool	AcidBlock::dissolveSurrounding(Grid &grid, const int x, const int y)
 	return (true);
 }
 
+// ========================================================================== //
+//   Behaviors                                                                //
+// ========================================================================== //
+
 void	AcidBlock::update(Grid &grid, const int x, const int y)
 {
 	// Color
@@ -115,7 +119,7 @@ void	AcidBlock::update(Grid &grid, const int x, const int y)
 
 	const bool	leftFirst = std::rand() % 100 <= 50;
 
-	// Security & Movement
+	// Security & Movements
 	if (isOnGround(grid, y))
 	{
 		if (leftFirst)

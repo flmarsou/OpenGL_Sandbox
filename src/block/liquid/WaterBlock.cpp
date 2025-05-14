@@ -1,9 +1,5 @@
 #include "WaterBlock.hpp"
 
-// ========================================================================== //
-//   Constructors                                                             //
-// ========================================================================== //
-
 WaterBlock::WaterBlock()
 {
 	setId(WATER_BLOCK);
@@ -13,7 +9,7 @@ WaterBlock::WaterBlock()
 }
 
 // ========================================================================== //
-//   Methods & Functions                                                      //
+//   Colors                                                                   //
 // ========================================================================== //
 
 void	WaterBlock::randomizeColor()
@@ -39,6 +35,10 @@ void	WaterBlock::randomizeColor()
 			break ;
 	}
 }
+
+// ========================================================================== //
+//   Utils                                                                    //
+// ========================================================================== //
 
 bool	WaterBlock::convertSurrounding(Grid &grid, const int x, const int y)
 {
@@ -72,6 +72,10 @@ bool	WaterBlock::convertSurrounding(Grid &grid, const int x, const int y)
 	return (false);
 }
 
+// ========================================================================== //
+//   Behaviors                                                                //
+// ========================================================================== //
+
 void	WaterBlock::update(Grid &grid, const int x, const int y)
 {
 	// Boil
@@ -94,7 +98,7 @@ void	WaterBlock::update(Grid &grid, const int x, const int y)
 		return ;
 	}
 
-	// Security & Movement
+	// Security & Movements
 	const bool	leftFirst = std::rand() % 2;
 
 	if (isOnGround(grid, y))

@@ -1,19 +1,14 @@
 #include "BombBlock.hpp"
 
-// ========================================================================== //
-//   Constructors                                                             //
-// ========================================================================== //
-
 BombBlock::BombBlock()
 {
 	setId(BOMB_BLOCK);
 
-	// TODO: Make better color
-	setColor({1.0f, 0.0f, 0.0f});
+	setColor({0.0f, 0.0f, 0.0f});
 }
 
 // ========================================================================== //
-//   Methods & Functions                                                      //
+//   Utils                                                                    //
 // ========================================================================== //
 
 static bool	isBlockResistant(const Grid &grid, const int explosionX, const int explosionY)
@@ -73,6 +68,10 @@ static bool	isExplosionShape(const int x, const int y, const int explosionX, con
 		return (true);
 	return (false);
 }
+
+// ========================================================================== //
+//   Behaviors                                                                //
+// ========================================================================== //
 
 void	BombBlock::update(Grid &grid, const int x, const int y)
 {

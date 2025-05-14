@@ -1,9 +1,5 @@
 #include "FlammableGasBlock.hpp"
 
-// ========================================================================== //
-//   Constructors                                                             //
-// ========================================================================== //
-
 FlammableGasBlock::FlammableGasBlock()
 	:	_burning(false)
 {
@@ -13,7 +9,7 @@ FlammableGasBlock::FlammableGasBlock()
 }
 
 // ========================================================================== //
-//   Methods & Functions                                                      //
+//   Colors                                                                   //
 // ========================================================================== //
 
 void	FlammableGasBlock::randomizeColor()
@@ -39,6 +35,10 @@ void	FlammableGasBlock::randomizeColor()
 			break ;
 	}
 }
+
+// ========================================================================== //
+//   Utils                                                                    //
+// ========================================================================== //
 
 void	FlammableGasBlock::checkSurrounding(Grid &grid, const int x, const int y)
 {
@@ -70,6 +70,10 @@ void	FlammableGasBlock::checkSurrounding(Grid &grid, const int x, const int y)
 	}
 }
 
+// ========================================================================== //
+//   Behaviors                                                                //
+// ========================================================================== //
+
 void	FlammableGasBlock::update(Grid &grid, const int x, const int y)
 {
 	// Burning
@@ -84,7 +88,7 @@ void	FlammableGasBlock::update(Grid &grid, const int x, const int y)
 	if (std::rand() % 100 == 1)
 		randomizeColor();
 
-	// Security & Movement
+	// Security & Movements
 	if (grid.getBlock(x, y - 1) || y == 0)
 	{
 		if (std::rand() % 2)

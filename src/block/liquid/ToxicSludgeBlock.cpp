@@ -1,9 +1,5 @@
 #include "ToxicSludgeBlock.hpp"
 
-// ========================================================================== //
-//   Constructors                                                             //
-// ========================================================================== //
-
 ToxicSludgeBlock::ToxicSludgeBlock()
 {
 	setId(TOXIC_SLUDGE_BLOCK);
@@ -13,7 +9,7 @@ ToxicSludgeBlock::ToxicSludgeBlock()
 }
 
 // ========================================================================== //
-//   Methods & Functions                                                      //
+//   Colors                                                                   //
 // ========================================================================== //
 
 void	ToxicSludgeBlock::randomizeColor()
@@ -40,6 +36,10 @@ void	ToxicSludgeBlock::randomizeColor()
 	}
 }
 
+// ========================================================================== //
+//   Utils                                                                    //
+// ========================================================================== //
+
 void	ToxicSludgeBlock::convertSurrounding(Grid &grid, const int x, const int y)
 {
 	// Attempts to convert with 10% chance
@@ -61,6 +61,10 @@ void	ToxicSludgeBlock::convertSurrounding(Grid &grid, const int x, const int y)
 			grid.convertBlock(x, y - 1, new ToxicSludgeBlock());
 	}
 }
+
+// ========================================================================== //
+//   Behaviors                                                                //
+// ========================================================================== //
 
 void	ToxicSludgeBlock::update(Grid &grid, const int x, const int y)
 {
@@ -87,7 +91,7 @@ void	ToxicSludgeBlock::update(Grid &grid, const int x, const int y)
 		return ;
 	}
 
-	// Security & Movement
+	// Security & Movements
 	const bool	leftFirst = std::rand() % 2;
 
 	if (isOnGround(grid, y))

@@ -1,9 +1,5 @@
 #include "FireBlock.hpp"
 
-// ========================================================================== //
-//   Constructors                                                             //
-// ========================================================================== //
-
 FireBlock::FireBlock()
 	:	_extinguishRate(50), _extinguishColor(0)
 {
@@ -21,7 +17,7 @@ FireBlock::FireBlock(unsigned int extinguishRate)
 }
 
 // ========================================================================== //
-//   Methods & Functions                                                      //
+//   Colors                                                                   //
 // ========================================================================== //
 
 void	FireBlock::randomizeYellow()
@@ -136,6 +132,10 @@ bool	FireBlock::extinguishRate()
 	this->_extinguishColor++;
 	return (false);
 }
+
+// ========================================================================== //
+//   Behaviors                                                                //
+// ========================================================================== //
 
 void	FireBlock::update(Grid &grid, const int x, const int y)
 {
