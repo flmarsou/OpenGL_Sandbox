@@ -9,12 +9,13 @@
 - **[`Ash`](https://github.com/flmarsou/OpenGL_Sandbox/blob/main/src/block/powder/AshBlock.cpp):** Behaves like **Sand**.
 
 ## 🌊 Liquids:
-- **[`Water`](https://github.com/flmarsou/OpenGL_Sandbox/blob/main/src/block/liquid/WaterBlock.cpp):** Falls straight down. If blocked below, randomly slides and moves sideways.
+- **[`Water`](https://github.com/flmarsou/OpenGL_Sandbox/blob/main/src/block/liquid/WaterBlock.cpp):** Falls straight down. If blocked below, randomly slides and moves sideways. Boils into **Steam** on contact with **Fire**.
 - **[`Acid`](https://github.com/flmarsou/OpenGL_Sandbox/blob/main/src/block/liquid/AcidBlock.cpp):** Behaves like **Water**. Dissolves adjacent blocks and may self-destruct during interaction. Converts **Water** into **Toxic Sludge**.
 - **[`Toxic Sludge`](https://github.com/flmarsou/OpenGL_Sandbox/blob/main/src/block/liquid/ToxicSludgeBlock.cpp):** Behaves like **Water**. Converts nearby **Water** into **Toxic Sludge**. Slowly evaporates into **Flammable Gas**.
 
 ## 💨 Gasses:
-- **[`Flammable Gas`](https://github.com/flmarsou/OpenGL_Sandbox/blob/main/src/block/gas/FlammableGasBlock.cpp):** Rises randomly *(mostly up, left, or right)*. Ignites and spreads **Fire** in a chain reaction.
+- **[`Steam`](https://github.com/flmarsou/OpenGL_Sandbox/blob/main/src/block/gas/Steam.cpp):** Rises randomly *(mostly up, left, or right)*. Randomly condensate into **Water**.
+- **[`Flammable Gas`](https://github.com/flmarsou/OpenGL_Sandbox/blob/main/src/block/gas/FlammableGasBlock.cpp):** Behaves like **Water**. Ignites and spreads **Fire** in a chain reaction.
 
 ## 💥 Reactives:
 - **[`Fire`](https://github.com/flmarsou/OpenGL_Sandbox/blob/main/src/block/reactive/FireBlock.cpp):** Rises randomly *(up, left, or right)*. May ignite flammable materials or extinguish on its own.
