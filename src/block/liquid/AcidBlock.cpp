@@ -7,6 +7,7 @@
 AcidBlock::AcidBlock()
 {
 	setId(ACID_BLOCK);
+	setType(LIQUID_TYPE);
 
 	randomizeColor();
 }
@@ -44,7 +45,7 @@ bool	AcidBlock::dissolveBehavior(Grid &grid, const int x, const int y)
 	const unsigned int	id = grid.getBlock(x, y)->getId();
 
 	// 100%
-	if (id == SAND_BLOCK || id == ASH_BLOCK || id == WOOD_BLOCK || id == TOXIC_SLUDGE_BLOCK)
+	if (id == SAND_BLOCK || id == ASH_BLOCK || id == WOOD_BLOCK || id == TOXIC_SLUDGE_BLOCK || id == MUD_BLOCK)
 	{
 		grid.deleteBlock(x, y);
 		return (true);
