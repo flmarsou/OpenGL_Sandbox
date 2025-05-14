@@ -2,6 +2,7 @@
 
 # include "ABlock.hpp"
 # include "SandBlock.hpp"
+# include "SteamBlock.hpp"
 
 class	WaterBlock : public ABlock
 {
@@ -12,4 +13,6 @@ class	WaterBlock : public ABlock
 
 	private:
 		void	randomizeColor();
+
+		bool	convertSurrounding(Grid &grid, const int x, const int y);
 };

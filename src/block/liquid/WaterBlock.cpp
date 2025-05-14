@@ -39,8 +39,47 @@ void	WaterBlock::randomizeColor()
 	}
 }
 
+bool	WaterBlock::convertSurrounding(Grid &grid, const int x, const int y)
+{
+	if (grid.getBlock(x, y + 1)			// Bottom
+		|| grid.getBlock(x - 1, y)		// Left
+		|| grid.getBlock(x + 1, y)		// Right
+		|| grid.getBlock(x, y - 1))		// Top
+	{
+		if (grid.getBlock(x, y + 1) && grid.getBlock(x, y + 1)->getId() == FIRE_BLOCK)
+		{
+			grid.convertBlock(x, y + 1, new SteamBlock());
+			return (true);
+		}
+		if (grid.getBlock(x - 1, y) && grid.getBlock(x - 1, y)->getId() == FIRE_BLOCK)
+		{
+			grid.convertBlock(x - 1, y, new SteamBlock());
+			return (true);
+		}
+		if (grid.getBlock(x + 1, y) && grid.getBlock(x + 1, y)->getId() == FIRE_BLOCK)
+		{
+			grid.convertBlock(x + 1, y, new SteamBlock());
+			return (true);
+		}
+		if (grid.getBlock(x, y - 1) && grid.getBlock(x, y - 1)->getId() == FIRE_BLOCK)
+		{
+			grid.convertBlock(x, y - 1, new SteamBlock());
+			return (true);
+		}
+	}
+
+	return (false);
+}
+
 void	WaterBlock::update(Grid &grid, const int x, const int y)
 {
+	// Boil
+	if (std::rand() % 100 == 1 && convertSurrounding(grid, x, y))
+	{
+		grid.deleteBlock(x, y);
+		return ;
+	}
+
 	// Color
 	if (std::rand() % 100 == 1)
 		randomizeColor();
