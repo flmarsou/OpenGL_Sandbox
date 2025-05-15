@@ -45,11 +45,8 @@ bool	initShader(unsigned int &shader);
 void	initCallbacks(GLFWwindow *&window);
 
 // Debug
-void	toggleFPS();
 void	toggleVSync();
 void	togglePause();
-
-void	printFPS();
 
 // Main
 void	gameLoop(GLFWwindow *&window, const unsigned int &shader, Grid *&grid);

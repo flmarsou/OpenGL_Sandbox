@@ -29,35 +29,3 @@ void	toggleVSync()
 		Input::keyVSyncToggle = false;
 	}
 }
-
-void	toggleFPS()
-{
-	if (!Input::keyFPSToggle)
-	{
-		std::cout << INFO "FPS On!" << std::endl;
-		Input::keyFPSToggle = true;
-	}
-	else
-	{
-		std::cout << INFO "FPS Off!" << std::endl;
-		Input::keyFPSToggle = false;
-	}
-}
-
-void	printFPS()
-{
-	static int												frameCount = 0;
-	static std::chrono::high_resolution_clock::time_point	lastTime = std::chrono::high_resolution_clock::now();
-
-	const std::chrono::high_resolution_clock::time_point	currentTime = std::chrono::high_resolution_clock::now();
-	const std::chrono::duration<double>						elapsed = currentTime - lastTime;
-
-	frameCount++;
-
-	if (elapsed.count() >= 1.0)
-	{
-		std::cout << "FPS: " << frameCount << std::endl;
-		frameCount = 0;
-		lastTime = currentTime;
-	}
-}

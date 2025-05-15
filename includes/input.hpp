@@ -3,7 +3,6 @@
 namespace Input
 {
 	extern unsigned int	blockSelected;
-	extern bool			keyFPSToggle;
 	extern bool			keyVSyncToggle;
 	extern bool			keyPauseToggle;
 

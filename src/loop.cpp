@@ -59,8 +59,6 @@ static void	drawGui(GLFWwindow *&window)
 			Input::blockSelected = BOMB_BLOCK;
 	}
 	ImGui::SliderInt("Cursor", &Input::cursorSize, 1, 10);
-	if (ImGui::Button("Toggle FPS Counter"))
-		toggleFPS();
 	if (ImGui::Button("Toggle V-Sync"))
 		toggleVSync();
 	if (ImGui::Button("Toggle Pause"))
@@ -147,10 +145,7 @@ void	gameLoop(GLFWwindow *&window, const unsigned int &shader, Grid *&grid)
 	if (!Input::keyPauseToggle)
 		grid->update();
 
-	if (Input::keyFPSToggle)
-		printFPS();
-
-	if (Input::mouseLeftPressed && !ImGui::GetIO().WantCaptureMouse)
+	if (Input::mouseLeftPressed)
 		placeBlock(window, grid);
 
 	drawGui(window);

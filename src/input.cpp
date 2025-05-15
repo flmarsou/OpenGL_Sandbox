@@ -3,7 +3,6 @@
 namespace	Input
 {
 	unsigned int	blockSelected = EMPTY_BLOCK;
-	bool			keyFPSToggle = false;
 	bool			keyVSyncToggle = false;
 	bool			keyPauseToggle = false;
 
@@ -31,10 +30,6 @@ static void	keyCallback(GLFWwindow *window, int key, int scancode, int action, i
 		{
 			case (GLFW_KEY_ESCAPE):
 				glfwSetWindowShouldClose(window, true);
-				break ;
-
-			case (GLFW_KEY_F3):
-				toggleFPS();
 				break ;
 
 			case (GLFW_KEY_F4):
