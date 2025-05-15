@@ -1,29 +1,49 @@
 #include "config.hpp"
+#include "enums.hpp"
 
 static void	drawGui()
 {
 	ImGui::Begin("Tool Box");
 
-	if (ImGui::Button("Sand"))
-		Input::blockSelected = 1;
-	else if (ImGui::Button("Water"))
-		Input::blockSelected = 2;
-	else if (ImGui::Button("Stone"))
-		Input::blockSelected = 3;
-	else if (ImGui::Button("Bomb"))
-		Input::blockSelected = 4;
-	else if (ImGui::Button("Fire"))
-		Input::blockSelected = 5;
-	else if (ImGui::Button("Acid"))
-		Input::blockSelected = 6;
-	else if (ImGui::Button("Wood"))
-		Input::blockSelected = 7;
-	else if (ImGui::Button("Mud"))
-		Input::blockSelected = 8;
-
-	ImGui::End();
-	ImGui::Render();
-	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+	if (ImGui::CollapsingHeader("Solids:"))
+	{
+		if (ImGui::Button("Stone"))
+			Input::blockSelected = STONE_BLOCK;
+		if (ImGui::Button("Wood"))
+			Input::blockSelected = WOOD_BLOCK;
+	}
+	if (ImGui::CollapsingHeader("Powders:"))
+	{
+		if (ImGui::Button("Sand"))
+			Input::blockSelected = SAND_BLOCK;
+		if (ImGui::Button("Ash"))
+			Input::blockSelected = ASH_BLOCK;
+		if (ImGui::Button("Mud"))
+			Input::blockSelected = MUD_BLOCK;
+	}
+	if (ImGui::CollapsingHeader("Liquids:"))
+	{
+		if (ImGui::Button("Water"))
+			Input::blockSelected = WATER_BLOCK;
+		if (ImGui::Button("Acid"))
+			Input::blockSelected = ACID_BLOCK;
+		if (ImGui::Button("Toxic Sludge"))
+			Input::blockSelected = TOXIC_SLUDGE_BLOCK;
+	}
+	if (ImGui::CollapsingHeader("Gasses:"))
+	{
+		if (ImGui::Button("Steam"))
+			Input::blockSelected = STEAM_BLOCK;
+		if (ImGui::Button("Flammable Gas"))
+			Input::blockSelected = FLAMMABLE_GAS_BLOCK;
+	}
+	if (ImGui::CollapsingHeader("Reactives:"))
+	{
+		if (ImGui::Button("Fire"))
+			Input::blockSelected = FIRE_BLOCK;
+		if (ImGui::Button("Bomb"))
+			Input::blockSelected = BOMB_BLOCK;
+	}
 }
 
 static void	placeBlock(GLFWwindow *window, Grid *grid)
@@ -41,35 +61,51 @@ static void	placeBlock(GLFWwindow *window, Grid *grid)
 
 	switch (Input::blockSelected)
 	{
-		case (1):
+		case (SAND_BLOCK):
 			grid->setBlock(cellX, cellY, new SandBlock());
 			break ;
 
-		case (2):
+		case (WATER_BLOCK):
 			grid->setBlock(cellX, cellY, new WaterBlock());
 			break ;
 
-		case (3):
+		case (STONE_BLOCK):
 			grid->setBlock(cellX, cellY, new StoneBlock());
 			break ;
 
-		case (4):
+		case (BOMB_BLOCK):
 			grid->setBlock(cellX, cellY, new BombBlock());
 			break ;
 
-		case (5):
+		case (FIRE_BLOCK):
 			grid->setBlock(cellX, cellY, new FireBlock());
 			break ;
 
-		case (6):
+		case (ACID_BLOCK):
 			grid->setBlock(cellX, cellY, new AcidBlock());
 			break ;
 
-		case (7):
+		case (WOOD_BLOCK):
 			grid->setBlock(cellX, cellY, new WoodBlock());
 			break ;
 
-		case (8):
+		case (ASH_BLOCK):
+			grid->setBlock(cellX, cellY, new AshBlock());
+			break ;
+
+		case (TOXIC_SLUDGE_BLOCK):
+			grid->setBlock(cellX, cellY, new ToxicSludgeBlock());
+			break ;
+
+		case (FLAMMABLE_GAS_BLOCK):
+			grid->setBlock(cellX, cellY, new FlammableGasBlock());
+			break ;
+
+		case (STEAM_BLOCK):
+			grid->setBlock(cellX, cellY, new SteamBlock());
+			break ;
+
+		case (MUD_BLOCK):
 			grid->setBlock(cellX, cellY, new MudBlock());
 			break ;
 
@@ -88,8 +124,15 @@ void	gameLoop(GLFWwindow *window, const unsigned int &shader, Grid *grid)
 	if (!Input::keyPauseToggle)
 		grid->update();
 
-	if (Input::mouseLeftPressed)
+	if (Input::keyFPSToggle)
+		printFPS();
+
+	if (Input::mouseLeftPressed && !ImGui::GetIO().WantCaptureMouse)
 		placeBlock(window, grid);
 
 	drawGui();
+
+	ImGui::End();
+	ImGui::Render();
+	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
