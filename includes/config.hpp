@@ -32,8 +32,8 @@
 # include <vector>
 
 // Constants
-# define WINDOW_WIDTH	900
-# define WINDOW_HEIGHT	900
+# define WINDOW_WIDTH	1280
+# define WINDOW_HEIGHT	720
 # define WINDOW_TITLE	"OpenGL Sandbox"
 # define GRID_SIZE		100
 
@@ -42,10 +42,14 @@ bool	initGLFW(GLFWwindow *&window);
 bool	initGLAD();
 void	initImGui(GLFWwindow *&window);
 bool	initShader(unsigned int &shader);
-void	initCallbacks(GLFWwindow *window);
+void	initCallbacks(GLFWwindow *&window);
 
 // Debug
+void	toggleFPS();
+void	toggleVSync();
+void	togglePause();
+
 void	printFPS();
 
 // Main
-void	gameLoop(GLFWwindow *window, const unsigned int &shader, Grid *grid);
+void	gameLoop(GLFWwindow *&window, const unsigned int &shader, Grid *&grid);
