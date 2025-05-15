@@ -51,8 +51,6 @@ void	ABlock::deleteBlock()
 	glDeleteVertexArrays(1, &_VAO);
 	glDeleteBuffers(1, &_VBO);
 	glDeleteBuffers(1, &_EBO);
-
-	std::cout << SUCCESS "VAO, VBO, and EBO deleted from Block!" << std::endl;
 }
 
 // ========================================================================== //

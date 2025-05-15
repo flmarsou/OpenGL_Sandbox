@@ -16,7 +16,6 @@ Grid::~Grid()
 		for (int x = 0; x < this->_gridSize; x++)
 			if (this->_grid[y][x])
 				delete this->_grid[y][x];
-	std::cout << SUCCESS "Grid deleted!" << std::endl;
 }
 
 // ========================================================================== //
