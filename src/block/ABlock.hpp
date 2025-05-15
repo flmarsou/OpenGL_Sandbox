@@ -1,5 +1,6 @@
 #pragma once
 
+# include "enums.hpp"
 # include "debug.hpp"
 # include "Grid.hpp"
 
@@ -8,30 +9,6 @@
 # include <GLM/glm.hpp>
 # include <GLM/gtc/matrix_transform.hpp>
 # include <GLM/gtc/type_ptr.hpp>
-
-enum	blockID
-{
-	EMPTY_BLOCK,
-	SAND_BLOCK,
-	WATER_BLOCK,
-	STONE_BLOCK,
-	BOMB_BLOCK,
-	FIRE_BLOCK,
-	ACID_BLOCK,
-	WOOD_BLOCK,
-	ASH_BLOCK,
-	TOXIC_SLUDGE_BLOCK,
-	FLAMMABLE_GAS_BLOCK,
-	STEAM_BLOCK,
-	MUD_BLOCK
-};
-
-enum	blockType
-{
-	EMPTY_TYPE,
-	POWDER_TYPE,
-	LIQUID_TYPE
-};
 
 class	Grid;
 
