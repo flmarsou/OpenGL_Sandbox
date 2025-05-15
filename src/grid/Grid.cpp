@@ -95,10 +95,29 @@ void	Grid::place(const int x, const int y, ABlock *block, int cursorSize)
 				continue ;
 
 			ABlock	*newBlock = block->clone();
-			this->setBlock(dx, dy, newBlock);
+			setBlock(dx, dy, newBlock);
 		}
 	}
 	delete block;
+}
+
+void	Grid::erase(const int x, const int y, int cursorSize)
+{
+	const int	radius = cursorSize - 1;
+
+	for (int offsetY = -radius; offsetY <= radius; offsetY++)
+	{
+		for (int offsetX = -radius; offsetX <= radius; offsetX++)
+		{
+			int	dx = x + offsetX;
+			int dy = y + offsetY;
+
+			if (offsetX * offsetX + offsetY * offsetY > radius * radius)
+				continue ;
+
+			deleteBlock(dx, dy);
+		}
+	}
 }
 
 void	Grid::draw(const unsigned int shader)

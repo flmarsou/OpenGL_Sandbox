@@ -20,6 +20,7 @@ class	Grid
 		int		getSize() const;
 
 		void	place(const int x, const int y, ABlock *block, int cursorSize);
+		void	erase(const int x, const int y, int cursorSize);
 		void	draw(const unsigned int shader);
 		void	update();
 
