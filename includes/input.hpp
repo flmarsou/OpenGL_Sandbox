@@ -8,4 +8,5 @@ namespace Input
 	extern bool			keyPauseToggle;
 
 	extern bool			mouseLeftPressed;
+	extern int			cursorSize;
 }

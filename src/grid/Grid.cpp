@@ -78,6 +78,27 @@ int		Grid::getSize() const
 //   Methods & Functions                                                      //
 // ========================================================================== //
 
+void	Grid::place(const int x, const int y, ABlock *block, int cursorSize)
+{
+	const int	radius = cursorSize - 1;
+
+	for (int offsetY = -radius; offsetY <= radius; offsetY++)
+	{
+		for (int offsetX = -radius; offsetX <= radius; offsetX++)
+		{
+			int	dx = x + offsetX;
+			int dy = y + offsetY;
+
+			if (offsetX * offsetX + offsetY * offsetY > radius * radius)
+				continue ;
+
+			ABlock	*newBlock = block->clone();
+			this->setBlock(dx, dy, newBlock);
+		}
+	}
+	delete block;
+}
+
 void	Grid::draw(const unsigned int shader)
 {
 	for (int y = 0; y < this->_gridSize; y++)
