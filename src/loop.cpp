@@ -145,7 +145,7 @@ void	gameLoop(GLFWwindow *&window, const unsigned int &shader, Grid *&grid)
 	if (!Input::keyPauseToggle)
 		grid->update();
 
-	if (Input::mouseLeftPressed)
+	if (Input::mouseLeftPressed && !ImGui::GetIO().WantCaptureMouse)
 		placeBlock(window, grid);
 
 	drawGui(window);
