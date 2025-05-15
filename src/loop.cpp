@@ -1,9 +1,23 @@
 #include "config.hpp"
 #include "enums.hpp"
 
-static void	drawGui()
+static void	drawGui(GLFWwindow *&window)
 {
-	ImGui::Begin("Tool Box");
+	static int	tempSize = -1;
+	int	width;
+	int	height;
+
+	glfwGetFramebufferSize(window, &width, &height);
+
+	if (tempSize != width)
+	{
+		tempSize = width;
+
+		ImGui::SetNextWindowPos(ImVec2((float)height, 0), ImGuiCond_Always);
+		ImGui::SetNextWindowSize(ImVec2((float)(width - height), (float)height), ImGuiCond_Always);
+	}
+
+	ImGui::Begin("Tool Box", nullptr, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoSavedSettings);
 
 	if (ImGui::CollapsingHeader("Solids:"))
 	{
@@ -44,9 +58,18 @@ static void	drawGui()
 		if (ImGui::Button("Bomb"))
 			Input::blockSelected = BOMB_BLOCK;
 	}
+	ImGui::SliderInt("Cursor", &Input::cursorSize, 1, 10);
+	if (ImGui::Button("Toggle FPS Counter"))
+		toggleFPS();
+	if (ImGui::Button("Toggle V-Sync"))
+		toggleVSync();
+	if (ImGui::Button("Toggle Pause"))
+		togglePause();
+
+	ImGui::Text("FPS: %.f", ImGui::GetIO().Framerate);
 }
 
-static void	placeBlock(GLFWwindow *window, Grid *grid)
+static void	placeBlock(GLFWwindow *&window, Grid *grid)
 {
 	double	xpos;
 	double	ypos;
@@ -56,57 +79,57 @@ static void	placeBlock(GLFWwindow *window, Grid *grid)
 	glfwGetCursorPos(window, &xpos, &ypos);
 	glfwGetFramebufferSize(window, &width, &height);
 
-	const int	cellX = static_cast<int>((xpos / width) * GRID_SIZE);
+	const int	cellX = static_cast<int>((xpos / height) * GRID_SIZE);
 	const int	cellY = static_cast<int>((ypos / height) * GRID_SIZE);
 
 	switch (Input::blockSelected)
 	{
 		case (SAND_BLOCK):
-			grid->setBlock(cellX, cellY, new SandBlock());
+			grid->place(cellX, cellY, new SandBlock(), Input::cursorSize);
 			break ;
 
 		case (WATER_BLOCK):
-			grid->setBlock(cellX, cellY, new WaterBlock());
+			grid->place(cellX, cellY, new WaterBlock(), Input::cursorSize);
 			break ;
 
 		case (STONE_BLOCK):
-			grid->setBlock(cellX, cellY, new StoneBlock());
+			grid->place(cellX, cellY, new StoneBlock(), Input::cursorSize);
 			break ;
 
 		case (BOMB_BLOCK):
-			grid->setBlock(cellX, cellY, new BombBlock());
+			grid->place(cellX, cellY, new BombBlock(), Input::cursorSize);
 			break ;
 
 		case (FIRE_BLOCK):
-			grid->setBlock(cellX, cellY, new FireBlock());
+			grid->place(cellX, cellY, new FireBlock(), Input::cursorSize);
 			break ;
 
 		case (ACID_BLOCK):
-			grid->setBlock(cellX, cellY, new AcidBlock());
+			grid->place(cellX, cellY, new AcidBlock(), Input::cursorSize);
 			break ;
 
 		case (WOOD_BLOCK):
-			grid->setBlock(cellX, cellY, new WoodBlock());
+			grid->place(cellX, cellY, new WoodBlock(), Input::cursorSize);
 			break ;
 
 		case (ASH_BLOCK):
-			grid->setBlock(cellX, cellY, new AshBlock());
+			grid->place(cellX, cellY, new AshBlock(), Input::cursorSize);
 			break ;
 
 		case (TOXIC_SLUDGE_BLOCK):
-			grid->setBlock(cellX, cellY, new ToxicSludgeBlock());
+			grid->place(cellX, cellY, new ToxicSludgeBlock(), Input::cursorSize);
 			break ;
 
 		case (FLAMMABLE_GAS_BLOCK):
-			grid->setBlock(cellX, cellY, new FlammableGasBlock());
+			grid->place(cellX, cellY, new FlammableGasBlock(), Input::cursorSize);
 			break ;
 
 		case (STEAM_BLOCK):
-			grid->setBlock(cellX, cellY, new SteamBlock());
+			grid->place(cellX, cellY, new SteamBlock(), Input::cursorSize);
 			break ;
 
 		case (MUD_BLOCK):
-			grid->setBlock(cellX, cellY, new MudBlock());
+			grid->place(cellX, cellY, new MudBlock(), Input::cursorSize);
 			break ;
 
 		default:
@@ -114,7 +137,7 @@ static void	placeBlock(GLFWwindow *window, Grid *grid)
 	}
 }
 
-void	gameLoop(GLFWwindow *window, const unsigned int &shader, Grid *grid)
+void	gameLoop(GLFWwindow *&window, const unsigned int &shader, Grid *&grid)
 {
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
@@ -130,7 +153,7 @@ void	gameLoop(GLFWwindow *window, const unsigned int &shader, Grid *grid)
 	if (Input::mouseLeftPressed && !ImGui::GetIO().WantCaptureMouse)
 		placeBlock(window, grid);
 
-	drawGui();
+	drawGui(window);
 
 	ImGui::End();
 	ImGui::Render();
