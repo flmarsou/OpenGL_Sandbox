@@ -1,4 +1,5 @@
 #include "AcidBlock.hpp"
+#include "ToxicSludgeBlock.hpp"
 
 AcidBlock::AcidBlock()
 {

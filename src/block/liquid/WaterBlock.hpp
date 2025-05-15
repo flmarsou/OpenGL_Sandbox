@@ -1,8 +1,6 @@
 #pragma once
 
 # include "ABlock.hpp"
-# include "SandBlock.hpp"
-# include "SteamBlock.hpp"
 
 class	WaterBlock : public ABlock
 {

@@ -1,8 +1,6 @@
 #pragma once
 
 # include "ABlock.hpp"
-# include "FireBlock.hpp"
-# include "AshBlock.hpp"
 
 class	WoodBlock : public ABlock
 {

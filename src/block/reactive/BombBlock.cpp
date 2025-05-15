@@ -1,4 +1,5 @@
 #include "BombBlock.hpp"
+#include "FireBlock.hpp"
 
 BombBlock::BombBlock()
 {

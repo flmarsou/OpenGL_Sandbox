@@ -1,4 +1,5 @@
 #include "ToxicSludgeBlock.hpp"
+#include "FlammableGasBlock.hpp"
 
 ToxicSludgeBlock::ToxicSludgeBlock()
 {

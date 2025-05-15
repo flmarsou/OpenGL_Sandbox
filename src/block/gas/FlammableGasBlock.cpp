@@ -1,4 +1,5 @@
 #include "FlammableGasBlock.hpp"
+#include "FireBlock.hpp"
 
 FlammableGasBlock::FlammableGasBlock()
 	:	_burning(false)

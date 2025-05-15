@@ -1,7 +1,6 @@
 #pragma once
 
 # include "enums.hpp"
-# include "debug.hpp"
 # include "Grid.hpp"
 
 # include <GLAD/glad.h>

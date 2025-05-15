@@ -13,6 +13,10 @@
 # include "FireBlock.hpp"
 # include "AcidBlock.hpp"
 # include "WoodBlock.hpp"
+# include "AshBlock.hpp"
+# include "ToxicSludgeBlock.hpp"
+# include "FlammableGasBlock.hpp"
+# include "SteamBlock.hpp"
 # include "MudBlock.hpp"
 
 // External Libraries

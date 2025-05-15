@@ -1,4 +1,5 @@
 #include "ABlock.hpp"
+#include "debug.hpp"
 
 unsigned int	ABlock::_VAO = 0;
 unsigned int	ABlock::_VBO = 0;

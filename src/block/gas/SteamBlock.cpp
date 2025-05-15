@@ -1,4 +1,5 @@
 #include "SteamBlock.hpp"
+#include "WaterBlock.hpp"
 
 SteamBlock::SteamBlock()
 {

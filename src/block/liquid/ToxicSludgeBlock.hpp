@@ -1,7 +1,6 @@
 #pragma once
 
 # include "ABlock.hpp"
-# include "FlammableGasBlock.hpp"
 
 class	ToxicSludgeBlock : public ABlock
 {

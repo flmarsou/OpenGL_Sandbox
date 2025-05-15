@@ -1,4 +1,6 @@
 #include "WaterBlock.hpp"
+#include "SandBlock.hpp"
+#include "SteamBlock.hpp"
 
 WaterBlock::WaterBlock()
 {

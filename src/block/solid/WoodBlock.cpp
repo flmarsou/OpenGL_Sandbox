@@ -1,4 +1,6 @@
 #include "WoodBlock.hpp"
+#include "FireBlock.hpp"
+#include "AshBlock.hpp"
 
 WoodBlock::WoodBlock()
 	:	_burning(false)
