@@ -8,6 +8,11 @@ ToxicSludgeBlock::ToxicSludgeBlock()
 	randomizeColor();
 }
 
+ABlock	*ToxicSludgeBlock::clone() const
+{
+	return (new ToxicSludgeBlock());
+}
+
 // ========================================================================== //
 //   Colors                                                                   //
 // ========================================================================== //

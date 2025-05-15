@@ -8,6 +8,7 @@ class	ToxicSludgeBlock : public ABlock
 	public:
 		ToxicSludgeBlock();
 
+		ABlock	*clone() const override;
 		void	update(Grid &grid, const int x, const int y) override;
 
 	private:

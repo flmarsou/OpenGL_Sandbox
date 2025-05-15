@@ -22,6 +22,7 @@ class	ABlock
 
 		void			draw(const float x, const float y, const float scale, const unsigned int shader) const;
 		virtual void	update(Grid &grid, const int x, const int y) = 0;
+		virtual ABlock	*clone() const = 0;
 
 		// Setters & Getters
 		void			setUpdate(const bool isUpdated);

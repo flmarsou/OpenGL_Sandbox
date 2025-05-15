@@ -8,6 +8,11 @@ FlammableGasBlock::FlammableGasBlock()
 	randomizeColor();
 }
 
+ABlock	*FlammableGasBlock::clone() const
+{
+	return (new FlammableGasBlock());
+}
+
 // ========================================================================== //
 //   Colors                                                                   //
 // ========================================================================== //

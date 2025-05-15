@@ -16,6 +16,11 @@ FireBlock::FireBlock(unsigned int extinguishRate)
 	randomizeYellow();
 }
 
+ABlock	*FireBlock::clone() const
+{
+	return (new FireBlock());
+}
+
 // ========================================================================== //
 //   Colors                                                                   //
 // ========================================================================== //
