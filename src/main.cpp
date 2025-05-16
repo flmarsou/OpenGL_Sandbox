@@ -5,16 +5,12 @@ static void	terminateProgram(Grid *&grid, unsigned int &shader, GLFWwindow *&win
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplGlfw_Shutdown();
 	ImGui::DestroyContext();
-	std::cout << INFO "ImGui deleted!" << std::endl;
 
 	ABlock::deleteBlock();
-	std::cout << SUCCESS "VAO, VBO, and EBO deleted from Block!" << std::endl;
 
 	delete grid;
-	std::cout << SUCCESS "Grid deleted!" << std::endl;
 
 	glDeleteProgram(shader);
-	std::cout << SUCCESS "Shaders deleted!" << std::endl;
 
 	glfwDestroyWindow(window);
 	glfwTerminate();
@@ -32,7 +28,6 @@ int	main()
 	initImGui(window);
 
 	Grid	*grid = new Grid(GRID_SIZE);
-
 	ABlock::initBlock();
 
 	glViewport(0, 0, WINDOW_HEIGHT, WINDOW_HEIGHT);
