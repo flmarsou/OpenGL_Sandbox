@@ -35,6 +35,9 @@ class	ABlock
 		void			setType(const unsigned int type);
 		unsigned int	getType() const;
 
+		void			setElec(const bool isElectrified);
+		bool			getElec() const;
+
 		// Movements
 		bool	isOnGround(Grid &grid, const int y);
 		bool	fallDown(Grid &grid, const int x, const int y);
@@ -49,6 +52,7 @@ class	ABlock
 	protected:
 		unsigned int	_id = EMPTY_BLOCK;
 		unsigned int	_type = EMPTY_TYPE;
+		bool			_isElectrified = false;
 
 	private:
 		// OpenGL

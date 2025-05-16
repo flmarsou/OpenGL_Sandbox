@@ -93,6 +93,16 @@ unsigned int	ABlock::getType() const
 	return (this->_type);
 }
 
+void			ABlock::setElec(const bool isElectrified)
+{
+	this->_isElectrified = isElectrified;
+}
+
+bool			ABlock::getElec() const
+{
+	return (this->_isElectrified);
+}
+
 // ========================================================================== //
 //   Methods & Functions                                                      //
 // ========================================================================== //
