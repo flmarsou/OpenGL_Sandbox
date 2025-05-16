@@ -25,6 +25,8 @@ static void	drawGui(GLFWwindow *&window)
 			Input::blockSelected = STONE_BLOCK;
 		if (ImGui::Button("Wood"))
 			Input::blockSelected = WOOD_BLOCK;
+		if (ImGui::Button("Metal"))
+			Input::blockSelected = METAL_BLOCK;
 	}
 	if (ImGui::CollapsingHeader("Powders:"))
 	{
@@ -57,6 +59,11 @@ static void	drawGui(GLFWwindow *&window)
 			Input::blockSelected = FIRE_BLOCK;
 		if (ImGui::Button("Bomb"))
 			Input::blockSelected = BOMB_BLOCK;
+	}
+	if (ImGui::CollapsingHeader("Electricity:"))
+	{
+		if (ImGui::Button("Battery"))
+			Input::blockSelected = BATTERY_BLOCK;
 	}
 	ImGui::SliderInt("Cursor", &Input::cursorSize, 1, 10);
 	if (ImGui::Button("Toggle V-Sync"))
@@ -128,6 +135,14 @@ static void	placeBlock(GLFWwindow *&window, Grid *grid)
 
 		case (MUD_BLOCK):
 			grid->place(cellX, cellY, new MudBlock(), Input::cursorSize);
+			break ;
+
+		case (BATTERY_BLOCK):
+			grid->place(cellX, cellY, new BatteryBlock(), Input::cursorSize);
+			break ;
+
+		case (METAL_BLOCK):
+			grid->place(cellX, cellY, new MetalBlock(), Input::cursorSize);
 			break ;
 
 		default:

@@ -18,6 +18,8 @@
 # include "FlammableGasBlock.hpp"
 # include "SteamBlock.hpp"
 # include "MudBlock.hpp"
+# include "BatteryBlock.hpp"
+# include "MetalBlock.hpp"
 
 // External Libraries
 # include <GLAD/glad.h>					// OpenGL Functions

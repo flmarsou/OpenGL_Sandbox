@@ -19,6 +19,7 @@ add_executable(opengl_sandbox
 	src/loop.cpp
 	src/grid/Grid.cpp
 	src/block/ABlock.cpp
+	src/block/electricity/BatteryBlock.cpp
 	src/block/gas/FlammableGasBlock.cpp
 	src/block/gas/SteamBlock.cpp
 	src/block/liquid/AcidBlock.cpp
@@ -29,6 +30,7 @@ add_executable(opengl_sandbox
 	src/block/powder/SandBlock.cpp
 	src/block/reactive/BombBlock.cpp
 	src/block/reactive/FireBlock.cpp
+	src/block/solid/MetalBlock.cpp
 	src/block/solid/StoneBlock.cpp
 	src/block/solid/WoodBlock.cpp
 )
@@ -38,6 +40,7 @@ target_include_directories(opengl_sandbox PRIVATE
 	${CMAKE_SOURCE_DIR}/libs
 	${CMAKE_SOURCE_DIR}/includes
 	${CMAKE_SOURCE_DIR}/src/block
+	${CMAKE_SOURCE_DIR}/src/block/electricity
 	${CMAKE_SOURCE_DIR}/src/block/gas
 	${CMAKE_SOURCE_DIR}/src/block/liquid
 	${CMAKE_SOURCE_DIR}/src/block/powder
