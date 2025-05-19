@@ -25,6 +25,4 @@
 
 ## ⚡ Electricity:
 - **[`Battery`](https://github.com/flmarsou/OpenGL_Sandbox/blob/main/src/block/electricity/BatteryBlock.cpp):** Electrifies conductive blocks on contact (e.g. **Metal**, **LEDs**, ...).
-- **[`Red LED`](https://github.com/flmarsou/OpenGL_Sandbox/blob/main/src/block/electricity/RedLedBlock.cpp):** Lits up on contact to electricity.
-- **[`Green LED`](https://github.com/flmarsou/OpenGL_Sandbox/blob/main/src/block/electricity/GreenLedBlock.cpp):** Behaves like **Red LED**.
-- **[`Blue LED`](https://github.com/flmarsou/OpenGL_Sandbox/blob/main/src/block/electricity/BlueLedBlock.cpp):** Behaves like **Red LED**.
+- **[`Red LED`](https://github.com/flmarsou/OpenGL_Sandbox/blob/main/src/block/electricity/RedLedBlock.cpp), [`Green LED`](https://github.com/flmarsou/OpenGL_Sandbox/blob/main/src/block/electricity/GreenLedBlock.cpp), [`Blue LED`](https://github.com/flmarsou/OpenGL_Sandbox/blob/main/src/block/electricity/BlueLedBlock.cpp):** Lits up on contact to electricity.
