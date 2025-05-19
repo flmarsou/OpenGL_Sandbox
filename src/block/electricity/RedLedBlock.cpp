@@ -4,6 +4,7 @@ RedLedBlock::RedLedBlock()
 	:	_defaultColor(colorOff())
 {
 	setId(RED_LED_BLOCK);
+	setType(ELECTRICITY_TYPE);
 
 	setColor(this->_defaultColor);
 }
@@ -59,19 +60,6 @@ glm::vec3	RedLedBlock::colorOff()
 //   Behaviors                                                                //
 // ========================================================================== //
 
-bool	RedLedBlock::checkElec(const Grid &grid, const int x, const int y)
-{
-	if (grid.getBlock(x, y + 1) && grid.getBlock(x, y + 1)->getElec())
-		return (true);
-	if (grid.getBlock(x - 1, y) && grid.getBlock(x - 1, y)->getElec())
-		return (true);
-	if (grid.getBlock(x + 1, y) && grid.getBlock(x + 1, y)->getElec())
-		return (true);
-	if (grid.getBlock(x, y - 1) && grid.getBlock(x, y - 1)->getElec())
-		return (true);
-	return (false);
-}
-
 void	RedLedBlock::floodFill(const Grid &grid, const int x, const int y)
 {
 	grid.getBlock(x, y)->setElec(true);
@@ -88,7 +76,7 @@ void	RedLedBlock::floodFill(const Grid &grid, const int x, const int y)
 
 void	RedLedBlock::update(Grid &grid, const int x, const int y)
 {
-	if (checkElec(grid, x, y))
+	if (checkElectricity(grid, x, y))
 		floodFill(grid, x, y);
 
 	if (!grid.getBlock(x, y)->getElec())

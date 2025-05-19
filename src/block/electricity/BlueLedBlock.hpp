@@ -1,8 +1,8 @@
 #pragma once
 
-# include "ABlock.hpp"
+# include "AElectricity.hpp"
 
-class	BlueLedBlock : public ABlock
+class	BlueLedBlock : public AElectricity
 {
 	public:
 		BlueLedBlock();
@@ -16,6 +16,5 @@ class	BlueLedBlock : public ABlock
 
 		glm::vec3	_defaultColor;
 
-		bool	checkElec(const Grid &grid, const int x, const int y);
 		void	floodFill(const Grid &grid, const int x, const int y);
 };
