@@ -38,8 +38,8 @@
 # include <vector>
 
 // Constants
-# define WINDOW_WIDTH	1280
-# define WINDOW_HEIGHT	720
+# define WINDOW_WIDTH	1024
+# define WINDOW_HEIGHT	819
 # define WINDOW_TITLE	"OpenGL Sandbox"
 # define GRID_SIZE		100
 
