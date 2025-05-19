@@ -47,45 +47,13 @@ void	AshBlock::randomizeColor()
 
 void	AshBlock::update(Grid &grid, const int x, const int y)
 {
-	// Security
+	// Movements
 	if (isOnGround(grid, y))
 		return ;
-
-	// Falling
 	if (fallDown(grid, x, y))
 		return ;
-
-	// Diagonal Falls
-	const bool	leftFirst = std::rand() % 2;
-
-	if (leftFirst)
-	{
-		if (fallLeft(grid, x, y))
-			return ;
-		if (fallRight(grid, x, y))
-			return ;
-	}
-	else
-	{
-		if (fallRight(grid, x, y))
-			return ;
-		if (fallLeft(grid, x, y))
-			return ;
-	}
-
-	// Diagonal Falls in Water
-	if (leftFirst && grid.getBlock(x - 1, y + 1) && grid.getBlock(x - 1, y + 1)->getType() == LIQUID_TYPE)
-	{
-		grid.swapBlock(x - 1, y + 1, this, x, y);
-		setUpdate(true);
-		grid.getBlock(x - 1, y + 1)->setUpdate(true);
+	if (diagonalMovements(grid, x, y))
 		return ;
-	}
-	else if (grid.getBlock(x + 1, y + 1) && grid.getBlock(x + 1, y + 1)->getType() == LIQUID_TYPE)
-	{
-		grid.swapBlock(x + 1, y + 1, this, x, y);
-		setUpdate(true);
-		grid.getBlock(x + 1, y + 1)->setUpdate(true);
+	if (liquidMovements(grid, x, y))
 		return ;
-	}
 }

@@ -1,8 +1,8 @@
 #pragma once
 
-# include "ABlock.hpp"
+# include "APowder.hpp"
 
-class	SandBlock : public ABlock
+class	SandBlock : public APowder
 {
 	public:
 		SandBlock();
