@@ -20,11 +20,14 @@ add_executable(opengl_sandbox
 	src/grid/Grid.cpp
 	src/block/ABlock.cpp
 	src/block/electricity/BatteryBlock.cpp
+	src/block/gas/AGas.cpp
 	src/block/gas/FlammableGasBlock.cpp
 	src/block/gas/SteamBlock.cpp
+	src/block/liquid/ALiquid.cpp
 	src/block/liquid/AcidBlock.cpp
 	src/block/liquid/ToxicSludgeBlock.cpp
 	src/block/liquid/WaterBlock.cpp
+	src/block/powder/APowder.cpp
 	src/block/powder/AshBlock.cpp
 	src/block/powder/MudBlock.cpp
 	src/block/powder/SandBlock.cpp
