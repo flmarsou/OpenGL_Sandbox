@@ -1,8 +1,8 @@
 #pragma once
 
-# include "ABlock.hpp"
+# include "ALiquid.hpp"
 
-class	WaterBlock : public ABlock
+class	WaterBlock : public ALiquid
 {
 	public:
 		WaterBlock();

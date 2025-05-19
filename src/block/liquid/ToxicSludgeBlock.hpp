@@ -1,8 +1,8 @@
 #pragma once
 
-# include "ABlock.hpp"
+# include "ALiquid.hpp"
 
-class	ToxicSludgeBlock : public ABlock
+class	ToxicSludgeBlock : public ALiquid
 {
 	public:
 		ToxicSludgeBlock();

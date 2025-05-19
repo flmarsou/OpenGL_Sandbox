@@ -123,53 +123,13 @@ void	AcidBlock::update(Grid &grid, const int x, const int y)
 		return ;
 	}
 
-	const bool	leftFirst = std::rand() % 100 <= 50;
-
-	// Security & Movements
-	if (isOnGround(grid, y))
-	{
-		if (leftFirst)
-		{
-			if (moveLeft(grid, x, y))
-				return ;
-			if (moveRight(grid, x, y))
-				return ;
-		}
-		else
-		{
-			if (moveRight(grid, x, y))
-				return ;
-			if (moveLeft(grid, x, y))
-				return ;
-		}
+	// Movements
+	if (swapAbove(grid, x, y))
 		return ;
-	}
-
-	// Falling
+	if (groundMovements(grid, x, y))
+		return ;
 	if (fallDown(grid, x, y))
 		return ;
-
-	// Diagonal Falls & Movements
-	if (leftFirst)
-	{
-		if (fallLeft(grid, x, y))
-			return ;
-		if (moveLeft(grid, x, y))
-			return ;
-		if (fallRight(grid, x, y))
-			return ;
-		if (moveRight(grid, x, y))
-			return ;
-	}
-	else
-	{
-		if (fallRight(grid, x, y))
-			return ;
-		if (moveRight(grid, x, y))
-			return ;
-		if (fallLeft(grid, x, y))
-			return ;
-		if (moveLeft(grid, x, y))
-			return ;
-	}
+	if (diagonalMovements(grid, x, y))
+		return ;
 }

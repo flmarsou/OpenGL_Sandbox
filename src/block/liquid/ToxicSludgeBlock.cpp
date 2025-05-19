@@ -74,9 +74,10 @@ void	ToxicSludgeBlock::convertSurrounding(Grid &grid, const int x, const int y)
 
 void	ToxicSludgeBlock::update(Grid &grid, const int x, const int y)
 {
+	// Converts Water to ToxicSludge
 	convertSurrounding(grid, x, y);
 
-	// Evaporate and FlammableGas Spawn
+	// Evaporate to FlammableGas
 	if (!grid.getBlock(x, y - 1) && std::rand() % 1000 < 5)
 	{
 		grid.setBlock(x, y - 1, new FlammableGasBlock());
@@ -88,62 +89,13 @@ void	ToxicSludgeBlock::update(Grid &grid, const int x, const int y)
 	if (std::rand() % 100 == 1)
 		randomizeColor();
 
-	// Swap Above
-	if (grid.getBlock(x, y - 1) && grid.getBlock(x, y - 1)->getType() == POWDER_TYPE)
-	{
-		grid.swapBlock(x, y - 1, this, x, y);
-		setUpdate(true);
-		grid.getBlock(x, y - 1)->setUpdate(true);
+	// Movements
+	if (swapAbove(grid, x, y))
 		return ;
-	}
-
-	// Security & Movements
-	const bool	leftFirst = std::rand() % 2;
-
-	if (isOnGround(grid, y))
-	{
-		if (leftFirst)
-		{
-			if (moveLeft(grid, x, y))
-				return ;
-			if (moveRight(grid, x, y))
-				return ;
-		}
-		else
-		{
-			if (moveRight(grid, x, y))
-				return ;
-			if (moveLeft(grid, x, y))
-				return ;
-		}
+	if (groundMovements(grid, x, y))
 		return ;
-	}
-
-	// Falling
 	if (fallDown(grid, x, y))
 		return ;
-
-	// Diagonal Falls & Movements
-	if (leftFirst)
-	{
-		if (fallLeft(grid, x, y))
-			return ;
-		if (moveLeft(grid, x, y))
-			return ;
-		if (fallRight(grid, x, y))
-			return ;
-		if (moveRight(grid, x, y))
-			return ;
-	}
-	else
-	{
-		if (fallRight(grid, x, y))
-			return ;
-		if (moveRight(grid, x, y))
-			return ;
-		if (fallLeft(grid, x, y))
-			return ;
-		if (moveLeft(grid, x, y))
-			return ;
-	}
+	if (diagonalMovements(grid, x, y))
+		return ;
 }
