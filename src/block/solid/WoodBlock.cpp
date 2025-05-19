@@ -113,8 +113,4 @@ void	WoodBlock::update(Grid &grid, const int x, const int y)
 		if (std::rand() % 2)
 			grid.setBlock(x, y, new AshBlock());
 	}
-
-	// Extinguish
-	if (chance < 20)
-		this->_burning = false;
 }
