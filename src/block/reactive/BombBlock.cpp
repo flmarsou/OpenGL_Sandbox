@@ -61,18 +61,11 @@ static bool isExplosionBlocked(const Grid &grid, int x, int y, const int explosi
 	return (false);
 }
 
-static bool	isExplosionShape(const int x, const int y, const int explosionX, const int explosionY)
+static bool	isExplosionShape(const int x, const int y, const int explosionX, const int explosionY, const int radius)
 {
-	if (!(explosionY == y - 7 && (explosionX < x - 2 || explosionX > x + 2))
-		&& !(explosionY == y - 6 && (explosionX < x - 4 || explosionX > x + 4))
-		&& !(explosionY == y - 5 && (explosionX < x - 5 || explosionX > x + 5))
-		&& !((explosionY == y - 4 || explosionY == y - 3) && (explosionX < x - 6 || explosionX > x + 6))
-		&& !((explosionY == y + 3 || explosionY == y + 4) && (explosionX < x - 6 || explosionX > x + 6))
-		&& !(explosionY == y + 5 && (explosionX < x - 5 || explosionX > x + 5))
-		&& !(explosionY == y + 6 && (explosionX < x - 4 || explosionX > x + 4))
-		&& !(explosionY == y + 7 && (explosionX < x - 2 || explosionX > x + 2)))
-		return (true);
-	return (false);
+	int dx = explosionX - x;
+	int dy = explosionY - y;
+	return dx * dx + dy * dy <= radius * radius;
 }
 
 // ========================================================================== //
@@ -86,11 +79,16 @@ void	BombBlock::update(Grid &grid, const int x, const int y)
 	{
 		grid.deleteBlock(x, y);
 
-		for (int explosionY = y - 7; explosionY < y + 8; explosionY++)
-			for (int explosionX = x - 7; explosionX < x + 8; explosionX++)
+		const int	radius = 10;
+
+		for (int offsetY = -radius; offsetY <= radius; offsetY++)
+			for (int offsetX = -radius; offsetX <= radius; offsetX++)
 			{
+				int	explosionX = x + offsetX;
+				int	explosionY = y + offsetY;
+
 				// Checks if the explosion radius is correct.
-				if (!isExplosionShape(x, y, explosionX, explosionY))
+				if (!isExplosionShape(x, y, explosionX, explosionY, radius))
 					continue ;
 
 				// Checks if nothing is blocking the path of the explosion.
