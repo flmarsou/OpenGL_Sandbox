@@ -59,7 +59,7 @@ glm::vec3	MetalBlock::colorOn()
 //   Behaviors                                                                //
 // ========================================================================== //
 
-bool	MetalBlock::checkBatteries(const Grid &grid, const int x, const int y)
+static bool	checkBatteries(const Grid &grid, const int x, const int y)
 {
 	if (grid.getBlock(x, y + 1) && grid.getBlock(x, y + 1)->getId() == BATTERY_BLOCK)
 		return (true);

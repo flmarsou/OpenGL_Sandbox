@@ -3,6 +3,7 @@
 BatteryBlock::BatteryBlock()
 {
 	setId(BATTERY_BLOCK);
+	setType(ELECTRICITY_TYPE);
 	setElec(true);
 
 	randomizeColor();
