@@ -17,5 +17,5 @@ class	MetalBlock : public ABlock
 		glm::vec3	_defaultColor;
 
 		bool	checkBatteries(const Grid &grid, const int x, const int y);
-		void	floodFillOn(const Grid &grid, const int x, const int y);
+		void	floodFill(const Grid &grid, const int x, const int y);
 };
