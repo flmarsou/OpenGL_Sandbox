@@ -3,7 +3,6 @@
 BatteryBlock::BatteryBlock()
 {
 	setId(BATTERY_BLOCK);
-	setElec(true);
 
 	randomizeColor();
 }
@@ -47,6 +46,7 @@ void	BatteryBlock::randomizeColor()
 
 void	BatteryBlock::update(Grid &grid, const int x, const int y)
 {
+	setElec(true);
 	(void)grid;
 	(void)x;
 	(void)y;
