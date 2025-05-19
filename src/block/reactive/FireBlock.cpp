@@ -4,6 +4,7 @@ FireBlock::FireBlock()
 	:	_extinguishRate(50), _extinguishColor(0)
 {
 	setId(FIRE_BLOCK);
+	setType(REACTIVE_TYPE);
 
 	randomizeYellow();
 }

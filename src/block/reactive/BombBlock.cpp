@@ -4,6 +4,7 @@
 BombBlock::BombBlock()
 {
 	setId(BOMB_BLOCK);
+	setType(REACTIVE_TYPE);
 
 	setColor({0.0f, 0.0f, 0.0f});
 }
