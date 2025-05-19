@@ -24,20 +24,20 @@ void	BatteryBlock::randomizeColor()
 	switch (chance)
 	{
 		case (0):
-			setColor({0.845f, 0.845f, 0.845f});	// Very Light Gray
-			break ;
+			setColor({1.0f, 0.85f, 0.3f});
+			break;
 		case (1):
-			setColor({0.805f, 0.805f, 0.805f});	// Light Gray
-			break ;
+			setColor({0.95f, 0.75f, 0.25f});
+			break;
 		case (2):
-			setColor({0.766f, 0.766f, 0.766f});	// Gray
-			break ;
+			setColor({0.9f, 0.65f, 0.2f});
+			break;
 		case (3):
-			setColor({0.725f, 0.725f, 0.725f});	// Dark Gray
-			break ;
+			setColor({0.85f, 0.6f, 0.15f});
+			break;
 		default:
-			setColor({0.678f, 0.678f, 0.678f});	// Very Dark Gray
-			break ;
+			setColor({0.8f, 0.55f, 0.1f});
+			break;
 	}
 }
 
