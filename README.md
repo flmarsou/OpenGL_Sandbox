@@ -2,7 +2,8 @@
 
 ## 🧱 Solids:
 - **[`Stone`](https://github.com/flmarsou/OpenGL_Sandbox/blob/main/src/block/solid/StoneBlock.cpp):** Unaffected by **Fire** and **explosions**, erodes with **Water**.
-- **[`Wood`](https://github.com/flmarsou/OpenGL_Sandbox/blob/main/src/block/solid/WoodBlock.cpp):** Ignites on contact with **Fire**. May spread **Fire** *(sideways and diagonally)*, turns into **Ash**, or extinguish.
+- **[`Wood`](https://github.com/flmarsou/OpenGL_Sandbox/blob/main/src/block/solid/WoodBlock.cpp):** Ignites on contact with **Fire**. May spread **Fire** *(sideways and diagonally)*, turns into **Ash**.
+- **[`Metal`](https://github.com/flmarsou/OpenGL_Sandbox/blob/main/src/block/solid/MetalBlock.cpp):** Electrifies on contact with a **Battery**.
 
 ## ⏳ Powders:
 - **[`Sand`](https://github.com/flmarsou/OpenGL_Sandbox/blob/main/src/block/powder/SandBlock.cpp):** Falls straight down. If blocked below, randomly slides sideways. Falls down into **Water**.
@@ -21,3 +22,9 @@
 ## 💥 Reactives:
 - **[`Fire`](https://github.com/flmarsou/OpenGL_Sandbox/blob/main/src/block/reactive/FireBlock.cpp):** Rises randomly *(up, left, or right)*. May ignite flammable materials or extinguish on its own.
 - **[`Bomb`](https://github.com/flmarsou/OpenGL_Sandbox/blob/main/src/block/reactive/BombBlock.cpp):** Falls straight down. Explodes on impact *(**15**-block radius)*, igniting affected blocks.
+
+## ⚡ Electricity:
+- **[`Battery`](https://github.com/flmarsou/OpenGL_Sandbox/blob/main/src/block/electricity/BatteryBlock.cpp):** Electrifies conductive blocks on contact (e.g. **Metal**, **LEDs**, ...).
+- **[`Red LED`](https://github.com/flmarsou/OpenGL_Sandbox/blob/main/src/block/electricity/RedLedBlock.cpp):** Lits up on contact to electricity.
+- **[`Green LED`](https://github.com/flmarsou/OpenGL_Sandbox/blob/main/src/block/electricity/GreenLedBlock.cpp):** Behaves like **Red LED**.
+- **[`Blue LED`](https://github.com/flmarsou/OpenGL_Sandbox/blob/main/src/block/electricity/BlueLedBlock.cpp):** Behaves like **Red LED**.
