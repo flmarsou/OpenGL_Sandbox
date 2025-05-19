@@ -24,15 +24,15 @@ glm::vec3	MetalBlock::offColor()
 	switch (chance)
 	{
 		case (0):
-			return {0.6f, 0.6f, 0.65f};
+			return {0.78f, 0.78f, 0.80f};
 		case (1):
-			return {0.5f, 0.55f, 0.6f};
+			return {0.70f, 0.72f, 0.75f};
 		case (2):
-			return {0.55f, 0.55f, 0.58f};
+			return {0.62f, 0.64f, 0.68f};
 		case (3):
-			return {0.52f, 0.57f, 0.63f};
+			return {0.55f, 0.57f, 0.60f};
 		default:
-			return {0.58f, 0.58f, 0.6f};
+			return {0.48f, 0.50f, 0.53f};
 	}
 }
 
@@ -43,15 +43,15 @@ glm::vec3	MetalBlock::onColor()
 	switch (chance)
 	{
 		case (0):
-			return {0.145f, 0.845f, 0.045f};
+			return {0.85f, 0.82f, 0.70f};
 		case (1):
-			return {0.105f, 0.805f, 0.005f};
+			return {0.78f, 0.76f, 0.65f};
 		case (2):
-			return {0.166f, 0.766f, 0.066f};
+			return {0.70f, 0.68f, 0.58f};
 		case (3):
-			return {0.125f, 0.725f, 0.025f};
+			return {0.62f, 0.60f, 0.52f};
 		default:
-			return {0.178f, 0.678f, 0.078f};
+			return {0.55f, 0.53f, 0.45f};
 	}
 }
 
@@ -72,24 +72,24 @@ bool	MetalBlock::checkBatteries(const Grid &grid, const int x, const int y)
 	return (false);
 }
 
-void	MetalBlock::floodFillOn(const Grid &grid, const int x, const int y)
+void	MetalBlock::floodFill(const Grid &grid, const int x, const int y)
 {
 	grid.getBlock(x, y)->setElec(true);
 	grid.getBlock(x, y)->setColor(onColor());
 	if (grid.getBlock(x, y + 1) && grid.getBlock(x, y + 1)->getId() == METAL_BLOCK && !grid.getBlock(x, y + 1)->getElec())	// Bottom
-		floodFillOn(grid, x, y + 1);
+		floodFill(grid, x, y + 1);
 	if (grid.getBlock(x - 1, y) && grid.getBlock(x - 1, y)->getId() == METAL_BLOCK && !grid.getBlock(x - 1, y)->getElec())	// Left
-		floodFillOn(grid, x - 1, y);
+		floodFill(grid, x - 1, y);
 	if (grid.getBlock(x + 1, y) && grid.getBlock(x + 1, y)->getId() == METAL_BLOCK && !grid.getBlock(x + 1, y)->getElec())	// Right
-		floodFillOn(grid, x + 1, y);
+		floodFill(grid, x + 1, y);
 	if (grid.getBlock(x, y - 1) && grid.getBlock(x, y - 1)->getId() == METAL_BLOCK && !grid.getBlock(x, y - 1)->getElec())	// Top
-		floodFillOn(grid, x, y - 1);
+		floodFill(grid, x, y - 1);
 }
 
 void	MetalBlock::update(Grid &grid, const int x, const int y)
 {
 	if (checkBatteries(grid, x, y))
-		floodFillOn(grid, x, y);
+		floodFill(grid, x, y);
 
 	if (!grid.getBlock(x, y)->getElec())
 		setColor(this->_defaultColor);
