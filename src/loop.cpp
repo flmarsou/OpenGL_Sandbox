@@ -1,6 +1,25 @@
 #include "config.hpp"
 #include "enums.hpp"
 
+#include "SandBlock.hpp"
+#include "WaterBlock.hpp"
+#include "StoneBlock.hpp"
+#include "BombBlock.hpp"
+#include "FireBlock.hpp"
+#include "AcidBlock.hpp"
+#include "WoodBlock.hpp"
+#include "AshBlock.hpp"
+#include "ToxicSludgeBlock.hpp"
+#include "FlammableGasBlock.hpp"
+#include "SteamBlock.hpp"
+#include "MudBlock.hpp"
+#include "BatteryBlock.hpp"
+#include "MetalBlock.hpp"
+#include "RedLedBlock.hpp"
+#include "GreenLedBlock.hpp"
+#include "BlueLedBlock.hpp"
+#include "C4Block.hpp"
+
 static void	drawGui(GLFWwindow *&window)
 {
 	static int	tempSize = -1;
@@ -70,6 +89,8 @@ static void	drawGui(GLFWwindow *&window)
 			Input::blockSelected = GREEN_LED_BLOCK;
 		if (ImGui::Button("Blue LED"))
 			Input::blockSelected = BLUE_LED_BLOCK;
+		if (ImGui::Button("C4"))
+			Input::blockSelected = C4_BLOCK;
 	}
 	ImGui::SliderInt("Cursor", &Input::cursorSize, 1, 10);
 	if (ImGui::Button("Toggle V-Sync"))
@@ -161,6 +182,10 @@ static void	placeBlock(GLFWwindow *&window, Grid *grid)
 
 		case (BLUE_LED_BLOCK):
 			grid->place(cellX, cellY, new BlueLedBlock(), Input::cursorSize);
+			break ;
+
+		case (C4_BLOCK):
+			grid->place(cellX, cellY, new C4Block(), Input::cursorSize);
 			break ;
 
 		default:

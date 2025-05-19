@@ -6,24 +6,6 @@
 
 # include "Grid.hpp"
 
-# include "SandBlock.hpp"
-# include "WaterBlock.hpp"
-# include "StoneBlock.hpp"
-# include "BombBlock.hpp"
-# include "FireBlock.hpp"
-# include "AcidBlock.hpp"
-# include "WoodBlock.hpp"
-# include "AshBlock.hpp"
-# include "ToxicSludgeBlock.hpp"
-# include "FlammableGasBlock.hpp"
-# include "SteamBlock.hpp"
-# include "MudBlock.hpp"
-# include "BatteryBlock.hpp"
-# include "MetalBlock.hpp"
-# include "RedLedBlock.hpp"
-# include "GreenLedBlock.hpp"
-# include "BlueLedBlock.hpp"
-
 // External Libraries
 # include <GLAD/glad.h>					// OpenGL Functions
 # include <GLFW/glfw3.h>				// Window
