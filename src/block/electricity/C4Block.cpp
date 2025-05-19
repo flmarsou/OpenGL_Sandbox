@@ -26,20 +26,20 @@ void	C4Block::randomizeColor()
 	switch (chance)
 	{
 		case (0):
-			setColor({0.102f, 0.722f, 0.290f});	// Very Light Green
-			break ;
+			setColor({0.85f, 0.83f, 0.70f});
+			break;
 		case (1):
-			setColor({0.102f, 0.690f, 0.290f});	// Light Green
-			break ;
+			setColor({0.80f, 0.78f, 0.60f});
+			break;
 		case (2):
-			setColor({0.102f, 0.659f, 0.290f});	// Green
-			break ;
+			setColor({0.75f, 0.73f, 0.55f});
+			break;
 		case (3):
-			setColor({0.102f, 0.627f, 0.290f});	// Dark Green
-			break ;
+			setColor({0.70f, 0.68f, 0.50f});
+			break;
 		default:
-			setColor({0.102f, 0.596f, 0.290f});	// Very Dark Green
-			break ;
+			setColor({0.65f, 0.63f, 0.45f});
+			break;
 	}
 }
 
