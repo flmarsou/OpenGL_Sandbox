@@ -1,8 +1,8 @@
 #pragma once
 
-# include "ABlock.hpp"
+# include "AGas.hpp"
 
-class	SteamBlock : public ABlock
+class	SteamBlock : public AGas
 {
 	public:
 		SteamBlock();

@@ -1,8 +1,8 @@
 #pragma once
 
-# include "ABlock.hpp"
+# include "AGas.hpp"
 
-class	FlammableGasBlock : public ABlock
+class	FlammableGasBlock : public AGas
 {
 	public:
 		FlammableGasBlock();
