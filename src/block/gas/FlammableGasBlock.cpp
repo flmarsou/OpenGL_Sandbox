@@ -94,6 +94,15 @@ void	FlammableGasBlock::update(Grid &grid, const int x, const int y)
 	if (std::rand() % 100 == 1)
 		randomizeColor();
 
+	// Swap Above
+	if (grid.getBlock(x, y - 1) && grid.getBlock(x, y - 1)->getType() == LIQUID_TYPE)
+	{
+		grid.swapBlock(x, y - 1, this, x, y);
+		setUpdate(true);
+		grid.getBlock(x, y - 1)->setUpdate(true);
+		return ;
+	}
+
 	// Security & Movements
 	if (grid.getBlock(x, y - 1) || y == 0)
 	{
