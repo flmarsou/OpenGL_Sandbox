@@ -8,6 +8,7 @@ namespace	Input
 
 	bool			mouseLeftPressed;
 	bool			mouseRightPressed;
+	bool			mouseMiddlePressed;
 	int				cursorSize = 1;
 }
 
@@ -72,6 +73,19 @@ static void	mouseButtonCallback(GLFWwindow *window, int button, int action, int 
 
 			case (GLFW_RELEASE):
 				Input::mouseRightPressed = false;
+				break ;
+		}
+	}
+	else if (button == GLFW_MOUSE_BUTTON_MIDDLE)
+	{
+		switch (action)
+		{
+			case (GLFW_PRESS):
+				Input::mouseMiddlePressed = true;
+				break ;
+
+			case (GLFW_RELEASE):
+				Input::mouseMiddlePressed = false;
 				break ;
 		}
 	}

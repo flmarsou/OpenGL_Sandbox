@@ -166,6 +166,23 @@ static void	eraseBlock(GLFWwindow *&window, Grid *grid)
 	grid->erase(cellX, cellY, Input::cursorSize);
 }
 
+static void	selectBlock(GLFWwindow *&window, Grid *grid)
+{
+	double	xpos;
+	double	ypos;
+	int		width;
+	int		height;
+
+	glfwGetCursorPos(window, &xpos, &ypos);
+	glfwGetFramebufferSize(window, &width, &height);
+
+	const int	cellX = static_cast<int>((xpos / height) * GRID_SIZE);
+	const int	cellY = static_cast<int>((ypos / height) * GRID_SIZE);
+
+	if (grid->getBlock(cellX, cellY))
+		Input::blockSelected = grid->getBlock(cellX, cellY)->getId();
+}
+
 void	gameLoop(GLFWwindow *&window, const unsigned int &shader, Grid *&grid)
 {
 	ImGui_ImplOpenGL3_NewFrame();
@@ -180,6 +197,8 @@ void	gameLoop(GLFWwindow *&window, const unsigned int &shader, Grid *&grid)
 		placeBlock(window, grid);
 	else if (Input::mouseRightPressed && !ImGui::GetIO().WantCaptureMouse)
 		eraseBlock(window, grid);
+	else if (Input::mouseMiddlePressed && !ImGui::GetIO().WantCaptureMouse)
+		selectBlock(window, grid);
 
 	drawGui(window);
 

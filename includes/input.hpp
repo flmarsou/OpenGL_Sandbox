@@ -8,5 +8,6 @@ namespace Input
 
 	extern bool			mouseLeftPressed;
 	extern bool			mouseRightPressed;
+	extern bool			mouseMiddlePressed;
 	extern int			cursorSize;
 }
