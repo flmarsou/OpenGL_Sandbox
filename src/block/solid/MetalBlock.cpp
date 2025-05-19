@@ -1,7 +1,7 @@
 #include "MetalBlock.hpp"
 
 MetalBlock::MetalBlock()
-	:	_defaultColor(offColor())
+	:	_defaultColor(colorOff())
 {
 	setId(METAL_BLOCK);
 
@@ -17,7 +17,7 @@ ABlock	*MetalBlock::clone() const
 //   Colors                                                                   //
 // ========================================================================== //
 
-glm::vec3	MetalBlock::offColor()
+glm::vec3	MetalBlock::colorOff()
 {
 	const unsigned int	chance = std::rand() % 5;
 
@@ -36,7 +36,7 @@ glm::vec3	MetalBlock::offColor()
 	}
 }
 
-glm::vec3	MetalBlock::onColor()
+glm::vec3	MetalBlock::colorOn()
 {
 	const unsigned int	chance = std::rand() % 5;
 
@@ -75,7 +75,7 @@ bool	MetalBlock::checkBatteries(const Grid &grid, const int x, const int y)
 void	MetalBlock::floodFill(const Grid &grid, const int x, const int y)
 {
 	grid.getBlock(x, y)->setElec(true);
-	grid.getBlock(x, y)->setColor(onColor());
+	grid.getBlock(x, y)->setColor(colorOn());
 	if (grid.getBlock(x, y + 1) && grid.getBlock(x, y + 1)->getId() == METAL_BLOCK && !grid.getBlock(x, y + 1)->getElec())	// Bottom
 		floodFill(grid, x, y + 1);
 	if (grid.getBlock(x - 1, y) && grid.getBlock(x - 1, y)->getId() == METAL_BLOCK && !grid.getBlock(x - 1, y)->getElec())	// Left

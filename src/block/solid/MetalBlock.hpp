@@ -11,8 +11,8 @@ class	MetalBlock : public ABlock
 		void	update(Grid &grid, const int x, const int y) override;
 
 	private:
-		glm::vec3	offColor();
-		glm::vec3	onColor();
+		glm::vec3	colorOff();
+		glm::vec3	colorOn();
 
 		glm::vec3	_defaultColor;
 
