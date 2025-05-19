@@ -20,6 +20,9 @@ add_executable(opengl_sandbox
 	src/grid/Grid.cpp
 	src/block/ABlock.cpp
 	src/block/electricity/BatteryBlock.cpp
+	src/block/electricity/RedLedBlock.cpp
+	src/block/electricity/GreenLedBlock.cpp
+	src/block/electricity/BlueLedBlock.cpp
 	src/block/gas/AGas.cpp
 	src/block/gas/FlammableGasBlock.cpp
 	src/block/gas/SteamBlock.cpp

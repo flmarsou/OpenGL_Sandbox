@@ -1,0 +1,96 @@
+#include "BlueLedBlock.hpp"
+
+BlueLedBlock::BlueLedBlock()
+	:	_defaultColor(colorOff())
+{
+	setId(BLUE_LED_BLOCK);
+
+	setColor(this->_defaultColor);
+}
+
+ABlock	*BlueLedBlock::clone() const
+{
+	return (new BlueLedBlock());
+}
+
+// ========================================================================== //
+//   Colors                                                                   //
+// ========================================================================== //
+
+glm::vec3	BlueLedBlock::colorOn()
+{
+	const unsigned int	chance = std::rand() % 5;
+
+	switch (chance)
+	{
+		case (0):
+			return {0.3f, 0.3f, 1.0f};
+		case (1):
+			return {0.25f, 0.25f, 0.95f};
+		case (2):
+			return {0.2f, 0.2f, 0.9f};
+		case (3):
+			return {0.35f, 0.35f, 1.0f};
+		default:
+			return {0.2f, 0.2f, 0.85f};
+	}
+}
+
+glm::vec3	BlueLedBlock::colorOff()
+{
+	const unsigned int	chance = std::rand() % 5;
+
+	switch (chance)
+	{
+		case (0):
+			return {0.05f, 0.05f, 0.2f};
+		case (1):
+			return {0.04f, 0.04f, 0.15f};
+		case (2):
+			return {0.03f, 0.03f, 0.1f};
+		case (3):
+			return {0.06f, 0.06f, 0.25f};
+		default:
+			return {0.05f, 0.05f, 0.18f};
+	}
+}
+
+// ========================================================================== //
+//   Behaviors                                                                //
+// ========================================================================== //
+
+bool	BlueLedBlock::checkElec(const Grid &grid, const int x, const int y)
+{
+	if (grid.getBlock(x, y + 1) && grid.getBlock(x, y + 1)->getElec())
+		return (true);
+	if (grid.getBlock(x - 1, y) && grid.getBlock(x - 1, y)->getElec())
+		return (true);
+	if (grid.getBlock(x + 1, y) && grid.getBlock(x + 1, y)->getElec())
+		return (true);
+	if (grid.getBlock(x, y - 1) && grid.getBlock(x, y - 1)->getElec())
+		return (true);
+	return (false);
+}
+
+void	BlueLedBlock::floodFill(const Grid &grid, const int x, const int y)
+{
+	grid.getBlock(x, y)->setElec(true);
+	grid.getBlock(x, y)->setColor(colorOn());
+	if (grid.getBlock(x, y + 1) && grid.getBlock(x, y + 1)->getId() == BLUE_LED_BLOCK && !grid.getBlock(x, y + 1)->getElec())	// Bottom
+		floodFill(grid, x, y + 1);
+	if (grid.getBlock(x - 1, y) && grid.getBlock(x - 1, y)->getId() == BLUE_LED_BLOCK && !grid.getBlock(x - 1, y)->getElec())	// Left
+		floodFill(grid, x - 1, y);
+	if (grid.getBlock(x + 1, y) && grid.getBlock(x + 1, y)->getId() == BLUE_LED_BLOCK && !grid.getBlock(x + 1, y)->getElec())	// Right
+		floodFill(grid, x + 1, y);
+	if (grid.getBlock(x, y - 1) && grid.getBlock(x, y - 1)->getId() == BLUE_LED_BLOCK && !grid.getBlock(x, y - 1)->getElec())	// Top
+		floodFill(grid, x, y - 1);
+}
+
+void	BlueLedBlock::update(Grid &grid, const int x, const int y)
+{
+	if (checkElec(grid, x, y))
+		floodFill(grid, x, y);
+
+	if (!grid.getBlock(x, y)->getElec())
+		setColor(this->_defaultColor);
+}

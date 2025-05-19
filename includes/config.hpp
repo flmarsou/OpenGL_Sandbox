@@ -20,6 +20,9 @@
 # include "MudBlock.hpp"
 # include "BatteryBlock.hpp"
 # include "MetalBlock.hpp"
+# include "RedLedBlock.hpp"
+# include "GreenLedBlock.hpp"
+# include "BlueLedBlock.hpp"
 
 // External Libraries
 # include <GLAD/glad.h>					// OpenGL Functions

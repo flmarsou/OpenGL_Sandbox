@@ -64,6 +64,12 @@ static void	drawGui(GLFWwindow *&window)
 	{
 		if (ImGui::Button("Battery"))
 			Input::blockSelected = BATTERY_BLOCK;
+		if (ImGui::Button("Red LED"))
+			Input::blockSelected = RED_LED_BLOCK;
+		if (ImGui::Button("Green LED"))
+			Input::blockSelected = GREEN_LED_BLOCK;
+		if (ImGui::Button("Blue LED"))
+			Input::blockSelected = BLUE_LED_BLOCK;
 	}
 	ImGui::SliderInt("Cursor", &Input::cursorSize, 1, 10);
 	if (ImGui::Button("Toggle V-Sync"))
@@ -143,6 +149,18 @@ static void	placeBlock(GLFWwindow *&window, Grid *grid)
 
 		case (METAL_BLOCK):
 			grid->place(cellX, cellY, new MetalBlock(), Input::cursorSize);
+			break ;
+
+		case (RED_LED_BLOCK):
+			grid->place(cellX, cellY, new RedLedBlock(), Input::cursorSize);
+			break ;
+
+		case (GREEN_LED_BLOCK):
+			grid->place(cellX, cellY, new GreenLedBlock(), Input::cursorSize);
+			break ;
+
+		case (BLUE_LED_BLOCK):
+			grid->place(cellX, cellY, new BlueLedBlock(), Input::cursorSize);
 			break ;
 
 		default:
