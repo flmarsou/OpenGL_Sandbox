@@ -141,7 +141,8 @@ void	Grid::update()
 			if (this->_grid[y][x])
 			{
 				this->_grid[y][x]->setUpdate(false);
-				this->_grid[y][x]->setElec(false);
+				if (getBlock(x, y)->getId() != BATTERY_BLOCK)
+					this->_grid[y][x]->setElec(false);
 			}
 
 	for (int y = this->_gridSize - 1; y >= 0; y--)
