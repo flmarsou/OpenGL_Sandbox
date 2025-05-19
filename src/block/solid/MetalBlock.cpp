@@ -1,11 +1,11 @@
 #include "MetalBlock.hpp"
 
 MetalBlock::MetalBlock()
-	:	_hasBattery(false)
+	:	_defaultColor(offColor())
 {
 	setId(METAL_BLOCK);
 
-	offColor();
+	setColor(this->_defaultColor);
 }
 
 ABlock	*MetalBlock::clone() const
@@ -17,51 +17,41 @@ ABlock	*MetalBlock::clone() const
 //   Colors                                                                   //
 // ========================================================================== //
 
-void	MetalBlock::offColor()
+glm::vec3	MetalBlock::offColor()
 {
 	const unsigned int	chance = std::rand() % 5;
 
 	switch (chance)
 	{
 		case (0):
-			setColor({0.145f, 0.845f, 0.845f});
-			break ;
+			return {0.6f, 0.6f, 0.65f};
 		case (1):
-			setColor({0.105f, 0.805f, 0.805f});
-			break ;
+			return {0.5f, 0.55f, 0.6f};
 		case (2):
-			setColor({0.166f, 0.766f, 0.766f});
-			break ;
+			return {0.55f, 0.55f, 0.58f};
 		case (3):
-			setColor({0.125f, 0.725f, 0.725f});
-			break ;
+			return {0.52f, 0.57f, 0.63f};
 		default:
-			setColor({0.178f, 0.678f, 0.678f});
-			break ;
+			return {0.58f, 0.58f, 0.6f};
 	}
 }
 
-void	MetalBlock::onColor()
+glm::vec3	MetalBlock::onColor()
 {
 	const unsigned int	chance = std::rand() % 5;
 
 	switch (chance)
 	{
 		case (0):
-			setColor({0.145f, 0.845f, 0.045f});
-			break ;
+			return {0.145f, 0.845f, 0.045f};
 		case (1):
-			setColor({0.105f, 0.805f, 0.005f});
-			break ;
+			return {0.105f, 0.805f, 0.005f};
 		case (2):
-			setColor({0.166f, 0.766f, 0.066f});
-			break ;
+			return {0.166f, 0.766f, 0.066f};
 		case (3):
-			setColor({0.125f, 0.725f, 0.025f});
-			break ;
+			return {0.125f, 0.725f, 0.025f};
 		default:
-			setColor({0.178f, 0.678f, 0.078f});
-			break ;
+			return {0.178f, 0.678f, 0.078f};
 	}
 }
 
@@ -85,6 +75,7 @@ bool	MetalBlock::checkBatteries(const Grid &grid, const int x, const int y)
 void	MetalBlock::floodFillOn(const Grid &grid, const int x, const int y)
 {
 	grid.getBlock(x, y)->setElec(true);
+	grid.getBlock(x, y)->setColor(onColor());
 	if (grid.getBlock(x, y + 1) && grid.getBlock(x, y + 1)->getId() == METAL_BLOCK && !grid.getBlock(x, y + 1)->getElec())	// Bottom
 		floodFillOn(grid, x, y + 1);
 	if (grid.getBlock(x - 1, y) && grid.getBlock(x - 1, y)->getId() == METAL_BLOCK && !grid.getBlock(x - 1, y)->getElec())	// Left
@@ -95,32 +86,11 @@ void	MetalBlock::floodFillOn(const Grid &grid, const int x, const int y)
 		floodFillOn(grid, x, y - 1);
 }
 
-void	MetalBlock::floodFillOff(const Grid &grid, const int x, const int y)
-{
-	grid.getBlock(x, y)->setElec(false);
-	if (grid.getBlock(x, y + 1) && grid.getBlock(x, y + 1)->getId() == METAL_BLOCK && grid.getBlock(x, y + 1)->getElec())	// Bottom
-		floodFillOff(grid, x, y + 1);
-	if (grid.getBlock(x - 1, y) && grid.getBlock(x - 1, y)->getId() == METAL_BLOCK && grid.getBlock(x - 1, y)->getElec())	// Left
-		floodFillOff(grid, x - 1, y);
-	if (grid.getBlock(x + 1, y) && grid.getBlock(x + 1, y)->getId() == METAL_BLOCK && grid.getBlock(x + 1, y)->getElec())	// Right
-		floodFillOff(grid, x + 1, y);
-	if (grid.getBlock(x, y - 1) && grid.getBlock(x, y - 1)->getId() == METAL_BLOCK && grid.getBlock(x, y - 1)->getElec())	// Top
-		floodFillOff(grid, x, y - 1);
-}
-
-# include <iostream>
-
 void	MetalBlock::update(Grid &grid, const int x, const int y)
 {
-	if (!grid.getBlock(x, y)->getElec() && checkBatteries(grid, x, y))
-	{
-		this->_hasBattery = true;
+	if (checkBatteries(grid, x, y))
 		floodFillOn(grid, x, y);
-	}
 
-
-	if (grid.getBlock(x, y)->getElec())
-		onColor();
-	else
-		offColor();
+	if (!grid.getBlock(x, y)->getElec())
+		setColor(this->_defaultColor);
 }

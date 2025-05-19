@@ -11,12 +11,11 @@ class	MetalBlock : public ABlock
 		void	update(Grid &grid, const int x, const int y) override;
 
 	private:
-		void	offColor();
-		void	onColor();
+		glm::vec3	offColor();
+		glm::vec3	onColor();
+
+		glm::vec3	_defaultColor;
 
 		bool	checkBatteries(const Grid &grid, const int x, const int y);
 		void	floodFillOn(const Grid &grid, const int x, const int y);
-		void	floodFillOff(const Grid &grid, const int x, const int y);
-
-		bool	_hasBattery;
 };
