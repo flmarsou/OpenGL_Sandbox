@@ -139,7 +139,10 @@ void	Grid::update()
 	for (int y = 0; y < this->_gridSize; y++)
 		for (int x = 0; x < this->_gridSize; x++)
 			if (this->_grid[y][x])
+			{
 				this->_grid[y][x]->setUpdate(false);
+				this->_grid[y][x]->setElec(false);
+			}
 
 	for (int y = this->_gridSize - 1; y >= 0; y--)
 		for (int x = this->_gridSize - 1; x >= 0; x--)
