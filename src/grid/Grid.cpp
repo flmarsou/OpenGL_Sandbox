@@ -136,6 +136,7 @@ void	Grid::draw(const unsigned int shader)
 
 void	Grid::update()
 {
+	// Reset blocks (expect for batteries' electricity)
 	for (int y = 0; y < this->_gridSize; y++)
 		for (int x = 0; x < this->_gridSize; x++)
 			if (this->_grid[y][x])
@@ -145,6 +146,13 @@ void	Grid::update()
 					this->_grid[y][x]->setElec(false);
 			}
 
+	// Update BatteryBlock and MetalBlock
+	for (int y = this->_gridSize - 1; y >= 0; y--)
+		for (int x = this->_gridSize - 1; x >= 0; x--)
+			if (this->_grid[y][x] && (this->_grid[y][x]->getId() == BATTERY_BLOCK || this->_grid[y][x]->getId() == METAL_BLOCK))
+				this->_grid[y][x]->update(*this, x, y);
+
+	// Update Blocks
 	for (int y = this->_gridSize - 1; y >= 0; y--)
 		for (int x = this->_gridSize - 1; x >= 0; x--)
 			if (this->_grid[y][x] && !this->_grid[y][x]->getUpdate())

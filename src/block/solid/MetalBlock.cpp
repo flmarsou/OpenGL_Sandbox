@@ -93,4 +93,6 @@ void	MetalBlock::update(Grid &grid, const int x, const int y)
 
 	if (!grid.getBlock(x, y)->getElec())
 		setColor(this->_defaultColor);
+
+	setUpdate(true);
 }

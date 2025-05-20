@@ -51,4 +51,5 @@ void	BatteryBlock::update(Grid &grid, const int x, const int y)
 	(void)grid;
 	(void)x;
 	(void)y;
+	setUpdate(true);
 }
