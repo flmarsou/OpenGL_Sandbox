@@ -51,7 +51,7 @@ static bool	isBlockResistant(const Grid &grid, const int explosionX, const int e
 {
 	const ABlock *target = grid.getBlock(explosionX, explosionY);
 
-	if (target && target->getId() == STONE_BLOCK)
+	if (target && (target->getId() == STONE_BLOCK || target->getId() == METAL_BLOCK))
 		return (true);
 	return (false);
 }
@@ -72,7 +72,7 @@ static bool isExplosionBlocked(const Grid &grid, int x, int y, const int explosi
 
 		// Explosion Blocker
 		const ABlock	*temp = grid.getBlock(x, y);
-		if (temp && temp->getId() == STONE_BLOCK)
+		if (temp && (temp->getId() == STONE_BLOCK || temp->getId() == METAL_BLOCK))
 			return (true);
 
 		// Bresenham's Algorithm
