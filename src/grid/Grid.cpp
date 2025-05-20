@@ -120,18 +120,31 @@ void	Grid::erase(const int x, const int y, int cursorSize)
 	}
 }
 
-void	Grid::draw(const unsigned int shader)
+void Grid::draw(const unsigned int shader)
 {
+	std::vector<glm::mat4> transforms;
+	std::vector<glm::vec3> colors;
+
+	const float cellSizeNDC = 2.0f / this->_gridSize;
+
 	for (int y = 0; y < this->_gridSize; y++)
 		for (int x = 0; x < this->_gridSize; x++)
+		{
 			if (this->_grid[y][x])
 			{
-				const float	cellSizeNDC = 2.0f / this->_gridSize;
-				const float	ndcX = -1.0f + (x * cellSizeNDC);
-				const float	ndcY =  1.0f - ((y + 1) * cellSizeNDC);
+				float ndcX = -1.0f + (x * cellSizeNDC);
+				float ndcY =  1.0f - ((y + 1) * cellSizeNDC);
 
-				this->_grid[y][x]->draw(ndcX, ndcY, cellSizeNDC, shader);
+				glm::mat4 transform = glm::mat4(1.0f);
+				transform = glm::translate(transform, glm::vec3(ndcX, ndcY, 0.0f));
+				transform = glm::scale(transform, glm::vec3(cellSizeNDC, cellSizeNDC, 1.0f));
+
+				transforms.push_back(transform);
+				colors.push_back(this->_grid[y][x]->getColor());
 			}
+		}
+
+	ABlock::drawInstanced(transforms, colors, shader);
 }
 
 void	Grid::update()

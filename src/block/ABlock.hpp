@@ -4,6 +4,7 @@
 # include "Grid.hpp"
 
 # include <GLAD/glad.h>
+# include <vector>
 
 # include <GLM/glm.hpp>
 # include <GLM/gtc/matrix_transform.hpp>
@@ -18,8 +19,8 @@ class	ABlock
 
 		static void	initBlock();
 		static void	deleteBlock();
+		static void	drawInstanced(const std::vector<glm::mat4> &transforms, const std::vector<glm::vec3> &colors, unsigned int shader);
 
-		void			draw(const float x, const float y, const float scale, const unsigned int shader) const;
 		virtual void	update(Grid &grid, const int x, const int y) = 0;
 		virtual ABlock	*clone() const = 0;
 
@@ -60,6 +61,8 @@ class	ABlock
 		static unsigned int	_VAO;	// Vertex Array Object
 		static unsigned int	_VBO;	// Vertex Buffer Object
 		static unsigned int	_EBO;	// Element Buffer Object
+		static unsigned int	_instanceVBO;
+		static unsigned int	_colorVBO;
 
 		// Block
 		bool		_isUpdated = false;

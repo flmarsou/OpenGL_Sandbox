@@ -1,10 +1,13 @@
 #version 460 core
 
 layout (location = 0) in vec2	aPos;
+layout (location = 1) in mat4	transform;
+layout (location = 5) in vec3	instanceColor;
 
-uniform mat4	transform;
+out vec3	vColor;
 
-void	main()
+void main()
 {
 	gl_Position = transform * vec4(aPos, 0.0, 1.0);
+	vColor = instanceColor;
 }

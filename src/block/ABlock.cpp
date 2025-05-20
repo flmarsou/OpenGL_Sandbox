@@ -4,6 +4,8 @@
 unsigned int	ABlock::_VAO = 0;
 unsigned int	ABlock::_VBO = 0;
 unsigned int	ABlock::_EBO = 0;
+unsigned int	ABlock::_instanceVBO = 0;
+unsigned int	ABlock::_colorVBO = 0;
 
 // ========================================================================== //
 //   Initializers                                                             //
@@ -44,7 +46,11 @@ void	ABlock::initBlock()
 	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void *)0);
 	glEnableVertexAttribArray(0);
 
-	std::cout << SUCCESS "VAO, VBO, and EBO linked to Block!" << std::endl;
+	// Creates buffers for instancing
+	glGenBuffers(1, &_instanceVBO);
+	glGenBuffers(1, &_colorVBO);
+
+	std::cout << SUCCESS "VAO, VBO, EBO, and instances linked to Block!" << std::endl;
 }
 
 void	ABlock::deleteBlock()
@@ -53,6 +59,33 @@ void	ABlock::deleteBlock()
 	glDeleteBuffers(1, &_VBO);
 	glDeleteBuffers(1, &_EBO);
 }
+
+void	ABlock::drawInstanced(const std::vector<glm::mat4> &transforms, const std::vector<glm::vec3> &colors, unsigned int shader)
+{
+	glUseProgram(shader);
+	glBindVertexArray(_VAO);
+
+	glBindBuffer(GL_ARRAY_BUFFER, _instanceVBO);
+	glBufferData(GL_ARRAY_BUFFER, transforms.size() * sizeof(glm::mat4), transforms.data(), GL_DYNAMIC_DRAW);
+
+	std::size_t vec4Size = sizeof(glm::vec4);
+	for (int i = 0; i < 4; i++)
+	{
+		glVertexAttribPointer(1 + i, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void *)(i * vec4Size));
+		glEnableVertexAttribArray(1 + i);
+		glVertexAttribDivisor(1 + i, 1);
+	}
+
+	glBindBuffer(GL_ARRAY_BUFFER, _colorVBO);
+	glBufferData(GL_ARRAY_BUFFER, colors.size() * sizeof(glm::vec3), colors.data(), GL_DYNAMIC_DRAW);
+
+	glVertexAttribPointer(5, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), (void *)0);
+	glEnableVertexAttribArray(5);
+	glVertexAttribDivisor(5, 1);
+
+	glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0, transforms.size());
+}
+
 
 // ========================================================================== //
 //   Getters & Setters                                                        //
@@ -111,29 +144,6 @@ bool			ABlock::getElec() const
 // ========================================================================== //
 //   Methods & Functions                                                      //
 // ========================================================================== //
-
-void	ABlock::draw(const float x, const float y, const float scale, const unsigned int shader) const
-{
-	glUseProgram(shader);
-
-	// Matrix
-	glm::mat4	transform;
-	transform = glm::mat4(1.0f);
-	transform = glm::translate(transform, glm::vec3(x, y, 0.0f));		// Position
-	transform = glm::scale(transform, glm::vec3(scale, scale, 1.0f));	// Size
-
-	// Shader Transform
-	const unsigned int	pos = glGetUniformLocation(shader, "transform");
-	glUniformMatrix4fv(pos, 1, GL_FALSE, glm::value_ptr(transform));
-
-	// Shader Color
-	const unsigned int	color = glGetUniformLocation(shader, "color");
-	glUniform3fv(color, 1, glm::value_ptr(this->_blockColor));
-
-	// Draws
-	glBindVertexArray(this->_VAO);
-	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-}
 
 // ===================================== //
 //   Movements                           //
