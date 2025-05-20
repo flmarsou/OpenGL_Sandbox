@@ -47,7 +47,7 @@ void	WaterBlock::randomizeColor()
 //   Utils                                                                    //
 // ========================================================================== //
 
-bool	WaterBlock::convertSurrounding(Grid &grid, const int x, const int y)
+static bool	boilWithFire(Grid &grid, const int x, const int y)
 {
 	if (grid.getBlock(x, y + 1)			// Bottom
 		|| grid.getBlock(x - 1, y)		// Left
@@ -86,7 +86,7 @@ bool	WaterBlock::convertSurrounding(Grid &grid, const int x, const int y)
 void	WaterBlock::update(Grid &grid, const int x, const int y)
 {
 	// Boil
-	if (std::rand() % 100 == 1 && convertSurrounding(grid, x, y))
+	if (std::rand() % 100 == 1 && boilWithFire(grid, x, y))
 	{
 		grid.deleteBlock(x, y);
 		return ;

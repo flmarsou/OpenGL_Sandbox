@@ -12,6 +12,4 @@ class	WaterBlock : public ALiquid
 
 	private:
 		void	randomizeColor();
-
-		bool	convertSurrounding(Grid &grid, const int x, const int y);
 };

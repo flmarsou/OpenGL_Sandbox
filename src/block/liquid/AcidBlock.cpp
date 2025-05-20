@@ -46,7 +46,7 @@ void	AcidBlock::randomizeColor()
 //   Utils                                                                    //
 // ========================================================================== //
 
-bool	AcidBlock::dissolveBehavior(Grid &grid, const int x, const int y)
+static bool	dissolveBehavior(Grid &grid, const int x, const int y)
 {
 	const unsigned int	id = grid.getBlock(x, y)->getId();
 
@@ -74,7 +74,7 @@ bool	AcidBlock::dissolveBehavior(Grid &grid, const int x, const int y)
 	return (false);
 }
 
-bool	AcidBlock::dissolveSurrounding(Grid &grid, const int x, const int y)
+static bool	dissolveSurrounding(Grid &grid, const int x, const int y)
 {
 	const unsigned int	skipChance = std::rand() % 100;
 	const unsigned int	killChance = std::rand() % 100;

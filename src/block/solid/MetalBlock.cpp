@@ -86,6 +86,10 @@ void	MetalBlock::floodFill(const Grid &grid, const int x, const int y)
 		floodFill(grid, x, y - 1);
 }
 
+// ========================================================================== //
+//   Utils                                                                    //
+// ========================================================================== //
+
 void	MetalBlock::update(Grid &grid, const int x, const int y)
 {
 	if (checkBatteries(grid, x, y))

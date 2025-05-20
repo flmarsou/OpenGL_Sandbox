@@ -46,7 +46,7 @@ void	ToxicSludgeBlock::randomizeColor()
 //   Utils                                                                    //
 // ========================================================================== //
 
-void	ToxicSludgeBlock::convertSurrounding(Grid &grid, const int x, const int y)
+static void	convertWater(Grid &grid, const int x, const int y)
 {
 	// Attempts to convert with 10% chance
 	if (std::rand() % 100 < 90)
@@ -75,7 +75,7 @@ void	ToxicSludgeBlock::convertSurrounding(Grid &grid, const int x, const int y)
 void	ToxicSludgeBlock::update(Grid &grid, const int x, const int y)
 {
 	// Converts Water to ToxicSludge
-	convertSurrounding(grid, x, y);
+	convertWater(grid, x, y);
 
 	// Evaporate to FlammableGas
 	if (!grid.getBlock(x, y - 1) && std::rand() % 1000 < 5)

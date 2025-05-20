@@ -46,7 +46,7 @@ void	FlammableGasBlock::randomizeColor()
 //   Utils                                                                    //
 // ========================================================================== //
 
-void	FlammableGasBlock::checkSurrounding(Grid &grid, const int x, const int y)
+void	FlammableGasBlock::checkFire(Grid &grid, const int x, const int y)
 {
 	if (grid.getBlock(x, y + 1)			// Bottom
 		|| grid.getBlock(x - 1, y + 1)	// Bottom Left
@@ -83,7 +83,7 @@ void	FlammableGasBlock::checkSurrounding(Grid &grid, const int x, const int y)
 void	FlammableGasBlock::update(Grid &grid, const int x, const int y)
 {
 	// Burning
-	checkSurrounding(grid, x, y);
+	checkFire(grid, x, y);
 	if (this->_burning && std::rand() % 100 < 10)
 	{
 		grid.convertBlock(x, y, new FireBlock(10));

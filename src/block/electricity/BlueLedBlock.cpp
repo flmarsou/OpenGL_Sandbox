@@ -57,7 +57,7 @@ glm::vec3	BlueLedBlock::colorOff()
 }
 
 // ========================================================================== //
-//   Behaviors                                                                //
+//   Utils                                                                    //
 // ========================================================================== //
 
 void	BlueLedBlock::floodFill(const Grid &grid, const int x, const int y)
@@ -73,6 +73,10 @@ void	BlueLedBlock::floodFill(const Grid &grid, const int x, const int y)
 	if (grid.getBlock(x, y - 1) && grid.getBlock(x, y - 1)->getId() == BLUE_LED_BLOCK && !grid.getBlock(x, y - 1)->getElec())	// Top
 		floodFill(grid, x, y - 1);
 }
+
+// ========================================================================== //
+//   Behaviors                                                                //
+// ========================================================================== //
 
 void	BlueLedBlock::update(Grid &grid, const int x, const int y)
 {

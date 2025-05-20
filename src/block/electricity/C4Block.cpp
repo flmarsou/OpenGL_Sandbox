@@ -99,7 +99,7 @@ static bool	isExplosionShape(const int x, const int y, const int explosionX, con
 }
 
 // ========================================================================== //
-//   Behaviors                                                                //
+//   Utils                                                                    //
 // ========================================================================== //
 
 void	C4Block::floodFill(const Grid &grid, const int x, const int y)
@@ -123,6 +123,10 @@ void	C4Block::floodFill(const Grid &grid, const int x, const int y)
 	if (grid.getBlock(x, y - 1) && grid.getBlock(x, y - 1)->getId() == C4_BLOCK)	// Top
 		floodFill(grid, x, y - 1);
 }
+
+// ========================================================================== //
+//   Behaviors                                                                //
+// ========================================================================== //
 
 void	C4Block::update(Grid &grid, const int x, const int y)
 {

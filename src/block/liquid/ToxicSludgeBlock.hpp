@@ -12,6 +12,4 @@ class	ToxicSludgeBlock : public ALiquid
 
 	private:
 		void	randomizeColor();
-
-		void	convertSurrounding(Grid &grid, const int x, const int y);
 };
