@@ -28,6 +28,7 @@ class	ABlock
 		bool			getUpdate() const;
 
 		void			setColor(const glm::vec3 color);
+		glm::vec3		getColor() const;
 
 		void			setId(const unsigned int id);
 		unsigned int	getId() const;

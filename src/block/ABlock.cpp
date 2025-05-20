@@ -73,6 +73,11 @@ void			ABlock::setColor(const glm::vec3 color)
 	this->_blockColor = color;
 }
 
+glm::vec3		ABlock::getColor() const
+{
+	return (this->_blockColor);
+}
+
 void			ABlock::setId(const unsigned int id)
 {
 	this->_id = id;
