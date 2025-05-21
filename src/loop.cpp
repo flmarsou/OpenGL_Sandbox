@@ -209,7 +209,7 @@ static void	eraseBlock(GLFWwindow *window, Grid *&grid)
 
 static void	floodFillEraseBucket(Grid *&grid, const int x, const int y, const unsigned int block)
 {
-	if (x < 0 || x >= grid->getSize() || y < 0 || y >= grid->getSize() || !grid->getBlock(x, y))
+	if (x < 0 || x >= grid->getSize() || y < 0 || y >= grid->getSize() || !grid->getBlock(x, y) || (grid->getBlock(x, y) && grid->getBlock(x, y)->getId() != block))
 		return ;
 
 	grid->deleteBlock(x, y);
@@ -249,8 +249,14 @@ void	gameLoop(GLFWwindow *&window, const unsigned int shader, Grid *&grid)
 	ImGui::NewFrame();
 
 	grid->draw(shader);
+
 	if (!Input::togglePause)
 		grid->update();
+
+	if (!Input::toggleVSync)
+		glfwSwapInterval(1);
+	else
+		glfwSwapInterval(0);
 
 	if (Input::mouseLeftPressed && !Input::toggleBucket && !ImGui::GetIO().WantCaptureMouse)
 		placeBlock(window, grid);

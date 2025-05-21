@@ -36,16 +36,23 @@ static void	keyCallback(GLFWwindow *window, int key, int scancode, int action, i
 				break ;
 
 			case (GLFW_KEY_F4):
-				toggleVSync();
+				if (!Input::toggleVSync)
+					Input::toggleVSync = true;
+				else if (Input::toggleVSync)
+					Input::toggleVSync = false;
 				break ;
 
 			case (GLFW_KEY_SPACE):
-				togglePause();
+				if (!Input::togglePause)
+					Input::togglePause = true;
+				else if (Input::togglePause)
+					Input::togglePause = false;
 				break ;
 
 			case (GLFW_KEY_LEFT_SHIFT):
 				if (!Input::toggleBucket)
 					Input::toggleBucket = true;
+				break ;
 		}
 	}
 	if (action == GLFW_RELEASE)
@@ -55,6 +62,7 @@ static void	keyCallback(GLFWwindow *window, int key, int scancode, int action, i
 			case (GLFW_KEY_LEFT_SHIFT):
 				if (Input::toggleBucket)
 					Input::toggleBucket = false;
+				break ;
 		}
 	}
 }
