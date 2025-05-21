@@ -170,13 +170,17 @@ void	Grid::update()
 	{
 		// Left to Right
 		if (y % 2)
+		{
 			for (int x = this->_gridSize - 1; x >= 0; x--)
 				if (this->_grid[y][x] && !this->_grid[y][x]->getUpdate())
 					this->_grid[y][x]->update(*this, x, y);
+		}
 		// Right to Left
 		else
+		{
 			for (int x = 0; x < this->_gridSize; x++)
 				if (this->_grid[y][x] && !this->_grid[y][x]->getUpdate())
 					this->_grid[y][x]->update(*this, x, y);
+		}
 	}
 }
