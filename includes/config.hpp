@@ -35,9 +35,5 @@ void	initImGui(GLFWwindow *&window);
 bool	initShader(unsigned int &shader);
 void	initCallbacks(GLFWwindow *&window);
 
-// Debug
-void	toggleVSync();
-void	togglePause();
-
 // Main
 void	gameLoop(GLFWwindow *&window, const unsigned int shader, Grid *&grid);
