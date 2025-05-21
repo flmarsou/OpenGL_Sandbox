@@ -20,7 +20,7 @@
 #include "BlueLedBlock.hpp"
 #include "C4Block.hpp"
 
-static void	drawGui(GLFWwindow *&window)
+static void	drawGui(GLFWwindow *window)
 {
 	static int	tempSize = -1;
 	int	width;
@@ -93,15 +93,14 @@ static void	drawGui(GLFWwindow *&window)
 			Input::blockSelected = C4_BLOCK;
 	}
 	ImGui::SliderInt("Cursor", &Input::cursorSize, 1, 10);
-	if (ImGui::Button("Toggle V-Sync"))
-		toggleVSync();
-	if (ImGui::Button("Toggle Pause"))
-		togglePause();
+	ImGui::Checkbox("Bucket", &Input::toggleBucket);
+	ImGui::Checkbox("Pause", &Input::togglePause);
+	ImGui::Checkbox("V-Sync", &Input::toggleVSync);
 
 	ImGui::Text("FPS: %.f", ImGui::GetIO().Framerate);
 }
 
-static void	placeBlock(GLFWwindow *&window, Grid *grid)
+static void	getCursorPos(GLFWwindow *window, int &x, int &y)
 {
 	double	xpos;
 	double	ypos;
@@ -111,135 +110,156 @@ static void	placeBlock(GLFWwindow *&window, Grid *grid)
 	glfwGetCursorPos(window, &xpos, &ypos);
 	glfwGetFramebufferSize(window, &width, &height);
 
-	const int	cellX = static_cast<int>((xpos / height) * GRID_SIZE);
-	const int	cellY = static_cast<int>((ypos / height) * GRID_SIZE);
+	x = static_cast<int>((xpos / height) * GRID_SIZE);
+	y = static_cast<int>((ypos / height) * GRID_SIZE);
+}
+
+static void	placeBlock(GLFWwindow *window, Grid *&grid)
+{
+	int	x;
+	int	y;
+
+	getCursorPos(window, x, y);
 
 	switch (Input::blockSelected)
 	{
-		case (SAND_BLOCK):
-			grid->place(cellX, cellY, new SandBlock(), Input::cursorSize);
-			break ;
+		case (SAND_BLOCK): grid->place(x, y, new SandBlock(), Input::cursorSize); break ;
+		case (WATER_BLOCK): grid->place(x, y, new WaterBlock(), Input::cursorSize); break ;
+		case (STONE_BLOCK): grid->place(x, y, new StoneBlock(), Input::cursorSize); break ;
+		case (BOMB_BLOCK): grid->place(x, y, new BombBlock(), Input::cursorSize); break ;
+		case (FIRE_BLOCK): grid->place(x, y, new FireBlock(), Input::cursorSize); break ;
+		case (ACID_BLOCK): grid->place(x, y, new AcidBlock(), Input::cursorSize); break ;
+		case (WOOD_BLOCK): grid->place(x, y, new WoodBlock(), Input::cursorSize); break ;
+		case (ASH_BLOCK): grid->place(x, y, new AshBlock(), Input::cursorSize); break ;
+		case (TOXIC_SLUDGE_BLOCK): grid->place(x, y, new ToxicSludgeBlock(), Input::cursorSize); break ;
+		case (FLAMMABLE_GAS_BLOCK): grid->place(x, y, new FlammableGasBlock(), Input::cursorSize); break ;
+		case (STEAM_BLOCK): grid->place(x, y, new SteamBlock(), Input::cursorSize); break ;
+		case (MUD_BLOCK): grid->place(x, y, new MudBlock(), Input::cursorSize); break ;
+		case (BATTERY_BLOCK): grid->place(x, y, new BatteryBlock(), Input::cursorSize); break ;
+		case (METAL_BLOCK): grid->place(x, y, new MetalBlock(), Input::cursorSize); break ;
+		case (RED_LED_BLOCK): grid->place(x, y, new RedLedBlock(), Input::cursorSize); break ;
+		case (GREEN_LED_BLOCK): grid->place(x, y, new GreenLedBlock(), Input::cursorSize); break ;
+		case (BLUE_LED_BLOCK): grid->place(x, y, new BlueLedBlock(), Input::cursorSize); break ;
+		case (C4_BLOCK): grid->place(x, y, new C4Block(), Input::cursorSize); break ;
 
-		case (WATER_BLOCK):
-			grid->place(cellX, cellY, new WaterBlock(), Input::cursorSize);
-			break ;
-
-		case (STONE_BLOCK):
-			grid->place(cellX, cellY, new StoneBlock(), Input::cursorSize);
-			break ;
-
-		case (BOMB_BLOCK):
-			grid->place(cellX, cellY, new BombBlock(), Input::cursorSize);
-			break ;
-
-		case (FIRE_BLOCK):
-			grid->place(cellX, cellY, new FireBlock(), Input::cursorSize);
-			break ;
-
-		case (ACID_BLOCK):
-			grid->place(cellX, cellY, new AcidBlock(), Input::cursorSize);
-			break ;
-
-		case (WOOD_BLOCK):
-			grid->place(cellX, cellY, new WoodBlock(), Input::cursorSize);
-			break ;
-
-		case (ASH_BLOCK):
-			grid->place(cellX, cellY, new AshBlock(), Input::cursorSize);
-			break ;
-
-		case (TOXIC_SLUDGE_BLOCK):
-			grid->place(cellX, cellY, new ToxicSludgeBlock(), Input::cursorSize);
-			break ;
-
-		case (FLAMMABLE_GAS_BLOCK):
-			grid->place(cellX, cellY, new FlammableGasBlock(), Input::cursorSize);
-			break ;
-
-		case (STEAM_BLOCK):
-			grid->place(cellX, cellY, new SteamBlock(), Input::cursorSize);
-			break ;
-
-		case (MUD_BLOCK):
-			grid->place(cellX, cellY, new MudBlock(), Input::cursorSize);
-			break ;
-
-		case (BATTERY_BLOCK):
-			grid->place(cellX, cellY, new BatteryBlock(), Input::cursorSize);
-			break ;
-
-		case (METAL_BLOCK):
-			grid->place(cellX, cellY, new MetalBlock(), Input::cursorSize);
-			break ;
-
-		case (RED_LED_BLOCK):
-			grid->place(cellX, cellY, new RedLedBlock(), Input::cursorSize);
-			break ;
-
-		case (GREEN_LED_BLOCK):
-			grid->place(cellX, cellY, new GreenLedBlock(), Input::cursorSize);
-			break ;
-
-		case (BLUE_LED_BLOCK):
-			grid->place(cellX, cellY, new BlueLedBlock(), Input::cursorSize);
-			break ;
-
-		case (C4_BLOCK):
-			grid->place(cellX, cellY, new C4Block(), Input::cursorSize);
-			break ;
-
-		default:
-			break ;
+		default: break ;
 	}
 }
 
-static void	eraseBlock(GLFWwindow *&window, Grid *grid)
+static void	floodFillPlaceBucket(Grid *&grid, const int x, const int y, ABlock *&block)
 {
-	double	xpos;
-	double	ypos;
-	int		width;
-	int		height;
+	if (x < 0 || x >= grid->getSize() || y < 0 || y >= grid->getSize() || grid->getBlock(x, y))
+		return ;
 
-	glfwGetCursorPos(window, &xpos, &ypos);
-	glfwGetFramebufferSize(window, &width, &height);
+	ABlock	*newBlock = block->clone();
+	grid->setBlock(x, y, newBlock);
 
-	const int	cellX = static_cast<int>((xpos / height) * GRID_SIZE);
-	const int	cellY = static_cast<int>((ypos / height) * GRID_SIZE);
-
-	grid->erase(cellX, cellY, Input::cursorSize);
+	floodFillPlaceBucket(grid, x, y + 1, newBlock);
+	floodFillPlaceBucket(grid, x - 1, y, newBlock);
+	floodFillPlaceBucket(grid, x + 1, y, newBlock);
+	floodFillPlaceBucket(grid, x, y - 1, newBlock);
 }
 
-static void	selectBlock(GLFWwindow *&window, Grid *grid)
+static void	placeBlockBucket(GLFWwindow *window, Grid *&grid)
 {
-	double	xpos;
-	double	ypos;
-	int		width;
-	int		height;
+	int	x;
+	int	y;
 
-	glfwGetCursorPos(window, &xpos, &ypos);
-	glfwGetFramebufferSize(window, &width, &height);
+	getCursorPos(window, x, y);
 
-	const int	cellX = static_cast<int>((xpos / height) * GRID_SIZE);
-	const int	cellY = static_cast<int>((ypos / height) * GRID_SIZE);
+	ABlock	*tempBlock;
 
-	if (grid->getBlock(cellX, cellY))
-		Input::blockSelected = grid->getBlock(cellX, cellY)->getId();
+	switch (Input::blockSelected)
+	{
+		case (SAND_BLOCK): tempBlock = new SandBlock(); break ;
+		case (WATER_BLOCK): tempBlock = new WaterBlock(); break ;
+		case (STONE_BLOCK): tempBlock = new StoneBlock(); break ;
+		case (BOMB_BLOCK): tempBlock = new BombBlock(); break ;
+		case (FIRE_BLOCK): tempBlock = new FireBlock(); break ;
+		case (ACID_BLOCK): tempBlock = new AcidBlock(); break ;
+		case (WOOD_BLOCK): tempBlock = new WoodBlock(); break ;
+		case (ASH_BLOCK): tempBlock = new AshBlock(); break ;
+		case (TOXIC_SLUDGE_BLOCK): tempBlock = new ToxicSludgeBlock(); break ;
+		case (FLAMMABLE_GAS_BLOCK): tempBlock = new FlammableGasBlock(); break ;
+		case (STEAM_BLOCK): tempBlock = new SteamBlock(); break ;
+		case (MUD_BLOCK): tempBlock = new MudBlock(); break ;
+		case (BATTERY_BLOCK): tempBlock = new BatteryBlock(); break ;
+		case (METAL_BLOCK): tempBlock = new MetalBlock(); break ;
+		case (RED_LED_BLOCK): tempBlock = new RedLedBlock(); break ;
+		case (GREEN_LED_BLOCK): tempBlock = new GreenLedBlock(); break ;
+		case (BLUE_LED_BLOCK): tempBlock = new BlueLedBlock(); break ;
+		case (C4_BLOCK): tempBlock = new C4Block(); break ;
+
+		default: return ;
+	}
+
+	floodFillPlaceBucket(grid, x, y, tempBlock);
+	delete tempBlock;
 }
 
-void	gameLoop(GLFWwindow *&window, const unsigned int &shader, Grid *&grid)
+static void	eraseBlock(GLFWwindow *window, Grid *&grid)
+{
+	int	x;
+	int	y;
+
+	getCursorPos(window, x, y);
+
+	grid->erase(x, y, Input::cursorSize);
+}
+
+static void	floodFillEraseBucket(Grid *&grid, const int x, const int y, const unsigned int block)
+{
+	if (x < 0 || x >= grid->getSize() || y < 0 || y >= grid->getSize() || !grid->getBlock(x, y))
+		return ;
+
+	grid->deleteBlock(x, y);
+
+	floodFillEraseBucket(grid, x, y + 1, block);
+	floodFillEraseBucket(grid, x - 1, y, block);
+	floodFillEraseBucket(grid, x + 1, y, block);
+	floodFillEraseBucket(grid, x, y - 1, block);
+}
+
+static void	eraseBlockBucket(GLFWwindow *window, Grid *&grid)
+{
+	int	x;
+	int	y;
+
+	getCursorPos(window, x, y);
+
+	if (grid->getBlock(x, y))
+		floodFillEraseBucket(grid, x, y, grid->getBlock(x, y)->getId());
+}
+
+static void	selectBlock(GLFWwindow *window, Grid *&grid)
+{
+	int	x;
+	int	y;
+
+	getCursorPos(window, x, y);
+
+	if (grid->getBlock(x, y))
+		Input::blockSelected = grid->getBlock(x, y)->getId();
+}
+
+void	gameLoop(GLFWwindow *&window, const unsigned int shader, Grid *&grid)
 {
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
 
 	grid->draw(shader);
-	if (!Input::keyPauseToggle)
+	if (!Input::togglePause)
 		grid->update();
 
-	if (Input::mouseLeftPressed && !ImGui::GetIO().WantCaptureMouse)
+	if (Input::mouseLeftPressed && !Input::toggleBucket && !ImGui::GetIO().WantCaptureMouse)
 		placeBlock(window, grid);
-	else if (Input::mouseRightPressed && !ImGui::GetIO().WantCaptureMouse)
+	else if (Input::mouseLeftPressed && Input::toggleBucket && !ImGui::GetIO().WantCaptureMouse)
+		placeBlockBucket(window, grid);
+	else if (Input::mouseRightPressed && !Input::toggleBucket && !ImGui::GetIO().WantCaptureMouse)
 		eraseBlock(window, grid);
+	else if (Input::mouseRightPressed && Input::toggleBucket && !ImGui::GetIO().WantCaptureMouse)
+		eraseBlockBucket(window, grid);
 	else if (Input::mouseMiddlePressed && !ImGui::GetIO().WantCaptureMouse)
 		selectBlock(window, grid);
 
