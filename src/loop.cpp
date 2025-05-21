@@ -47,6 +47,7 @@ static void	drawGui(GLFWwindow *window)
 		if (ImGui::Button("Metal"))
 			Input::blockSelected = METAL_BLOCK;
 	}
+
 	if (ImGui::CollapsingHeader("Powders:"))
 	{
 		if (ImGui::Button("Sand"))
@@ -56,6 +57,7 @@ static void	drawGui(GLFWwindow *window)
 		if (ImGui::Button("Mud"))
 			Input::blockSelected = MUD_BLOCK;
 	}
+
 	if (ImGui::CollapsingHeader("Liquids:"))
 	{
 		if (ImGui::Button("Water"))
@@ -65,6 +67,7 @@ static void	drawGui(GLFWwindow *window)
 		if (ImGui::Button("Toxic Sludge"))
 			Input::blockSelected = TOXIC_SLUDGE_BLOCK;
 	}
+
 	if (ImGui::CollapsingHeader("Gasses:"))
 	{
 		if (ImGui::Button("Steam"))
@@ -72,6 +75,7 @@ static void	drawGui(GLFWwindow *window)
 		if (ImGui::Button("Flammable Gas"))
 			Input::blockSelected = FLAMMABLE_GAS_BLOCK;
 	}
+
 	if (ImGui::CollapsingHeader("Reactives:"))
 	{
 		if (ImGui::Button("Fire"))
@@ -79,6 +83,7 @@ static void	drawGui(GLFWwindow *window)
 		if (ImGui::Button("Bomb"))
 			Input::blockSelected = BOMB_BLOCK;
 	}
+
 	if (ImGui::CollapsingHeader("Electricity:"))
 	{
 		if (ImGui::Button("Battery"))
@@ -92,7 +97,9 @@ static void	drawGui(GLFWwindow *window)
 		if (ImGui::Button("C4"))
 			Input::blockSelected = C4_BLOCK;
 	}
+
 	ImGui::SliderInt("Cursor", &Input::cursorSize, 1, 10);
+
 	ImGui::Checkbox("Bucket", &Input::toggleBucket);
 	ImGui::Checkbox("Pause", &Input::togglePause);
 	ImGui::Checkbox("V-Sync", &Input::toggleVSync);
@@ -152,6 +159,7 @@ static void	floodFillPlaceBucket(Grid *&grid, const int x, const int y, ABlock *
 		return ;
 
 	ABlock	*newBlock = block->clone();
+
 	grid->setBlock(x, y, newBlock);
 
 	floodFillPlaceBucket(grid, x, y + 1, newBlock);
