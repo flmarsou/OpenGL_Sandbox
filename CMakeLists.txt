@@ -15,7 +15,7 @@ add_executable(opengl_sandbox
 	src/util/init.cpp
 	src/util/shaders.cpp
 	src/util/debug.cpp
-	src/input.cpp
+	src/util/input.cpp
 	src/loop.cpp
 	src/grid/Grid.cpp
 	src/block/ABlock.cpp

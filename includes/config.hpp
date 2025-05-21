@@ -40,4 +40,4 @@ void	toggleVSync();
 void	togglePause();
 
 // Main
-void	gameLoop(GLFWwindow *&window, const unsigned int &shader, Grid *&grid);
+void	gameLoop(GLFWwindow *&window, const unsigned int shader, Grid *&grid);

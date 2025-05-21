@@ -2,30 +2,30 @@
 
 void	togglePause()
 {
-	if (!Input::keyPauseToggle)
+	if (!Input::togglePause)
 	{
 		std::cout << INFO "Paused!" << std::endl;
-		Input::keyPauseToggle = true;
+		Input::togglePause = true;
 	}
 	else
 	{
 		std::cout << INFO "Unpaused!" << std::endl;
-		Input::keyPauseToggle = false;
+		Input::togglePause = false;
 	}
 }
 
 void	toggleVSync()
 {
-	if (!Input::keyVSyncToggle)
+	if (!Input::toggleVSync)
 	{
 		std::cout << INFO "V-Sync On!" << std::endl;
 		glfwSwapInterval(0);
-		Input::keyVSyncToggle = true;
+		Input::toggleVSync = true;
 	}
 	else
 	{
 		std::cout << INFO "V-Sync Off!" << std::endl;
 		glfwSwapInterval(1);
-		Input::keyVSyncToggle = false;
+		Input::toggleVSync = false;
 	}
 }
