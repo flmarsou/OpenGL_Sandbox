@@ -3,8 +3,9 @@
 namespace	Input
 {
 	unsigned int	blockSelected = EMPTY_BLOCK;
-	bool			keyVSyncToggle = false;
-	bool			keyPauseToggle = false;
+	bool			toggleBucket = false;
+	bool			togglePause = false;
+	bool			toggleVSync = false;
 
 	bool			mouseLeftPressed;
 	bool			mouseRightPressed;
@@ -41,6 +42,19 @@ static void	keyCallback(GLFWwindow *window, int key, int scancode, int action, i
 			case (GLFW_KEY_SPACE):
 				togglePause();
 				break ;
+
+			case (GLFW_KEY_LEFT_SHIFT):
+				if (!Input::toggleBucket)
+					Input::toggleBucket = true;
+		}
+	}
+	if (action == GLFW_RELEASE)
+	{
+		switch (key)
+		{
+			case (GLFW_KEY_LEFT_SHIFT):
+				if (Input::toggleBucket)
+					Input::toggleBucket = false;
 		}
 	}
 }
