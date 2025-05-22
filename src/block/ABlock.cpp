@@ -141,6 +141,16 @@ bool			ABlock::getElec() const
 	return (this->_isElectrified);
 }
 
+void			ABlock::setHot(const bool isHot)
+{
+	this->_isHot = isHot;
+}
+
+bool			ABlock::getHot() const
+{
+	return (this->_isHot);
+}
+
 // ========================================================================== //
 //   Methods & Functions                                                      //
 // ========================================================================== //
