@@ -25,21 +25,11 @@ void	C4Block::randomizeColor()
 
 	switch (chance)
 	{
-		case (0):
-			setColor({0.85f, 0.83f, 0.70f});
-			break;
-		case (1):
-			setColor({0.80f, 0.78f, 0.60f});
-			break;
-		case (2):
-			setColor({0.75f, 0.73f, 0.55f});
-			break;
-		case (3):
-			setColor({0.70f, 0.68f, 0.50f});
-			break;
-		default:
-			setColor({0.65f, 0.63f, 0.45f});
-			break;
+		case (0): setColor({0.85f, 0.83f, 0.70f}); break ;
+		case (1): setColor({0.80f, 0.78f, 0.60f}); break ;
+		case (2): setColor({0.75f, 0.73f, 0.55f}); break ;
+		case (3): setColor({0.70f, 0.68f, 0.50f}); break ;
+		default: setColor({0.65f, 0.63f, 0.45f}); break ;
 	}
 }
 
@@ -49,7 +39,7 @@ void	C4Block::randomizeColor()
 
 static bool	isBlockResistant(const Grid &grid, const int explosionX, const int explosionY)
 {
-	const ABlock *target = grid.getBlock(explosionX, explosionY);
+	const ABlock	*target = grid.getBlock(explosionX, explosionY);
 
 	if (target && (target->getId() == STONE_BLOCK || target->getId() == METAL_BLOCK))
 		return (true);
@@ -93,16 +83,16 @@ static bool isExplosionBlocked(const Grid &grid, int x, int y, const int explosi
 
 static bool	isExplosionShape(const int x, const int y, const int explosionX, const int explosionY, const int radius)
 {
-	int dx = explosionX - x;
-	int dy = explosionY - y;
-	return dx * dx + dy * dy <= radius * radius;
+	int	dx = explosionX - x;
+	int	dy = explosionY - y;
+	return (dx * dx + dy * dy <= radius * radius);
 }
 
 // ========================================================================== //
 //   Utils                                                                    //
 // ========================================================================== //
 
-void	C4Block::floodFill(const Grid &grid, const int x, const int y)
+void	C4Block::floodFill(const Grid &grid, const int x, const int y) const
 {
 	ABlock	*block = grid.getBlock(x, y);
 	if (!block || block->getId() != C4_BLOCK)
@@ -114,14 +104,18 @@ void	C4Block::floodFill(const Grid &grid, const int x, const int y)
 
 	c4->_detonate = true;
 
-	if (grid.getBlock(x, y + 1) && grid.getBlock(x, y + 1)->getId() == C4_BLOCK)	// Bottom
-		floodFill(grid, x, y + 1);
-	if (grid.getBlock(x - 1, y) && grid.getBlock(x - 1, y)->getId() == C4_BLOCK)	// Left
-		floodFill(grid, x - 1, y);
-	if (grid.getBlock(x + 1, y) && grid.getBlock(x + 1, y)->getId() == C4_BLOCK)	// Right
-		floodFill(grid, x + 1, y);
-	if (grid.getBlock(x, y - 1) && grid.getBlock(x, y - 1)->getId() == C4_BLOCK)	// Top
+	// Top
+	if (grid.getBlock(x, y - 1) && grid.getBlock(x, y - 1)->getId() == C4_BLOCK)
 		floodFill(grid, x, y - 1);
+	// Left
+	if (grid.getBlock(x - 1, y) && grid.getBlock(x - 1, y)->getId() == C4_BLOCK)
+		floodFill(grid, x - 1, y);
+	// Right
+	if (grid.getBlock(x + 1, y) && grid.getBlock(x + 1, y)->getId() == C4_BLOCK)
+		floodFill(grid, x + 1, y);
+	// Bottom
+	if (grid.getBlock(x, y + 1) && grid.getBlock(x, y + 1)->getId() == C4_BLOCK)
+		floodFill(grid, x, y + 1);
 }
 
 // ========================================================================== //

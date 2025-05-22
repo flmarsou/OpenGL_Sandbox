@@ -13,6 +13,6 @@ class	C4Block : public AElectricity
 	private:
 		void	randomizeColor();
 
-		void	floodFill(const Grid &grid, const int x, const int y);
+		void	floodFill(const Grid &grid, const int x, const int y) const;
 		bool	_detonate;
 };

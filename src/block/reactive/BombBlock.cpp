@@ -64,9 +64,9 @@ static bool isExplosionBlocked(const Grid &grid, int x, int y, const int explosi
 
 static bool	isExplosionShape(const int x, const int y, const int explosionX, const int explosionY, const int radius)
 {
-	int dx = explosionX - x;
-	int dy = explosionY - y;
-	return dx * dx + dy * dy <= radius * radius;
+	int	dx = explosionX - x;
+	int	dy = explosionY - y;
+	return (dx * dx + dy * dy <= radius * radius);
 }
 
 // ========================================================================== //

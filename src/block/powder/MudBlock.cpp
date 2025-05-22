@@ -24,21 +24,11 @@ void	MudBlock::randomizeColor()
 
 	switch (chance)
 	{
-		case (0):
-			setColor({0.545f, 0.271f, 0.075f});	// Very Light Brown
-			break ;
-		case (1):
-			setColor({0.502f, 0.235f, 0.063f});	// Light Brown
-			break ;
-		case (2):
-			setColor({0.424f, 0.204f, 0.051f});	// Brown
-			break ;
-		case (3):
-			setColor({0.361f, 0.165f, 0.035f});	// Dark Brown
-			break ;
-		default:
-			setColor({0.314f, 0.133f, 0.027f});	// Very Dark Brown
-			break ;
+		case (0): setColor({0.545f, 0.271f, 0.075f}); break ;
+		case (1): setColor({0.502f, 0.235f, 0.063f}); break ;
+		case (2): setColor({0.424f, 0.204f, 0.051f}); break ;
+		case (3): setColor({0.361f, 0.165f, 0.035f}); break ;
+		default: setColor({0.314f, 0.133f, 0.027f}); break ;
 	}
 }
 
@@ -57,7 +47,7 @@ void	MudBlock::update(Grid &grid, const int x, const int y)
 		return ;
 	}
 
-	// Stuck Movement
+	// Stuck Movements
 	if (grid.getBlock(x, y + 1) && grid.getBlock(x, y + 1)->getType() != LIQUID_TYPE && !this->_stuck)
 	{
 		if (std::rand() % 100 < 10)
@@ -70,6 +60,7 @@ void	MudBlock::update(Grid &grid, const int x, const int y)
 		return ;
 	}
 
+	// Movements
 	if (diagonalMovements(grid, x, y))
 		return ;
 	if (liquidMovements(grid, x, y))

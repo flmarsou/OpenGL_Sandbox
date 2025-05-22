@@ -18,41 +18,31 @@ ABlock	*GreenLedBlock::clone() const
 //   Colors                                                                   //
 // ========================================================================== //
 
-glm::vec3	GreenLedBlock::colorOn()
+const glm::vec3	GreenLedBlock::colorOn() const
 {
 	const unsigned int	chance = std::rand() % 5;
 
 	switch (chance)
 	{
-		case (0):
-			return {0.3f, 1.0f, 0.3f};
-		case (1):
-			return {0.25f, 0.95f, 0.25f};
-		case (2):
-			return {0.2f, 0.9f, 0.2f};
-		case (3):
-			return {0.35f, 1.0f, 0.35f};
-		default:
-			return {0.2f, 0.85f, 0.2f};
+		case (0): return {0.3f, 1.0f, 0.3f};
+		case (1): return {0.25f, 0.95f, 0.25f};
+		case (2): return {0.2f, 0.9f, 0.2f};
+		case (3): return {0.35f, 1.0f, 0.35f};
+		default: return {0.2f, 0.85f, 0.2f};
 	}
 }
 
-glm::vec3	GreenLedBlock::colorOff()
+const glm::vec3	GreenLedBlock::colorOff() const
 {
 	const unsigned int	chance = std::rand() % 5;
 
 	switch (chance)
 	{
-		case (0):
-			return {0.05f, 0.2f, 0.05f};
-		case (1):
-			return {0.04f, 0.15f, 0.04f};
-		case (2):
-			return {0.03f, 0.1f, 0.03f};
-		case (3):
-			return {0.06f, 0.25f, 0.06f};
-		default:
-			return {0.05f, 0.18f, 0.05f};
+		case (0): return {0.05f, 0.2f, 0.05f};
+		case (1): return {0.04f, 0.15f, 0.04f};
+		case (2): return {0.03f, 0.1f, 0.03f};
+		case (3): return {0.06f, 0.25f, 0.06f};
+		default: return {0.05f, 0.18f, 0.05f};
 	}
 }
 
@@ -60,18 +50,23 @@ glm::vec3	GreenLedBlock::colorOff()
 //   Utils                                                                    //
 // ========================================================================== //
 
-void	GreenLedBlock::floodFill(const Grid &grid, const int x, const int y)
+void	GreenLedBlock::floodFill(const Grid &grid, const int x, const int y) const
 {
 	grid.getBlock(x, y)->setElec(true);
 	grid.getBlock(x, y)->setColor(colorOn());
-	if (grid.getBlock(x, y + 1) && grid.getBlock(x, y + 1)->getId() == GREEN_LED_BLOCK && !grid.getBlock(x, y + 1)->getElec())	// Bottom
-		floodFill(grid, x, y + 1);
-	if (grid.getBlock(x - 1, y) && grid.getBlock(x - 1, y)->getId() == GREEN_LED_BLOCK && !grid.getBlock(x - 1, y)->getElec())	// Left
-		floodFill(grid, x - 1, y);
-	if (grid.getBlock(x + 1, y) && grid.getBlock(x + 1, y)->getId() == GREEN_LED_BLOCK && !grid.getBlock(x + 1, y)->getElec())	// Right
-		floodFill(grid, x + 1, y);
-	if (grid.getBlock(x, y - 1) && grid.getBlock(x, y - 1)->getId() == GREEN_LED_BLOCK && !grid.getBlock(x, y - 1)->getElec())	// Top
+
+	// Top
+	if (grid.getBlock(x, y - 1) && grid.getBlock(x, y - 1)->getId() == GREEN_LED_BLOCK && !grid.getBlock(x, y - 1)->getElec())
 		floodFill(grid, x, y - 1);
+	// Left
+	if (grid.getBlock(x - 1, y) && grid.getBlock(x - 1, y)->getId() == GREEN_LED_BLOCK && !grid.getBlock(x - 1, y)->getElec())
+		floodFill(grid, x - 1, y);
+	// Right
+	if (grid.getBlock(x + 1, y) && grid.getBlock(x + 1, y)->getId() == GREEN_LED_BLOCK && !grid.getBlock(x + 1, y)->getElec())
+		floodFill(grid, x + 1, y);
+	// Bottom
+	if (grid.getBlock(x, y + 1) && grid.getBlock(x, y + 1)->getId() == GREEN_LED_BLOCK && !grid.getBlock(x, y + 1)->getElec())
+		floodFill(grid, x, y + 1);
 }
 
 // ========================================================================== //

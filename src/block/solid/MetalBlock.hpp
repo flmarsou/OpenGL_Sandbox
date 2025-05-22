@@ -11,10 +11,10 @@ class	MetalBlock : public ABlock
 		void	update(Grid &grid, const int x, const int y) override;
 
 	private:
-		glm::vec3	colorOff();
-		glm::vec3	colorOn();
-
 		glm::vec3	_defaultColor;
 
-		void	floodFill(const Grid &grid, const int x, const int y);
+		const glm::vec3	colorOff() const;
+		const glm::vec3	colorOn() const;
+
+		void	floodFill(const Grid &grid, const int x, const int y) const;
 };

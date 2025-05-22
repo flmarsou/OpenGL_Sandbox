@@ -23,21 +23,11 @@ void	AshBlock::randomizeColor()
 
 	switch (chance)
 	{
-		case (0):
-			setColor({0.5f, 0.5f, 0.5f});		// Very Light Gray
-			break ;
-		case (1):
-			setColor({0.4f, 0.4f, 0.4f});		// Light Gray
-			break ;
-		case (2):
-			setColor({0.3f, 0.3f, 0.3f});		// Gray
-			break ;
-		case (3):
-			setColor({0.35f, 0.33f, 0.32f});	// Dark Gray
-			break ;
-		default:
-			setColor({0.25f, 0.25f, 0.27f});	// Very Dark Gray
-			break ;
+		case (0): setColor({0.5f, 0.5f, 0.5f}); break ;
+		case (1): setColor({0.4f, 0.4f, 0.4f});	break ;
+		case (2): setColor({0.3f, 0.3f, 0.3f}); break ;
+		case (3): setColor({0.35f, 0.33f, 0.32f}); break ;
+		default: setColor({0.25f, 0.25f, 0.27f}); break ;
 	}
 }
 

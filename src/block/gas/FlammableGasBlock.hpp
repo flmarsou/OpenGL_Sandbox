@@ -13,7 +13,6 @@ class	FlammableGasBlock : public AGas
 	private:
 		void	randomizeColor();
 
-		void	checkFire(Grid &grid, const int x, const int y);
-
 		bool	_burning;
+		bool	checkFire(Grid &grid, const int x, const int y) const;
 };

@@ -25,21 +25,11 @@ void	WaterBlock::randomizeColor()
 
 	switch (chance)
 	{
-		case (0):
-			setColor({0.102f, 0.518f, 0.722f});	// Very Light Blue
-			break ;
-		case (1):
-			setColor({0.102f, 0.549f, 0.722f});	// Light Blue
-			break ;
-		case (2):
-			setColor({0.102f, 0.580f, 0.722f});	// Blue
-			break ;
-		case (3):
-			setColor({0.102f, 0.611f, 0.722f});	// Dark Blue
-			break ;
-		default:
-			setColor({0.102f, 0.643f, 0.722f});	// Very Dark Blue
-			break ;
+		case (0): setColor({0.102f, 0.518f, 0.722f});	break ;
+		case (1): setColor({0.102f, 0.549f, 0.722f});	break ;
+		case (2): setColor({0.102f, 0.580f, 0.722f});	break ;
+		case (3): setColor({0.102f, 0.611f, 0.722f});	break ;
+		default: setColor({0.102f, 0.643f, 0.722f});	break ;
 	}
 }
 
@@ -47,35 +37,32 @@ void	WaterBlock::randomizeColor()
 //   Utils                                                                    //
 // ========================================================================== //
 
-static bool	boilWithFire(Grid &grid, const int x, const int y)
+static bool	boil(Grid &grid, const int x, const int y)
 {
-	if (grid.getBlock(x, y + 1)			// Bottom
-		|| grid.getBlock(x - 1, y)		// Left
-		|| grid.getBlock(x + 1, y)		// Right
-		|| grid.getBlock(x, y - 1))		// Top
+	// Top
+	if (grid.getBlock(x, y - 1) && grid.getBlock(x, y - 1)->getId() == FIRE_BLOCK)
 	{
-		if (grid.getBlock(x, y + 1) && grid.getBlock(x, y + 1)->getId() == FIRE_BLOCK)
-		{
-			grid.convertBlock(x, y + 1, new SteamBlock());
-			return (true);
-		}
-		if (grid.getBlock(x - 1, y) && grid.getBlock(x - 1, y)->getId() == FIRE_BLOCK)
-		{
-			grid.convertBlock(x - 1, y, new SteamBlock());
-			return (true);
-		}
-		if (grid.getBlock(x + 1, y) && grid.getBlock(x + 1, y)->getId() == FIRE_BLOCK)
-		{
-			grid.convertBlock(x + 1, y, new SteamBlock());
-			return (true);
-		}
-		if (grid.getBlock(x, y - 1) && grid.getBlock(x, y - 1)->getId() == FIRE_BLOCK)
-		{
-			grid.convertBlock(x, y - 1, new SteamBlock());
-			return (true);
-		}
+		grid.convertBlock(x, y - 1, new SteamBlock());
+		return (true);
 	}
-
+	// Left
+	if (grid.getBlock(x - 1, y) && grid.getBlock(x - 1, y)->getId() == FIRE_BLOCK)
+	{
+		grid.convertBlock(x - 1, y, new SteamBlock());
+		return (true);
+	}
+	// Right
+	if (grid.getBlock(x + 1, y) && grid.getBlock(x + 1, y)->getId() == FIRE_BLOCK)
+	{
+		grid.convertBlock(x + 1, y, new SteamBlock());
+		return (true);
+	}
+	// Bottom
+	if (grid.getBlock(x, y + 1) && grid.getBlock(x, y + 1)->getId() == FIRE_BLOCK)
+	{
+		grid.convertBlock(x, y + 1, new SteamBlock());
+		return (true);
+	}
 	return (false);
 }
 
@@ -85,8 +72,8 @@ static bool	boilWithFire(Grid &grid, const int x, const int y)
 
 void	WaterBlock::update(Grid &grid, const int x, const int y)
 {
-	// Boil
-	if (std::rand() % 100 == 1 && boilWithFire(grid, x, y))
+	// Water to Steam
+	if (std::rand() % 100 == 1 && boil(grid, x, y))
 	{
 		grid.deleteBlock(x, y);
 		return ;
@@ -103,12 +90,10 @@ void	WaterBlock::update(Grid &grid, const int x, const int y)
 		return ;
 	if (fallDown(grid, x, y))
 		return ;
-
-	// Stone to Sand
-	if (grid.getBlock(x, y + 1) && grid.getBlock(x, y + 1)->getId() == STONE_BLOCK && std::rand() % 1000 == 0)
-		grid.convertBlock(x, y + 1, new SandBlock());
-
-	// Movements
 	if (diagonalMovements(grid, x, y))
 		return ;
+
+	// Stone to Sand
+	if (std::rand() % 1000 == 0 && grid.getBlock(x, y + 1) && grid.getBlock(x, y + 1)->getId() == STONE_BLOCK)
+		grid.convertBlock(x, y + 1, new SandBlock());
 }

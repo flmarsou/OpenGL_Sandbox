@@ -5,5 +5,5 @@
 class	AElectricity : public ABlock
 {
 	protected:
-		bool	checkElectricity(const Grid &grid, const int x, const int y);
+		bool	checkElectricity(const Grid &grid, const int x, const int y) const;
 };
