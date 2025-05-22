@@ -29,6 +29,7 @@ add_executable(opengl_sandbox
 	src/block/gas/SteamBlock.cpp
 	src/block/liquid/ALiquid.cpp
 	src/block/liquid/AcidBlock.cpp
+	src/block/liquid/LavaBlock.cpp
 	src/block/liquid/OilBlock.cpp
 	src/block/liquid/ToxicSludgeBlock.cpp
 	src/block/liquid/WaterBlock.cpp

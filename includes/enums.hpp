@@ -24,7 +24,8 @@ enum	blockID
 	OIL_BLOCK,
 	DYNAMITE_BLOCK,
 	TNT_BLOCK,
-	ICE_BLOCK
+	ICE_BLOCK,
+	LAVA_BLOCK
 };
 
 enum	blockType

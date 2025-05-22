@@ -23,6 +23,7 @@
 #include "DynamiteBlock.hpp"
 #include "TNTBlock.hpp"
 #include "IceBlock.hpp"
+#include "LavaBlock.hpp"
 
 float	currentTime;
 float	lastUse = 0.0;
@@ -78,6 +79,8 @@ static void	drawGui(GLFWwindow *window)
 			Input::blockSelected = TOXIC_SLUDGE_BLOCK;
 		if (ImGui::Button("Oil"))
 			Input::blockSelected = OIL_BLOCK;
+		if (ImGui::Button("Lava"))
+			Input::blockSelected = LAVA_BLOCK;
 	}
 
 	if (ImGui::CollapsingHeader("Gasses:"))
@@ -187,6 +190,7 @@ static void	placeBlock(GLFWwindow *window, Grid *&grid)
 		case (DYNAMITE_BLOCK): grid->place(x, y, new DynamiteBlock(), Input::cursorSize); break ;
 		case (TNT_BLOCK): grid->place(x, y, new TNTBlock(), Input::cursorSize); break ;
 		case (ICE_BLOCK): grid->place(x, y, new IceBlock(), Input::cursorSize); break ;
+		case (LAVA_BLOCK): grid->place(x, y, new LavaBlock(), Input::cursorSize); break ;
 
 		default: break ;
 	}
@@ -240,6 +244,7 @@ static void	placeBlockBucket(GLFWwindow *window, Grid *&grid)
 		case (DYNAMITE_BLOCK): tempBlock = new DynamiteBlock(); break ;
 		case (TNT_BLOCK): tempBlock = new TNTBlock(); break ;
 		case (ICE_BLOCK): tempBlock = new IceBlock(); break ;
+		case (LAVA_BLOCK): tempBlock = new LavaBlock(); break ;
 
 		default: return ;
 	}
