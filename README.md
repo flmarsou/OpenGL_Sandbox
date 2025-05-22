@@ -23,6 +23,8 @@
 ## 💥 Reactives:
 - **[`Fire`](https://github.com/flmarsou/OpenGL_Sandbox/blob/main/src/block/reactive/FireBlock.cpp):** Rises randomly *(up, left, or right)*. May ignite flammable materials or extinguish on its own.
 - **[`Bomb`](https://github.com/flmarsou/OpenGL_Sandbox/blob/main/src/block/reactive/BombBlock.cpp):** Falls straight down. Explodes on impact *(**15**-block radius)*, igniting affected blocks.
+- **[`Dynamite`](https://github.com/flmarsou/OpenGL_Sandbox/blob/main/src/block/reactive/DynamiteBlock.cpp):** Moves like **Sand**. Explodes on contact to fire *(**5**-block radius)*, igniting affected blocks.
+- **[`TNT`](https://github.com/flmarsou/OpenGL_Sandbox/blob/main/src/block/reactive/TNTBlock.cpp):** Solid block. Explodes on contact to fire *(**5**-block radius)*, igniting affected blocks.
 
 ## ⚡ Electricity:
 - **[`Battery`](https://github.com/flmarsou/OpenGL_Sandbox/blob/main/src/block/electricity/BatteryBlock.cpp):** Electrifies conductive blocks on contact (e.g. **Metal**, **LEDs**, ...).
