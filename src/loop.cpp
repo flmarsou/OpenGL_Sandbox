@@ -22,6 +22,7 @@
 #include "OilBlock.hpp"
 #include "DynamiteBlock.hpp"
 #include "TNTBlock.hpp"
+#include "IceBlock.hpp"
 
 float	currentTime;
 float	lastUse = 0.0;
@@ -53,6 +54,8 @@ static void	drawGui(GLFWwindow *window)
 			Input::blockSelected = WOOD_BLOCK;
 		if (ImGui::Button("Metal"))
 			Input::blockSelected = METAL_BLOCK;
+		if (ImGui::Button("Ice"))
+			Input::blockSelected = ICE_BLOCK;
 	}
 
 	if (ImGui::CollapsingHeader("Powders:"))
@@ -183,6 +186,7 @@ static void	placeBlock(GLFWwindow *window, Grid *&grid)
 		case (OIL_BLOCK): grid->place(x, y, new OilBlock(), Input::cursorSize); break ;
 		case (DYNAMITE_BLOCK): grid->place(x, y, new DynamiteBlock(), Input::cursorSize); break ;
 		case (TNT_BLOCK): grid->place(x, y, new TNTBlock(), Input::cursorSize); break ;
+		case (ICE_BLOCK): grid->place(x, y, new IceBlock(), Input::cursorSize); break ;
 
 		default: break ;
 	}
@@ -235,6 +239,7 @@ static void	placeBlockBucket(GLFWwindow *window, Grid *&grid)
 		case (OIL_BLOCK): tempBlock = new OilBlock(); break ;
 		case (DYNAMITE_BLOCK): tempBlock = new DynamiteBlock(); break ;
 		case (TNT_BLOCK): tempBlock = new TNTBlock(); break ;
+		case (ICE_BLOCK): tempBlock = new IceBlock(); break ;
 
 		default: return ;
 	}

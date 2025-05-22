@@ -40,6 +40,7 @@ add_executable(opengl_sandbox
 	src/block/reactive/DynamiteBlock.cpp
 	src/block/reactive/FireBlock.cpp
 	src/block/reactive/TNTBlock.cpp
+	src/block/solid/IceBlock.cpp
 	src/block/solid/MetalBlock.cpp
 	src/block/solid/StoneBlock.cpp
 	src/block/solid/WoodBlock.cpp
