@@ -13,6 +13,6 @@ class	WoodBlock : public ABlock
 	private:
 		void	randomizeColor();
 
-		void	checkSurrounding(Grid &grid, const int x, const int y);
+		void	checkFire(const Grid &grid, const int x, const int y);
 		bool	_burning;
 };

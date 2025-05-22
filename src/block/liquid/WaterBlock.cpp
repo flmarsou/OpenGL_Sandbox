@@ -73,7 +73,7 @@ static bool	boil(Grid &grid, const int x, const int y)
 void	WaterBlock::update(Grid &grid, const int x, const int y)
 {
 	// Water to Steam
-	if (std::rand() % 100 == 1 && boil(grid, x, y))
+	if (std::rand() % 10 == 1 && boil(grid, x, y))
 	{
 		grid.deleteBlock(x, y);
 		return ;

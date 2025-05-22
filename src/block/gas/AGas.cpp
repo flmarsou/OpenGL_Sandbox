@@ -3,8 +3,7 @@
 bool	AGas::swapAbove(Grid &grid, const int x, const int y)
 {
 	if (grid.getBlock(x, y - 1)
-		&& (grid.getBlock(x, y - 1)->getType() == LIQUID_TYPE
-		|| grid.getBlock(x, y - 1)->getType() == POWDER_TYPE))
+		&& (grid.getBlock(x, y - 1)->getType() == LIQUID_TYPE || grid.getBlock(x, y - 1)->getType() == POWDER_TYPE || grid.getBlock(x, y - 1)->getId() == FIRE_BLOCK))
 	{
 		grid.swapBlock(x, y - 1, this, x, y);
 		setUpdate(true);

@@ -37,7 +37,7 @@ void	WoodBlock::randomizeColor()
 //   Utils                                                                    //
 // ========================================================================== //
 
-void	WoodBlock::checkSurrounding(Grid &grid, const int x, const int y)
+void	WoodBlock::checkFire(const Grid &grid, const int x, const int y)
 {
 	// Top
 	if (grid.getBlock(x, y - 1) && grid.getBlock(x, y - 1)->getId() == FIRE_BLOCK)
@@ -126,7 +126,7 @@ void	WoodBlock::update(Grid &grid, const int x, const int y)
 {
 	if (!this->_burning)
 	{
-		checkSurrounding(grid, x, y);
+		checkFire(grid, x, y);
 		return ;
 	}
 
