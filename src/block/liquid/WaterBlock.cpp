@@ -25,11 +25,11 @@ void	WaterBlock::randomizeColor()
 
 	switch (chance)
 	{
-		case (0): setColor({0.102f, 0.518f, 0.722f});	break ;
-		case (1): setColor({0.102f, 0.549f, 0.722f});	break ;
-		case (2): setColor({0.102f, 0.580f, 0.722f});	break ;
-		case (3): setColor({0.102f, 0.611f, 0.722f});	break ;
-		default: setColor({0.102f, 0.643f, 0.722f});	break ;
+		case (0): setColor({0.102f, 0.518f, 0.722f}); break ;
+		case (1): setColor({0.102f, 0.549f, 0.722f}); break ;
+		case (2): setColor({0.102f, 0.580f, 0.722f}); break ;
+		case (3): setColor({0.102f, 0.611f, 0.722f}); break ;
+		default: setColor({0.102f, 0.643f, 0.722f}); break ;
 	}
 }
 
