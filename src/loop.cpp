@@ -19,6 +19,7 @@
 #include "GreenLedBlock.hpp"
 #include "BlueLedBlock.hpp"
 #include "C4Block.hpp"
+#include "OilBlock.hpp"
 
 static void	drawGui(GLFWwindow *window)
 {
@@ -66,6 +67,8 @@ static void	drawGui(GLFWwindow *window)
 			Input::blockSelected = ACID_BLOCK;
 		if (ImGui::Button("Toxic Sludge"))
 			Input::blockSelected = TOXIC_SLUDGE_BLOCK;
+		if (ImGui::Button("Oil"))
+			Input::blockSelected = OIL_BLOCK;
 	}
 
 	if (ImGui::CollapsingHeader("Gasses:"))
@@ -148,6 +151,7 @@ static void	placeBlock(GLFWwindow *window, Grid *&grid)
 		case (GREEN_LED_BLOCK): grid->place(x, y, new GreenLedBlock(), Input::cursorSize); break ;
 		case (BLUE_LED_BLOCK): grid->place(x, y, new BlueLedBlock(), Input::cursorSize); break ;
 		case (C4_BLOCK): grid->place(x, y, new C4Block(), Input::cursorSize); break ;
+		case (OIL_BLOCK): grid->place(x, y, new OilBlock(), Input::cursorSize); break ;
 
 		default: break ;
 	}
@@ -197,6 +201,7 @@ static void	placeBlockBucket(GLFWwindow *window, Grid *&grid)
 		case (GREEN_LED_BLOCK): tempBlock = new GreenLedBlock(); break ;
 		case (BLUE_LED_BLOCK): tempBlock = new BlueLedBlock(); break ;
 		case (C4_BLOCK): tempBlock = new C4Block(); break ;
+		case (OIL_BLOCK): tempBlock = new OilBlock(); break ;
 
 		default: return ;
 	}

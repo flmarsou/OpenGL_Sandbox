@@ -1,35 +1,35 @@
-#include "WoodBlock.hpp"
+#include "OilBlock.hpp"
 #include "FireBlock.hpp"
-#include "AshBlock.hpp"
 
-WoodBlock::WoodBlock()
+OilBlock::OilBlock()
 	:	_burning(false)
 {
-	setId(WOOD_BLOCK);
+	setId(OIL_BLOCK);
+	setType(LIQUID_TYPE);
 
 	randomizeColor();
 }
 
-ABlock	*WoodBlock::clone() const
+ABlock *OilBlock::clone() const
 {
-	return (new WoodBlock());
+	return (new OilBlock());
 }
 
 // ========================================================================== //
 //   Colors                                                                   //
 // ========================================================================== //
 
-void	WoodBlock::randomizeColor()
+void	OilBlock::randomizeColor()
 {
 	const unsigned int	chance = std::rand() % 5;
 
 	switch (chance)
 	{
-		case (0): setColor({0.71f, 0.42f, 0.27f}); break ;
-		case (1): setColor({0.60f, 0.36f, 0.22f}); break ;
-		case (2): setColor({0.52f, 0.31f, 0.18f}); break ;
-		case (3): setColor({0.43f, 0.26f, 0.14f}); break ;
-		default: setColor({0.35f, 0.20f, 0.10f}); break ;
+		case (0): setColor({0.749f, 0.682f, 0.231f}); break;
+		case (1): setColor({0.788f, 0.682f, 0.180f}); break;
+		case (2): setColor({0.725f, 0.639f, 0.251f}); break;
+		case (3): setColor({0.792f, 0.725f, 0.247f}); break;
+		default: setColor({0.714f, 0.659f, 0.200f}); break;
 	}
 }
 
@@ -37,7 +37,7 @@ void	WoodBlock::randomizeColor()
 //   Utils                                                                    //
 // ========================================================================== //
 
-void	WoodBlock::checkSurrounding(Grid &grid, const int x, const int y)
+void	OilBlock::checkFire(Grid &grid, const int x, const int y)
 {
 	// Top
 	if (grid.getBlock(x, y - 1) && grid.getBlock(x, y - 1)->getId() == FIRE_BLOCK)
@@ -89,7 +89,7 @@ void	WoodBlock::checkSurrounding(Grid &grid, const int x, const int y)
 	}
 }
 
-static void	spreadFire(Grid &grid, const int x, const int y)
+bool	OilBlock::spreadFire(Grid &grid, const int x, const int y)
 {
 	const unsigned int	chance = std::rand() % 100;
 
@@ -113,22 +113,84 @@ static void	spreadFire(Grid &grid, const int x, const int y)
 	if (chance == 50)
 	{
 		grid.deleteBlock(x, y);
-		if (std::rand() % 2)
-			grid.setBlock(x, y, new AshBlock());
+		return (true);
 	}
+
+	return (false);
+}
+
+bool	OilBlock::swapLiquids(Grid &grid, const int x, const int y)
+{
+	const unsigned int	chance = std::rand() % 3;
+
+	switch (chance)
+	{
+		// Fall Down
+		case (0):
+		{
+			if (grid.getBlock(x, y - 1) && grid.getBlock(x, y - 1)->getType() == LIQUID_TYPE && grid.getBlock(x, y - 1)->getId() != OIL_BLOCK)
+			{
+				grid.swapBlock(x, y - 1, this, x, y);
+				setUpdate(true);
+				grid.getBlock(x, y - 1)->setUpdate(true);
+				return (true);
+			}
+			break ;
+		}
+		// Fall Left
+		case (1):
+		{
+			if (grid.getBlock(x - 1, y) && grid.getBlock(x - 1, y)->getType() == LIQUID_TYPE && grid.getBlock(x - 1, y)->getId() != OIL_BLOCK)
+			{
+				grid.swapBlock(x - 1, y, this, x, y);
+				setUpdate(true);
+				grid.getBlock(x - 1, y)->setUpdate(true);
+				return (true);
+			}
+			break ;
+		}
+		// Fall Right
+		case (2):
+		{
+			if (grid.getBlock(x + 1, y) && grid.getBlock(x + 1, y)->getType() == LIQUID_TYPE && grid.getBlock(x + 1, y)->getId() != OIL_BLOCK)
+			{
+				grid.swapBlock(x + 1, y, this, x, y);
+				setUpdate(true);
+				grid.getBlock(x + 1, y)->setUpdate(true);
+				return (true);
+			}
+			break ;
+		}
+	}
+
+	return (false);
 }
 
 // ========================================================================== //
 //   Behaviors                                                                //
 // ========================================================================== //
 
-void	WoodBlock::update(Grid &grid, const int x, const int y)
+void	OilBlock::update(Grid &grid, const int x, const int y)
 {
+	// Burning
 	if (!this->_burning)
-	{
-		checkSurrounding(grid, x, y);
+		checkFire(grid, x, y);
+	else if (spreadFire(grid, x, y))
 		return ;
-	}
 
-	spreadFire(grid, x, y);
+	// Color
+	if (std::rand() % 100 == 1)
+		randomizeColor();
+
+	// Movements
+	if (swapLiquids(grid, x, y))
+		return ;
+	if (swapAbove(grid, x, y))
+		return ;
+	if (groundMovements(grid, x, y))
+		return ;
+	if (fallDown(grid, x, y))
+		return ;
+	if (diagonalMovements(grid, x, y))
+		return ;
 }

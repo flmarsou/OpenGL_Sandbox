@@ -20,7 +20,8 @@ enum	blockID
 	RED_LED_BLOCK,
 	GREEN_LED_BLOCK,
 	BLUE_LED_BLOCK,
-	C4_BLOCK
+	C4_BLOCK,
+	OIL_BLOCK
 };
 
 enum	blockType
