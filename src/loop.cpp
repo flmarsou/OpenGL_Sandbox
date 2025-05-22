@@ -20,6 +20,8 @@
 #include "BlueLedBlock.hpp"
 #include "C4Block.hpp"
 #include "OilBlock.hpp"
+#include "DynamiteBlock.hpp"
+#include "TNTBlock.hpp"
 
 float	currentTime;
 float	lastUse = 0.0;
@@ -89,6 +91,10 @@ static void	drawGui(GLFWwindow *window)
 			Input::blockSelected = FIRE_BLOCK;
 		if (ImGui::Button("Bomb"))
 			Input::blockSelected = BOMB_BLOCK;
+		if (ImGui::Button("Dynamite"))
+			Input::blockSelected = DYNAMITE_BLOCK;
+		if (ImGui::Button("TNT"))
+			Input::blockSelected = TNT_BLOCK;
 	}
 
 	if (ImGui::CollapsingHeader("Electricity:"))
@@ -165,6 +171,8 @@ static void	placeBlock(GLFWwindow *window, Grid *&grid)
 		case (BLUE_LED_BLOCK): grid->place(x, y, new BlueLedBlock(), Input::cursorSize); break ;
 		case (C4_BLOCK): grid->place(x, y, new C4Block(), Input::cursorSize); break ;
 		case (OIL_BLOCK): grid->place(x, y, new OilBlock(), Input::cursorSize); break ;
+		case (DYNAMITE_BLOCK): grid->place(x, y, new DynamiteBlock(), Input::cursorSize); break ;
+		case (TNT_BLOCK): grid->place(x, y, new TNTBlock(), Input::cursorSize); break ;
 
 		default: break ;
 	}
@@ -215,6 +223,8 @@ static void	placeBlockBucket(GLFWwindow *window, Grid *&grid)
 		case (BLUE_LED_BLOCK): tempBlock = new BlueLedBlock(); break ;
 		case (C4_BLOCK): tempBlock = new C4Block(); break ;
 		case (OIL_BLOCK): tempBlock = new OilBlock(); break ;
+		case (DYNAMITE_BLOCK): tempBlock = new DynamiteBlock(); break ;
+		case (TNT_BLOCK): tempBlock = new TNTBlock(); break ;
 
 		default: return ;
 	}
