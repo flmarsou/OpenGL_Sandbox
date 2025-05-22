@@ -21,6 +21,10 @@
 #include "C4Block.hpp"
 #include "OilBlock.hpp"
 
+float	currentTime;
+float	lastUse = 0.0;
+float	coolDown = 0.2;
+
 static void	drawGui(GLFWwindow *window)
 {
 	static int	tempSize = -1;
@@ -102,6 +106,7 @@ static void	drawGui(GLFWwindow *window)
 	}
 
 	ImGui::SliderInt("Cursor", &Input::cursorSize, 1, 10);
+	ImGui::SliderFloat("Cooldown", &coolDown, 0, 1);
 
 	ImGui::Checkbox("Bucket", &Input::toggleBucket);
 	ImGui::Checkbox("Pause", &Input::togglePause);
@@ -131,12 +136,20 @@ static void	placeBlock(GLFWwindow *window, Grid *&grid)
 
 	getCursorPos(window, x, y);
 
+	currentTime = glfwGetTime();
+
+	if (Input::blockSelected == BOMB_BLOCK && currentTime - lastUse < coolDown)
+		return ;
+
 	switch (Input::blockSelected)
 	{
 		case (SAND_BLOCK): grid->place(x, y, new SandBlock(), Input::cursorSize); break ;
 		case (WATER_BLOCK): grid->place(x, y, new WaterBlock(), Input::cursorSize); break ;
 		case (STONE_BLOCK): grid->place(x, y, new StoneBlock(), Input::cursorSize); break ;
-		case (BOMB_BLOCK): grid->place(x, y, new BombBlock(), Input::cursorSize); break ;
+		case (BOMB_BLOCK):
+			grid->place(x, y, new BombBlock(), Input::cursorSize);
+			lastUse = currentTime;
+			break ;
 		case (FIRE_BLOCK): grid->place(x, y, new FireBlock(), Input::cursorSize); break ;
 		case (ACID_BLOCK): grid->place(x, y, new AcidBlock(), Input::cursorSize); break ;
 		case (WOOD_BLOCK): grid->place(x, y, new WoodBlock(), Input::cursorSize); break ;
