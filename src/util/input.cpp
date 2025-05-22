@@ -10,6 +10,7 @@ namespace	Input
 	bool			mouseLeftPressed;
 	bool			mouseRightPressed;
 	bool			mouseMiddlePressed;
+	double			mouseScroll = 0;
 	int				cursorSize = 1;
 }
 
@@ -19,6 +20,14 @@ static void	framebufferSizeCallback(GLFWwindow *window, int width, int height)
 	(void)width;
 
 	glViewport(0, 0, height, height);
+}
+
+static void	scrollCallback(GLFWwindow *window, double xOffset, double yOffset)
+{
+	(void)window;
+	(void)xOffset;
+
+	Input::mouseScroll = yOffset;
 }
 
 static void	keyCallback(GLFWwindow *window, int key, int scancode, int action, int mods)
@@ -117,5 +126,6 @@ void	initCallbacks(GLFWwindow *&window)
 {
 	glfwSetMouseButtonCallback(window, mouseButtonCallback);
 	glfwSetKeyCallback(window, keyCallback);
+	glfwSetScrollCallback(window, scrollCallback);
 	glfwSetFramebufferSizeCallback(window, framebufferSizeCallback);
 }

@@ -121,6 +121,16 @@ static void	drawGui(GLFWwindow *window)
 	ImGui::Text("FPS: %.f", ImGui::GetIO().Framerate);
 }
 
+static void	changeCursorSize()
+{
+	if (Input::mouseScroll > 0 && Input::cursorSize < 10)
+		Input::cursorSize++;
+	else if (Input::mouseScroll < 0 && Input::cursorSize > 1)
+		Input::cursorSize--;
+
+	Input::mouseScroll = 0;
+}
+
 static void	getCursorPos(GLFWwindow *window, int &x, int &y)
 {
 	double	xpos;
@@ -293,6 +303,9 @@ void	gameLoop(GLFWwindow *&window, const unsigned int shader, Grid *&grid)
 		glfwSwapInterval(1);
 	else
 		glfwSwapInterval(0);
+
+	if (Input::mouseScroll != 0)
+		changeCursorSize();
 
 	if (Input::mouseLeftPressed && !Input::toggleBucket && !ImGui::GetIO().WantCaptureMouse)
 		placeBlock(window, grid);
