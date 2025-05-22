@@ -93,21 +93,14 @@ bool	OilBlock::spreadFire(Grid &grid, const int x, const int y)
 {
 	const unsigned int	chance = std::rand() % 100;
 
-	// Sideways
+	// Top & Sides
 	if (chance < 15)
 	{
 		grid.setBlock(x, y - 1, new FireBlock());
-		grid.setBlock(x, y + 1, new FireBlock());
-		grid.setBlock(x - 1, y, new FireBlock());
-		grid.setBlock(x + 1, y, new FireBlock());
-	}
-	// Diagonals
-	if (chance < 10)
-	{
 		grid.setBlock(x - 1, y - 1, new FireBlock());
 		grid.setBlock(x + 1, y - 1, new FireBlock());
-		grid.setBlock(x - 1, y + 1, new FireBlock());
-		grid.setBlock(x + 1, y + 1, new FireBlock());
+		grid.setBlock(x - 1, y, new FireBlock());
+		grid.setBlock(x + 1, y, new FireBlock());
 	}
 	// Burn
 	if (chance == 50)
