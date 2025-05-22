@@ -161,7 +161,7 @@ bool	ABlock::isOnGround(Grid &grid, const int y)
 
 bool	ABlock::fallDown(Grid &grid, const int x, const int y)
 {
-	if (!grid.getBlock(x, y + 1))
+	if (y < grid.getSize() - 1 && !grid.getBlock(x, y + 1))
 	{
 		grid.setBlock(x, y + 1, this);
 		grid.setBlock(x, y, nullptr);
