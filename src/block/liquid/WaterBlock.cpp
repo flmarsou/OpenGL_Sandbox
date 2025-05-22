@@ -40,25 +40,25 @@ void	WaterBlock::randomizeColor()
 static bool	boil(Grid &grid, const int x, const int y)
 {
 	// Top
-	if (grid.getBlock(x, y - 1) && grid.getBlock(x, y - 1)->getId() == FIRE_BLOCK)
+	if (grid.getBlock(x, y - 1) && grid.getBlock(x, y - 1)->getHot())
 	{
 		grid.convertBlock(x, y - 1, new SteamBlock());
 		return (true);
 	}
 	// Left
-	if (grid.getBlock(x - 1, y) && grid.getBlock(x - 1, y)->getId() == FIRE_BLOCK)
+	if (grid.getBlock(x - 1, y) && grid.getBlock(x - 1, y)->getHot())
 	{
 		grid.convertBlock(x - 1, y, new SteamBlock());
 		return (true);
 	}
 	// Right
-	if (grid.getBlock(x + 1, y) && grid.getBlock(x + 1, y)->getId() == FIRE_BLOCK)
+	if (grid.getBlock(x + 1, y) && grid.getBlock(x + 1, y)->getHot())
 	{
 		grid.convertBlock(x + 1, y, new SteamBlock());
 		return (true);
 	}
 	// Bottom
-	if (grid.getBlock(x, y + 1) && grid.getBlock(x, y + 1)->getId() == FIRE_BLOCK)
+	if (grid.getBlock(x, y + 1) && grid.getBlock(x, y + 1)->getHot())
 	{
 		grid.convertBlock(x, y + 1, new SteamBlock());
 		return (true);

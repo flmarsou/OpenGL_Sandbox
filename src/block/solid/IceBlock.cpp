@@ -38,49 +38,49 @@ void	IceBlock::randomizeColor()
 static bool	checkFire(Grid &grid, const int x, const int y)
 {
 	// Top
-	if (grid.getBlock(x, y - 1) && grid.getBlock(x, y - 1)->getId() == FIRE_BLOCK)
+	if (grid.getBlock(x, y - 1) && grid.getBlock(x, y - 1)->getHot())
 	{
 		grid.convertBlock(x, y, new WaterBlock());
 		return (true);
 	}
 	// Top Left
-	if (grid.getBlock(x - 1, y - 1) && grid.getBlock(x - 1, y - 1)->getId() == FIRE_BLOCK)
+	if (grid.getBlock(x - 1, y - 1) && grid.getBlock(x - 1, y - 1)->getHot())
 	{
 		grid.convertBlock(x, y, new WaterBlock());
 		return (true);
 	}
 	// Top Right
-	if (grid.getBlock(x + 1, y - 1) && grid.getBlock(x + 1, y - 1)->getId() == FIRE_BLOCK)
+	if (grid.getBlock(x + 1, y - 1) && grid.getBlock(x + 1, y - 1)->getHot())
 	{
 		grid.convertBlock(x, y, new WaterBlock());
 		return (true);
 	}
 	// Left
-	if (grid.getBlock(x - 1, y) && grid.getBlock(x - 1, y)->getId() == FIRE_BLOCK)
+	if (grid.getBlock(x - 1, y) && grid.getBlock(x - 1, y)->getHot())
 	{
 		grid.convertBlock(x, y, new WaterBlock());
 		return (true);
 	}
 	// Right
-	if (grid.getBlock(x + 1, y) && grid.getBlock(x + 1, y)->getId() == FIRE_BLOCK)
+	if (grid.getBlock(x + 1, y) && grid.getBlock(x + 1, y)->getHot())
 	{
 		grid.convertBlock(x, y, new WaterBlock());
 		return (true);
 	}
 	// Bottom
-	if (grid.getBlock(x, y + 1) && grid.getBlock(x, y + 1)->getId() == FIRE_BLOCK)
+	if (grid.getBlock(x, y + 1) && grid.getBlock(x, y + 1)->getHot())
 	{
 		grid.convertBlock(x, y, new WaterBlock());
 		return (true);
 	}
 	// Bottom Left
-	if (grid.getBlock(x - 1, y + 1) && grid.getBlock(x - 1, y + 1)->getId() == FIRE_BLOCK)
+	if (grid.getBlock(x - 1, y + 1) && grid.getBlock(x - 1, y + 1)->getHot())
 	{
 		grid.convertBlock(x, y, new WaterBlock());
 		return (true);
 	}
 	// Bottom Right
-	if (grid.getBlock(x + 1, y + 1) && grid.getBlock(x + 1, y + 1)->getId() == FIRE_BLOCK)
+	if (grid.getBlock(x + 1, y + 1) && grid.getBlock(x + 1, y + 1)->getHot())
 	{
 		grid.convertBlock(x, y, new WaterBlock());
 		return (true);

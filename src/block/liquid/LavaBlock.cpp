@@ -6,6 +6,7 @@ LavaBlock::LavaBlock()
 {
 	setId(LAVA_BLOCK);
 	setType(LIQUID_TYPE);
+	setHot(true);
 
 	randomizeColor();
 }

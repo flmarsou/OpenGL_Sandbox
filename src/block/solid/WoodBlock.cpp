@@ -40,49 +40,49 @@ void	WoodBlock::randomizeColor()
 void	WoodBlock::checkFire(const Grid &grid, const int x, const int y)
 {
 	// Top
-	if (grid.getBlock(x, y - 1) && grid.getBlock(x, y - 1)->getId() == FIRE_BLOCK)
+	if (grid.getBlock(x, y - 1) && grid.getBlock(x, y - 1)->getHot())
 	{
 		this->_burning = true;
 		return ;
 	}
 	// Top Left
-	if (grid.getBlock(x - 1, y - 1) && grid.getBlock(x - 1, y - 1)->getId() == FIRE_BLOCK)
+	if (grid.getBlock(x - 1, y - 1) && grid.getBlock(x - 1, y - 1)->getHot())
 	{
 		this->_burning = true;
 		return ;
 	}
 	// Top Right
-	if (grid.getBlock(x + 1, y - 1) && grid.getBlock(x + 1, y - 1)->getId() == FIRE_BLOCK)
+	if (grid.getBlock(x + 1, y - 1) && grid.getBlock(x + 1, y - 1)->getHot())
 	{
 		this->_burning = true;
 		return ;
 	}
 	// Left
-	if (grid.getBlock(x - 1, y) && grid.getBlock(x - 1, y)->getId() == FIRE_BLOCK)
+	if (grid.getBlock(x - 1, y) && grid.getBlock(x - 1, y)->getHot())
 	{
 		this->_burning = true;
 		return ;
 	}
 	// Right
-	if (grid.getBlock(x + 1, y) && grid.getBlock(x + 1, y)->getId() == FIRE_BLOCK)
+	if (grid.getBlock(x + 1, y) && grid.getBlock(x + 1, y)->getHot())
 	{
 		this->_burning = true;
 		return ;
 	}
 	// Bottom
-	if (grid.getBlock(x, y + 1) && grid.getBlock(x, y + 1)->getId() == FIRE_BLOCK)
+	if (grid.getBlock(x, y + 1) && grid.getBlock(x, y + 1)->getHot())
 	{
 		this->_burning = true;
 		return ;
 	}
 	// Bottom Left
-	if (grid.getBlock(x - 1, y + 1) && grid.getBlock(x - 1, y + 1)->getId() == FIRE_BLOCK)
+	if (grid.getBlock(x - 1, y + 1) && grid.getBlock(x - 1, y + 1)->getHot())
 	{
 		this->_burning = true;
 		return ;
 	}
 	// Bottom Right
-	if (grid.getBlock(x + 1, y + 1) && grid.getBlock(x + 1, y + 1)->getId() == FIRE_BLOCK)
+	if (grid.getBlock(x + 1, y + 1) && grid.getBlock(x + 1, y + 1)->getHot())
 	{
 		this->_burning = true;
 		return ;
